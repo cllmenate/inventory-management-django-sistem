@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} SGE - Criar Modelo de Produto {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="display-6">Cadastrar Modelo de Produto</h3>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"> </i> Salvar
+                </button>
+                <a href="{% url 'product_model_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

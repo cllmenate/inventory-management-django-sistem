@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} SGE - Detalhes da Saída de Produto {% endblock %}
+
+{% block content %}
+
+    <div class="container mt-4">
+        <h3 class="display-6">Detalhes da Saída de Produto</h3>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Saída de Produto - {{ object.id }}</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>{{ object.product.title }}</strong></p>
+                <p class="card-text"><strong>Quantidade:</strong> {{ object.quantity }}</p>
+                <p class="card-text"><strong>Descrição:</strong> {{ object.description }}</p>
+                <p class="card-text"><strong>Criado em:</strong> {{ object.created_at }}</p>
+                <p class="card-text"><strong>Atualizado em:</strong> {{ object.updated_at }}</p>
+                <div class="card-footer">
+                    <a href="{% url 'outflow_list' %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+[project]
+name = "inventory-management-django-system"
+version = "0.1.0"
+description = "Inventory Management System"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.0.1",
+    "djangorestframework>=3.16.1",
+    "djangorestframework-simplejwt>=5.5.1",
+    "dotenv>=0.9.9",
+    "drf-spectacular[sidecar]>=0.29.0",
+    "psycopg2-binary>=2.9.11",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.14.10",
+]
