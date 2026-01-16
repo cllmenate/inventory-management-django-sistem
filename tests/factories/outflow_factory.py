@@ -1,6 +1,7 @@
 """Outflow factory for testing."""
 
 import factory
+
 from outflows.models import Outflows
 from tests.factories.product_factory import ProductFactory
 

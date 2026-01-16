@@ -1,6 +1,7 @@
 """Tests for Supplier model."""
 
 import pytest
+
 from suppliers.models import Supplier
 from tests.factories import SupplierFactory
 

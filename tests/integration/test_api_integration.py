@@ -3,14 +3,6 @@
 import pytest
 from django.urls import reverse
 from rest_framework import status
-from decimal import Decimal
-from tests.factories import (
-    BrandFactory,
-    CategoryFactory,
-    ProductModelFactory,
-    ProductFactory,
-    SupplierFactory,
-)
 
 
 @pytest.mark.integration

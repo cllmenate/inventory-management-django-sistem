@@ -1,6 +1,7 @@
 """Fixtures for category tests."""
 
 import pytest
+
 from tests.factories import CategoryFactory
 
 

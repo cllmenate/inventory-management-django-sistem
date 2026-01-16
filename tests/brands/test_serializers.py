@@ -1,9 +1,8 @@
 """Tests for Brand serializer."""
 
 import pytest
-from brands.models import Brand
+
 from brands.serializers import BrandSerializer
-from tests.factories import BrandFactory
 
 
 @pytest.mark.unit

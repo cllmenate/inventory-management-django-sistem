@@ -1,30 +1,17 @@
 from django.urls import path
+
 from inflows import views
 
 urlpatterns = [
+    path("inflows/list/", views.InflowListView.as_view(), name="inflow_list"),
     path(
-        'inflows/list/',
-        views.InflowListView.as_view(),
-        name='inflow_list'
-    ),
-    path(
-        'inflows/create/',
+        "inflows/create/",
         views.InflowCreateView.as_view(),
-        name='inflow_create'
+        name="inflow_create",
     ),
     path(
-        'inflows/<int:pk>/detail/',
+        "inflows/<int:pk>/detail/",
         views.InflowDetailView.as_view(),
-        name='inflow_detail'
-    ),
-    path(
-        'api/v1/inflows/',
-        views.InflowListCreateAPIView.as_view(),
-        name='inflow_list_create_api_view'
-    ),
-    path(
-        'api/v1/inflows/<int:pk>/',
-        views.InflowRetrieveAPIView.as_view(),
-        name='inflow_detail_api_view'
+        name="inflow_detail",
     ),
 ]

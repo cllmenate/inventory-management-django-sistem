@@ -1,7 +1,7 @@
 """Tests for Outflows signals - CRITICAL for inventory management."""
 
 import pytest
-from outflows.models import Outflows
+
 from tests.factories import OutflowFactory, ProductFactory
 
 

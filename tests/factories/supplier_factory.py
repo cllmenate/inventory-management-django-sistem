@@ -1,6 +1,7 @@
 """Supplier factory for testing."""
 
 import factory
+
 from suppliers.models import Supplier
 
 

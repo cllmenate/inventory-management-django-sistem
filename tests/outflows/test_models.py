@@ -1,6 +1,7 @@
 """Tests for Outflows model."""
 
 import pytest
+
 from outflows.models import Outflows
 from tests.factories import OutflowFactory, ProductFactory
 

@@ -8,12 +8,6 @@
     <h1>Lista de Produtos</h1>
 </div>
 
-    {% if perms.products.view_product and perms.inflows.view_inflow %}
-        {% include 'components/_product_metrics.html' %}
-    {% endif %}
-
-<div class="mb-3"></div>
-
 {% if perms.products.add_product %}
     <div class="row mb-3">
         <div class="col-md-6">

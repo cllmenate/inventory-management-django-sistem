@@ -1,19 +1,16 @@
 from django.db import models
-from suppliers.models import Supplier
+
 from products.models import Product
+from suppliers.models import Supplier
 
 
 # Create your models here.
 class Inflows(models.Model):
     supplier = models.ForeignKey(
-        Supplier,
-        on_delete=models.PROTECT,
-        related_name='inflows'
+        Supplier, on_delete=models.PROTECT, related_name="inflows"
     )
     product = models.ForeignKey(
-        Product,
-        on_delete=models.PROTECT,
-        related_name='inflows'
+        Product, on_delete=models.PROTECT, related_name="inflows"
     )
     quantity = models.PositiveIntegerField()
     description = models.TextField(blank=True, null=True)
@@ -21,9 +18,9 @@ class Inflows(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-created_at']
-        verbose_name = 'Entrada'
-        verbose_name_plural = 'Entradas'
+        ordering = ["-created_at"]
+        verbose_name = "Entrada"
+        verbose_name_plural = "Entradas"
 
     def __str__(self):
         return str(self.product)

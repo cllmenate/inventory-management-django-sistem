@@ -1,6 +1,7 @@
 """ProductModel factory for testing."""
 
 import factory
+
 from product_models.models import ProductModel
 from tests.factories.brand_factory import BrandFactory
 

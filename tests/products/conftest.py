@@ -1,8 +1,8 @@
 """Fixtures for product tests."""
 
 import pytest
-from decimal import Decimal
-from tests.factories import ProductFactory, ProductModelFactory, CategoryFactory
+
+from tests.factories import CategoryFactory, ProductFactory, ProductModelFactory
 
 
 @pytest.fixture

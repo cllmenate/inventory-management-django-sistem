@@ -1,6 +1,7 @@
 """Tests for Category model."""
 
 import pytest
+
 from categories.models import Category
 from tests.factories import CategoryFactory
 

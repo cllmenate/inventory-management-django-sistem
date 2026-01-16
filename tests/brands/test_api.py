@@ -3,8 +3,8 @@
 import pytest
 from django.urls import reverse
 from rest_framework import status
+
 from brands.models import Brand
-from tests.factories import BrandFactory
 
 
 @pytest.mark.api

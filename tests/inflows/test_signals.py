@@ -1,7 +1,7 @@
 """Tests for Inflows signals - CRITICAL for inventory management."""
 
 import pytest
-from inflows.models import Inflows
+
 from tests.factories import InflowFactory, ProductFactory, SupplierFactory
 
 

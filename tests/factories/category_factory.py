@@ -1,6 +1,7 @@
 """Category factory for testing."""
 
 import factory
+
 from categories.models import Category
 
 

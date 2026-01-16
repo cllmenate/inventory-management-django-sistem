@@ -1,40 +1,31 @@
 from django.urls import path
+
 from suppliers import views
 
 urlpatterns = [
     path(
-        'suppliers/list/',
+        "suppliers/list/",
         views.SupplierListView.as_view(),
-        name='supplier_list'
+        name="supplier_list",
     ),
     path(
-        'suppliers/create/',
+        "suppliers/create/",
         views.SupplierCreateView.as_view(),
-        name='supplier_create'
+        name="supplier_create",
     ),
     path(
-        'suppliers/<int:pk>/detail/',
+        "suppliers/<int:pk>/detail/",
         views.SupplierDetailView.as_view(),
-        name='supplier_detail'
+        name="supplier_detail",
     ),
     path(
-        'suppliers/<int:pk>/update/',
+        "suppliers/<int:pk>/update/",
         views.SupplierUpdateView.as_view(),
-        name='supplier_update'
+        name="supplier_update",
     ),
     path(
-        'suppliers/<int:pk>/delete/',
+        "suppliers/<int:pk>/delete/",
         views.SupplierDeleteView.as_view(),
-        name='supplier_delete'
-    ),
-    path(
-        'api/v1/suppliers/',
-        views.SupplierListCreateAPIView.as_view(),
-        name='supplier_list_create_api_view'
-    ),
-    path(
-        'api/v1/suppliers/<int:pk>/',
-        views.SupplierRetrieveUpdateDestroyAPIView.as_view(),
-        name='supplier_detail_api_view'
+        name="supplier_delete",
     ),
 ]

@@ -1,6 +1,7 @@
 """Fixtures for brand tests."""
 
 import pytest
+
 from tests.factories import BrandFactory
 
 

@@ -9,9 +9,9 @@ class Supplier(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['name']
-        verbose_name = 'Fornecedor'
-        verbose_name_plural = 'Fornecedores'
+        ordering = ["name"]
+        verbose_name = "Fornecedor"
+        verbose_name_plural = "Fornecedores"
 
     def __str__(self):
         return self.name

@@ -1,10 +1,12 @@
 """Product factory for testing."""
 
-import factory
 from decimal import Decimal
+
+import factory
+
 from products.models import Product
-from tests.factories.product_model_factory import ProductModelFactory
 from tests.factories.category_factory import CategoryFactory
+from tests.factories.product_model_factory import ProductModelFactory
 
 
 class ProductFactory(factory.django.DjangoModelFactory):

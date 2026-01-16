@@ -1,6 +1,7 @@
 """Fixtures for inflow tests."""
 
 import pytest
+
 from tests.factories import InflowFactory, ProductFactory, SupplierFactory
 
 

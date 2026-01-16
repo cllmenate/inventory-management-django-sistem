@@ -1,6 +1,7 @@
 """Fixtures for supplier tests."""
 
 import pytest
+
 from tests.factories import SupplierFactory
 
 

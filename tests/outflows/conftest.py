@@ -1,6 +1,7 @@
 """Fixtures for outflow tests."""
 
 import pytest
+
 from tests.factories import OutflowFactory, ProductFactory
 
 

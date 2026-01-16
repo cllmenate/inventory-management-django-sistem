@@ -1,11 +1,11 @@
 """Tests for DRF permissions."""
 
 import pytest
-from django.contrib.auth.models import User, Permission
-from rest_framework.test import APIClient
-from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.models import Permission, User
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 @pytest.mark.django_db

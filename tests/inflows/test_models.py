@@ -1,6 +1,7 @@
 """Tests for Inflows model."""
 
 import pytest
+
 from inflows.models import Inflows
 from tests.factories import InflowFactory, ProductFactory, SupplierFactory
 

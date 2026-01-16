@@ -1,15 +1,15 @@
 """Integration tests for inventory flow."""
 
 import pytest
-from decimal import Decimal
+
 from tests.factories import (
-    ProductFactory,
-    SupplierFactory,
-    InflowFactory,
-    OutflowFactory,
     BrandFactory,
     CategoryFactory,
+    InflowFactory,
+    OutflowFactory,
+    ProductFactory,
     ProductModelFactory,
+    SupplierFactory,
 )
 
 

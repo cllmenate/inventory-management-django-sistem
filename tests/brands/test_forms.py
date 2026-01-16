@@ -1,8 +1,8 @@
 """Tests for Brand form."""
 
 import pytest
+
 from brands.forms import BrandForm
-from tests.factories import BrandFactory
 
 
 @pytest.mark.unit

@@ -1,0 +1,24 @@
+site_name: Sistema de Gestão de Estoque
+site_description: Documentação do Sistema de Gestão de Estoque
+site_author: Equipe de Desenvolvimento
+site_url: http://localhost:8000/
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+    - content.action.edit
+    - content.view.source
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Arquitetura: architecture.md
+  - API: api.md
+  - Contribuição: contributing.md
+

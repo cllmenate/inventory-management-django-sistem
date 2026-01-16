@@ -1,9 +1,11 @@
 """Tests for Product model."""
 
-import pytest
 from decimal import Decimal
+
+import pytest
+
 from products.models import Product
-from tests.factories import ProductFactory, ProductModelFactory, CategoryFactory
+from tests.factories import CategoryFactory, ProductFactory, ProductModelFactory
 
 
 @pytest.mark.unit

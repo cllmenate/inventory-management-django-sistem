@@ -1,6 +1,7 @@
 """Brand factory for testing."""
 
 import factory
+
 from brands.models import Brand
 
 

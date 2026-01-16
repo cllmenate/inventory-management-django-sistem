@@ -1,15 +1,20 @@
 """Tests for Brand views."""
 
 import pytest
+from django.core.cache import cache
 from django.urls import reverse
-from django.contrib.auth.models import Permission
+
 from brands.models import Brand
-from tests.factories import BrandFactory, UserFactory
+from tests.factories import BrandFactory
 
 
 @pytest.mark.django_db
 class TestBrandListView:
     """Test suite for BrandListView."""
+
+    @pytest.fixture(autouse=True)
+    def clear_cache(self):
+        cache.clear()
 
     def test_brand_list_view_requires_authentication(self, client):
         """Test view requires authentication."""
@@ -63,7 +68,7 @@ class TestBrandListView:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert len(response.context["brands"]) == 10  # paginate_by = 10
+        assert len(response.context["brands"]) == 10
 
 
 @pytest.mark.django_db

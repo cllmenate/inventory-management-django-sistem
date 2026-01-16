@@ -1,7 +1,7 @@
 """User factory for testing."""
 
 import factory
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import Permission, User
 
 
 class UserFactory(factory.django.DjangoModelFactory):

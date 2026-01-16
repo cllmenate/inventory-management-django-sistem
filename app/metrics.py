@@ -1,10 +1,11 @@
-from django.db.models import Sum, F
+from django.db.models import F, Sum
 from django.utils import timezone
 from django.utils.formats import number_format
-from categories.models import Category
+
 from brands.models import Brand
-from products.models import Product
+from categories.models import Category
 from outflows.models import Outflows
+from products.models import Product
 
 
 def get_product_metrics():
@@ -44,9 +45,12 @@ def get_product_metrics():
 
 def get_sales_metrics():
     total_sales = Outflows.objects.count()
-    total_product_sold = Outflows.objects.aggregate(
-        total_product_sold=Sum('quantity')
-    )['total_product_sold'] or 0
+    total_product_sold = (
+        Outflows.objects.aggregate(total_product_sold=Sum("quantity"))[
+            "total_product_sold"
+        ]
+        or 0
+    )
     total_cost_price = sum(
         outflow.product.cost_price * outflow.quantity
         for outflow in Outflows.objects.all()
@@ -83,17 +87,16 @@ def get_sales_metrics():
 
 def get_daily_sales_data():
     today = timezone.now().date()
-    dates = [
-        str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)
-    ]
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)]
     values = list()
 
     for date in dates:
-        sales_total = Outflows.objects.filter(
-            created_at__date=date
-        ).aggregate(
-            total_sales=Sum(F('product__sell_price') * F('quantity'))
-        )['total_sales'] or 0
+        sales_total = (
+            Outflows.objects.filter(created_at__date=date).aggregate(
+                total_sales=Sum(F("product__sell_price") * F("quantity"))
+            )["total_sales"]
+            or 0
+        )
         values.append(float(sales_total))
 
     return dict(
@@ -104,15 +107,11 @@ def get_daily_sales_data():
 
 def get_daily_sales_quantity_data():
     today = timezone.now().date()
-    dates = [
-        str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)
-    ]
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)]
     quantities = list()
 
     for date in dates:
-        sales_quantity = Outflows.objects.filter(
-            created_at__date=date
-        ).count()
+        sales_quantity = Outflows.objects.filter(created_at__date=date).count()
         quantities.append(sales_quantity)
 
     return dict(

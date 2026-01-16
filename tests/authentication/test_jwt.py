@@ -1,12 +1,11 @@
 """Tests for JWT authentication."""
 
 import pytest
-from django.contrib.auth.models import User
-from rest_framework.test import APIClient
-from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
 import time_machine
-from datetime import datetime, timedelta
+from django.contrib.auth.models import User
+from rest_framework import status
+from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 @pytest.mark.django_db

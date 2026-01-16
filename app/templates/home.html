@@ -107,7 +107,7 @@
             </div>
 
             <script>
-                document.addEventListener("DOMContentLoaded", function() {  
+                document.addEventListener("DOMContentLoaded", function() {
                     var productByCategoryData = JSON.parse(
                         '{{ products_by_category|safe }}'
                     );
@@ -139,7 +139,7 @@
                             }
                         }
                     });
-                
+
                     var ctxProductByBrand = document.getElementById('productByBrandChart').getContext('2d');
                     var productByBrandChart = new Chart(ctxProductByBrand, {
                         type: 'doughnut',

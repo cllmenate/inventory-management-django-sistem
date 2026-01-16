@@ -1,7 +1,7 @@
 """Tests for Brand model."""
 
 import pytest
-from django.db import IntegrityError
+
 from brands.models import Brand
 from tests.factories import BrandFactory
 

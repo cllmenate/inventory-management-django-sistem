@@ -1,7 +1,8 @@
 """Fixtures for product model tests."""
 
 import pytest
-from tests.factories import ProductModelFactory, BrandFactory
+
+from tests.factories import BrandFactory, ProductModelFactory
 
 
 @pytest.fixture

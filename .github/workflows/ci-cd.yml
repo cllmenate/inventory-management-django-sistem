@@ -1,0 +1,261 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  PYTHON_VERSION: "3.13.7"
+  UV_VERSION: "latest"
+
+jobs:
+  # ==========================================
+  # JOB 1: QUALIDADE DE CÓDIGO (LINT & TYPE)
+  # ==========================================
+  quality:
+    name: Code Quality (Ruff & Mypy)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras --dev
+
+      - name: Run Ruff (Lint)
+        run: uv run ruff check .
+
+      - name: Run Ruff (Format Check)
+        run: uv run ruff format --check .
+
+      - name: Run Mypy (Type Check)
+        run: uv run mypy .
+
+  # ==========================================
+  # JOB 2: TESTES AUTOMATIZADOS (PYTEST)
+  # ==========================================
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: quality # Só roda se a qualidade passar
+    
+    # Serviços necessários para os testes de integração
+    services:
+      postgres:
+        image: postgres:17.7-alpine3.23
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # Healthcheck para garantir que o banco subiu antes de rodar os testes
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:8.2.3-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras --dev
+
+      - name: Run Pytest
+        env:
+          # Configuração para conectar nos serviços acima
+          DEBUG: 0
+          DATABASE: postgres
+          SQL_HOST: localhost
+          SQL_PORT: 5432
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          REDIS_URL: redis://localhost:6379/0
+          SECRET_KEY: "secret-key-for-tests"
+        run: |
+          uv run pytest --cov=. --cov-report=xml
+
+      # (Opcional) Upload de cobertura para Codecov/SonarCloud
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v3
+
+  # ==========================================
+  # JOB 3: BUILD & PUSH (DOCKER)
+  # ==========================================
+  build-push:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: tests # Só roda se os testes passarem
+    if: github.ref == 'refs/heads/master' # Apenas na branch principal
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:latest, ${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:buildcache,mode=max
+
+      # Scan de Vulnerabilidades na Imagem
+      - name: Run Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1' # Falha o pipeline se encontrar vulnerabilidades CRÍTICAS
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+  # ==========================================
+  # JOB 4: DEPLOY NA VPS (STAGING)
+  # ==========================================
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-push
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy config files via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: "${{ secrets.VPS_IP }}"
+          username: "${{ secrets.VPS_USER }}"
+          key: "${{ secrets.VPS_SSH_KEY }}"
+          source: "docker-compose.prod.yml,docker/prod/"
+          target: "/home/${{ secrets.VPS_USER }}/inventory-management-staging"
+          strip_components: 0
+
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: "${{ secrets.VPS_IP }}"
+          username: "${{ secrets.VPS_USER }}"
+          key: "${{ secrets.VPS_SSH_KEY }}"
+          script: |
+            # Garante que o diretório existe
+            mkdir -p /home/${{ secrets.VPS_USER }}/inventory-management-staging
+
+            cd /home/${{ secrets.VPS_USER }}/inventory-management-staging
+            
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            
+            docker compose -f docker-compose.prod.yml pull
+            
+            docker compose -f docker-compose.prod.yml run --rm web python manage.py migrate
+            
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            
+            docker image prune -f
+
+  # ==========================================
+  # JOB 5: DEPLOY NA VPS (PROD)
+  # ==========================================
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    needs: build-push # Só roda se a imagem foi construída e enviada
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. Copia arquivos de orquestração para a VPS
+      # Enviamos apenas o necessário para rodar (não o código fonte, pois ele está na imagem Docker)
+      - name: Copy config files via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: "${{ secrets.VPS_IP }}"
+          username: "${{ secrets.VPS_USER }}"
+          key: "${{ secrets.VPS_SSH_KEY }}"
+          source: "docker-compose.prod.yml,docker/prod/"
+          target: "/home/${{ secrets.VPS_USER }}/inventory-management-django-system"
+          strip_components: 0 # Mantém a estrutura de pastas
+
+      # 2. Conecta via SSH e reinicia os containers
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: "${{ secrets.VPS_IP }}"
+          username: "${{ secrets.VPS_USER }}"
+          key: "${{ secrets.VPS_SSH_KEY }}"
+          script: |
+            # Entra na pasta do projeto
+            cd /home/${{ secrets.VPS_USER }}/inventory-management-django-system
+            
+            # (Opcional) Login no Docker Hub na VPS (se o repositório for privado)
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+            # Baixa as novas imagens
+            # -f aponta para o arquivo de produção que copiamos via SCP
+            docker compose -f docker-compose.prod.yml pull
+
+            # Para o Web Server momentaneamente (ou faz rolling update se tiver load balancer, aqui é deploy simples)
+            # docker compose -f docker-compose.prod.yml down web  <-- Não estritamente necessário, o 'up' recria.
+
+            # Roda as migrações ANTES de subir a nova versão da aplicação
+            # Usamos 'run --rm' para criar um container descartável só para isso
+            docker compose -f docker-compose.prod.yml run --rm web python manage.py migrate
+
+            # Sobe os containers atualizados em modo daemon (-d)
+            # O Docker detecta que a imagem mudou e recria apenas o necessário
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+
+            # Limpeza: Remove imagens antigas para não lotar o disco da VPS
+            docker image prune -f

@@ -1,7 +1,7 @@
 """Global test fixtures and configuration."""
 
 import pytest
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import Permission, User
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 

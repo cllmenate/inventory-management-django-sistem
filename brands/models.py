@@ -9,9 +9,9 @@ class Brand(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['name']
-        verbose_name = 'Marca'
-        verbose_name_plural = 'Marcas'
+        ordering = ["name"]
+        verbose_name = "Marca"
+        verbose_name_plural = "Marcas"
 
     def __str__(self):
         return self.name

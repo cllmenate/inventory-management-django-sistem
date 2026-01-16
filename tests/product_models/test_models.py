@@ -1,8 +1,9 @@
 """Tests for ProductModel model."""
 
 import pytest
+
 from product_models.models import ProductModel
-from tests.factories import ProductModelFactory, BrandFactory
+from tests.factories import BrandFactory, ProductModelFactory
 
 
 @pytest.mark.unit

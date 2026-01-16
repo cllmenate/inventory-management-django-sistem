@@ -5,12 +5,19 @@ build/
 dist/
 wheels/
 *.egg-info
+htmlcov/
+.coverage
+.pytest_cache/
 
 # Virtual environments
 .venv
 
 # Environment variables
 .env
+.env.prod
+
+# Ruff
+.ruff_cache/
 
 # Git files
 .git/

@@ -1,13 +1,13 @@
 """Fixtures for integration tests."""
 
 import pytest
+
 from tests.factories import (
-    UserFactory,
     BrandFactory,
     CategoryFactory,
-    SupplierFactory,
-    ProductModelFactory,
     ProductFactory,
+    ProductModelFactory,
+    SupplierFactory,
 )
 
 
