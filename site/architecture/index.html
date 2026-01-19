@@ -1,0 +1,1004 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação do Sistema de Gestão de Estoque">
+      
+      
+        <meta name="author" content="Equipe de Desenvolvimento">
+      
+      
+        <link rel="canonical" href="http://localhost:8000/architecture/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../development/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Arquitetura - Sistema de Gestão de Estoque</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guia-de-arquitetura" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-header__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sistema de Gestão de Estoque
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitetura
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-nav__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sistema de Gestão de Estoque
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-do-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Visão Geral do Sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Visão Geral do Sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-tecnologica-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack Tecnológica Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modelo-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Modelo de Dados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Modelo de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principais-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principais Entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infraestrutura-e-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Infraestrutura e Deploy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Infraestrutura e Deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serviços
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguranca-e-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Segurança e Autenticação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Segurança e Autenticação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Autenticação (JWT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-crud-de-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo CRUD de Produto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Segurança
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📏 Padrões de Código
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribuição
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-do-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Visão Geral do Sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Visão Geral do Sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-tecnologica-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack Tecnológica Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modelo-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Modelo de Dados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Modelo de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principais-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principais Entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infraestrutura-e-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Infraestrutura e Deploy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Infraestrutura e Deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serviços
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguranca-e-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Segurança e Autenticação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Segurança e Autenticação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Autenticação (JWT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-crud-de-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo CRUD de Produto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Segurança
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📏 Padrões de Código
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guia-de-arquitetura">Guia de Arquitetura</h1>
+<p>Este documento fornece uma visão geral técnica do Sistema de Gestão de Estoque.</p>
+<h2 id="visao-geral-do-sistema">🏗️ Visão Geral do Sistema</h2>
+<p>O sistema é construído como um monólito modular utilizando <strong>Django</strong>, com foco em robustez, escalabilidade e facilidade de manutenção. A comunicação externa é realizada através de uma <strong>API REST</strong> documentada, enquanto tarefas assíncronas são gerenciadas por filas de mensagens.</p>
+<h3 id="stack-tecnologica-principal">Stack Tecnológica Principal</h3>
+<ul>
+<li><strong>Framework Web</strong>: Django 6.0</li>
+<li><strong>API</strong>: Django Rest Framework (DRF)</li>
+<li><strong>Banco de Dados</strong>: PostgreSQL 17</li>
+<li><strong>Cache &amp; Mensageria</strong>: Redis</li>
+<li><strong>Processamento Assíncrono</strong>: Celery + Flower</li>
+<li><strong>Servidor de Aplicação</strong>: Gunicorn + Uvicorn</li>
+<li><strong>Proxy Reverso</strong>: Nginx</li>
+<li><strong>Monitoramento</strong>: Sentry</li>
+</ul>
+<h2 id="modelo-de-dados">🧩 Modelo de Dados</h2>
+<p>O núcleo do sistema gira em torno do gerenciamento de produtos e suas movimentações (entradas e saídas). Abaixo está o diagrama de Entidade-Relacionamento simplificado:</p>
+<pre class="mermaid"><code>erDiagram
+    Brand ||--o{ ProductModel : "tem"
+    ProductModel ||--o{ Product : "define"
+    Category ||--o{ Product : "categoriza"
+    Product ||--o{ Inflow : "recebe"
+    Product ||--o{ Outflow : "emite"
+    Supplier ||--o{ Inflow : "fornece"
+
+    Brand {
+        string name
+        text description
+    }
+
+    Category {
+        string name
+        text description
+    }
+
+    ProductModel {
+        string name
+        string brand_id FK
+    }
+
+    Product {
+        string title
+        string serial_number
+        decimal cost_price
+        decimal sell_price
+        int quantity
+        string category_id FK
+        string product_model_id FK
+    }
+
+    Supplier {
+        string name
+        string email
+    }
+
+    Inflow {
+        int quantity
+        string product_id FK
+        string supplier_id FK
+        datetime created_at
+    }
+
+    Outflow {
+        int quantity
+        string product_id FK
+        datetime created_at
+    }</code></pre>
+<h3 id="principais-entidades">Principais Entidades</h3>
+<ol>
+<li><strong>Product (Produto)</strong>: Entidade central. Mantém o estado atual do estoque (<code>quantity</code>), preços e metadados.</li>
+<li><strong>Inflow (Entrada)</strong>: Registra o aumento de estoque. Vincula um produto a um fornecedor (<code>Supplier</code>).</li>
+<li><strong>Outflow (Saída)</strong>: Registra a baixa de estoque. Representa vendas ou retiradas.</li>
+<li><strong>Auxiliares</strong>: <code>Brand</code> (Marca), <code>Category</code> (Categoria) e <code>ProductModel</code> (Modelo) servem para classificar e organizar os produtos.</li>
+</ol>
+<h2 id="infraestrutura-e-deploy">⚙️ Infraestrutura e Deploy</h2>
+<p>A infraestrutura é totalmente conteinerizada usando Docker, garantindo paridade entre desenvolvimento e produção.</p>
+<pre class="mermaid"><code>graph TD
+    User[Usuário / Cliente] --&gt;|HTTP/HTTPS| Nginx[Nginx Proxy]
+    Nginx --&gt;|Proxy Pass| Web["Django App (Gunicorn/Uvicorn)"]
+
+    subgraph Services
+        Web --&gt;|Lê/Escreve| DB[(PostgreSQL)]
+        Web --&gt;|Cache/Filas| Redis[(Redis)]
+
+        Worker[Celery Worker] --&gt;|Consome Tarefas| Redis
+        Worker --&gt;|Persiste Dados| DB
+
+        Flower[Flower Dashboard] --&gt;|Monitora| Redis
+    end</code></pre>
+<h3 id="servicos">Serviços</h3>
+<ul>
+<li><strong>inventory_web</strong>: Container principal da aplicação Django.</li>
+<li><strong>inventory_worker</strong>: Processa tarefas em background (ex: relatórios pesados, envio de emails).</li>
+<li><strong>inventory_db</strong>: Banco de dados relacional persistente.</li>
+<li><strong>inventory_redis</strong>: Broker para o Celery e backend de cache para o Django.</li>
+<li><strong>inventory_nginx</strong>: Servidor web que serve arquivos estáticos e faz proxy para a aplicação.</li>
+</ul>
+<h2 id="seguranca-e-autenticacao">🔐 Segurança e Autenticação</h2>
+<ul>
+<li><strong>Autenticação</strong>: Baseada em <strong>JWT (JSON Web Tokens)</strong> via <code>rest_framework_simplejwt</code>.</li>
+<li><strong>Permissões</strong>: Controle de acesso baseado em cargos (Role-Based Access Control) nativo do Django (<code>add_product</code>, <code>view_product</code>, etc.).</li>
+<li><strong>Variáveis de Ambiente</strong>: Segredos (chaves de API, senhas de DB) são gerenciados via <code>.env</code> e nunca commitados no código.</li>
+</ul>
+<h3 id="fluxo-de-autenticacao-jwt">Fluxo de Autenticação (JWT)</h3>
+<p>A autenticação é stateless, utilizando tokens de acesso e refresh.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client
+    participant API as Django API
+    participant DB as Database
+
+    Client-&gt;&gt;API: POST /api/v1/authentication/token/ (user, password)
+    API-&gt;&gt;DB: Valida Credenciais
+    alt Credenciais Válidas
+        DB--&gt;&gt;API: User OK
+        API--&gt;&gt;Client: Retorna Access Token + Refresh Token
+    else Inválido
+        API--&gt;&gt;Client: 401 Unauthorized
+    end
+
+    Note over Client, API: Requisições subsequentes
+
+    Client-&gt;&gt;API: GET /api/v1/products/ (Header: Bearer &lt;access_token&gt;)
+    API-&gt;&gt;API: Verifica Assinatura do Token
+    alt Token Válido
+        API-&gt;&gt;DB: Consulta Dados
+        DB--&gt;&gt;API: Dados
+        API--&gt;&gt;Client: 200 OK (JSON)
+    else Token Expirado
+        API--&gt;&gt;Client: 401 Unauthorized
+    end</code></pre>
+<h3 id="fluxo-crud-de-produto">Fluxo CRUD de Produto</h3>
+<p>Exemplo do ciclo de vida de uma requisição de criação de produto.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant View as ProductListCreateView
+    participant Serializer as ProductSerializer
+    participant Model as Product Model
+    participant DB as Postgres
+
+    User-&gt;&gt;View: POST /api/v1/products/ (JSON)
+    View-&gt;&gt;View: Check Permissions (add_product)
+
+    View-&gt;&gt;Serializer: Validate Data
+    alt Dados Válidos
+        Serializer-&gt;&gt;Model: Create Instance
+        Model-&gt;&gt;DB: INSERT INTO products ...
+        DB--&gt;&gt;Model: ID: 123
+        Model--&gt;&gt;Serializer: Instance Saved
+        Serializer--&gt;&gt;View: Serialized Data
+        View--&gt;&gt;User: 201 Created (JSON)
+    else Dados Inválidos
+        Serializer--&gt;&gt;View: Validation Errors
+        View--&gt;&gt;User: 400 Bad Request
+    end</code></pre>
+<h3 id="fluxo-de-seguranca">Fluxo de Segurança</h3>
+<p>Camadas de segurança implementadas na requisição.</p>
+<pre class="mermaid"><code>flowchart TD
+    Req["Requisição HTTP"] --&gt; Nginx[Nginx]
+    Nginx --&gt;|"Rate Limit / SSL"| Gunicorn["Gunicorn WSGI"]
+    Gunicorn --&gt;|"Host Check"| Django["Django SecurityMiddleware"]
+    Django --&gt; CORS["CORS Headers"]
+    CORS --&gt; Auth["JWT Authentication"]
+    Auth --&gt; Perm["DRF Permissions (IsAuthenticated)"]
+    Perm --&gt; View["API View Logic"]
+
+    subgraph "Django App"
+        Django
+        CORS
+        Auth
+        Perm
+        View
+    end</code></pre>
+<h2 id="padroes-de-codigo">📏 Padrões de Código</h2>
+<ul>
+<li><strong>Linting</strong>: Ruff é utilizado para garantir estilo e qualidade de código (PEP 8).</li>
+<li><strong>Tipagem</strong>: MyPy é usado para verificação estática de tipos.</li>
+<li><strong>Testes</strong>: Pytest é o framework de testes, com cobertura monitorada via <code>pytest-cov</code>.</li>
+<li><strong>Pre-commit</strong>: Hooks garantem que nada seja commitado sem passar pelos padrões de qualidade.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "navigation.indexes", "content.code.copy", "content.action.edit", "content.view.source"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

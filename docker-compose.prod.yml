@@ -96,6 +96,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
+      - ./site:/inventory-management-django-system/site
     ports:
       - "80:80"
     depends_on:

@@ -94,3 +94,11 @@ uv run pytest --cov=app --cov-report=html
 ## 🤝 Contribuição
 
 Consulte o [Guia de Contribuição](docs/contributing.md) para detalhes sobre nosso fluxo de desenvolvimento.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Autores / Contato
+
+* **Nattam Pereira** - *Portfólio* - [GitHub](https://github.com/cllmenate) - Copyright (c) 2026

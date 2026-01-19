@@ -88,7 +88,7 @@ A infraestrutura é totalmente conteinerizada usando Docker, garantindo paridade
 ```mermaid
 graph TD
     User[Usuário / Cliente] -->|HTTP/HTTPS| Nginx[Nginx Proxy]
-    Nginx -->|Proxy Pass| Web[Django App (Gunicorn/Uvicorn)]
+    Nginx -->|Proxy Pass| Web["Django App (Gunicorn/Uvicorn)"]
 
     subgraph Services
         Web -->|Lê/Escreve| DB[(PostgreSQL)]
@@ -114,6 +114,90 @@ graph TD
 - **Autenticação**: Baseada em **JWT (JSON Web Tokens)** via `rest_framework_simplejwt`.
 - **Permissões**: Controle de acesso baseado em cargos (Role-Based Access Control) nativo do Django (`add_product`, `view_product`, etc.).
 - **Variáveis de Ambiente**: Segredos (chaves de API, senhas de DB) são gerenciados via `.env` e nunca commitados no código.
+
+### Fluxo de Autenticação (JWT)
+
+A autenticação é stateless, utilizando tokens de acesso e refresh.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API as Django API
+    participant DB as Database
+
+    Client->>API: POST /api/v1/authentication/token/ (user, password)
+    API->>DB: Valida Credenciais
+    alt Credenciais Válidas
+        DB-->>API: User OK
+        API-->>Client: Retorna Access Token + Refresh Token
+    else Inválido
+        API-->>Client: 401 Unauthorized
+    end
+
+    Note over Client, API: Requisições subsequentes
+
+    Client->>API: GET /api/v1/products/ (Header: Bearer <access_token>)
+    API->>API: Verifica Assinatura do Token
+    alt Token Válido
+        API->>DB: Consulta Dados
+        DB-->>API: Dados
+        API-->>Client: 200 OK (JSON)
+    else Token Expirado
+        API-->>Client: 401 Unauthorized
+    end
+```
+
+### Fluxo CRUD de Produto
+
+Exemplo do ciclo de vida de uma requisição de criação de produto.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant View as ProductListCreateView
+    participant Serializer as ProductSerializer
+    participant Model as Product Model
+    participant DB as Postgres
+
+    User->>View: POST /api/v1/products/ (JSON)
+    View->>View: Check Permissions (add_product)
+
+    View->>Serializer: Validate Data
+    alt Dados Válidos
+        Serializer->>Model: Create Instance
+        Model->>DB: INSERT INTO products ...
+        DB-->>Model: ID: 123
+        Model-->>Serializer: Instance Saved
+        Serializer-->>View: Serialized Data
+        View-->>User: 201 Created (JSON)
+    else Dados Inválidos
+        Serializer-->>View: Validation Errors
+        View-->>User: 400 Bad Request
+    end
+```
+
+### Fluxo de Segurança
+
+Camadas de segurança implementadas na requisição.
+
+```mermaid
+flowchart TD
+    Req["Requisição HTTP"] --> Nginx[Nginx]
+    Nginx -->|"Rate Limit / SSL"| Gunicorn["Gunicorn WSGI"]
+    Gunicorn -->|"Host Check"| Django["Django SecurityMiddleware"]
+    Django --> CORS["CORS Headers"]
+    CORS --> Auth["JWT Authentication"]
+    Auth --> Perm["DRF Permissions (IsAuthenticated)"]
+    Perm --> View["API View Logic"]
+
+    subgraph "Django App"
+        Django
+        CORS
+        Auth
+        Perm
+        View
+    end
+```
 
 ## 📏 Padrões de Código
 
