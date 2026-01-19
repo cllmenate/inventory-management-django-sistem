@@ -11,7 +11,18 @@ from django.views.generic import (
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 
+from app.services import metrics
+from app.views import ExportView, ImportView
+from brands.models import Brand
+from categories.models import Category
 from inflows import forms, models, serializers
+
+PERMISSIONS = [
+    "inflows.view_inflow",
+    "inflows.add_inflow",
+    "inflows.change_inflow",
+    "inflows.delete_inflow",
+]
 
 
 # Create your views here.
@@ -24,7 +35,7 @@ class InflowListView(
     template_name = "inflow_list.html"
     context_object_name = "inflows"
     paginate_by = 10
-    permission_required = "inflows.view_inflow"
+    permission_required = PERMISSIONS
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -52,6 +63,14 @@ class InflowListView(
 
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["product_metrics"] = metrics.get_product_metrics()
+        context["categories"] = Category.objects.all()
+        context["brands"] = Brand.objects.all()
+
+        return context
+
 
 class InflowCreateView(
     LoginRequiredMixin,
@@ -62,7 +81,7 @@ class InflowCreateView(
     template_name = "inflow_create.html"
     form_class = forms.InflowForm
     success_url = reverse_lazy("inflow_list")
-    permission_required = "inflows.add_inflow"
+    permission_required = PERMISSIONS
 
 
 class InflowDetailView(
@@ -72,7 +91,20 @@ class InflowDetailView(
 ):
     model = models.Inflows
     template_name = "inflow_detail.html"
-    permission_required = "inflows.view_inflow"
+    permission_required = PERMISSIONS
+
+
+class InflowExportView(ExportView):
+    model = models.Inflows
+    filename = "inflows"
+    template_name = "inflow_list.html"
+    permission_required = PERMISSIONS
+
+
+class InflowImportView(ImportView):
+    model = models.Inflows
+    success_url = reverse_lazy("inflow_list")
+    permission_required = PERMISSIONS
 
 
 class InflowListCreateAPIView(generics.ListCreateAPIView):

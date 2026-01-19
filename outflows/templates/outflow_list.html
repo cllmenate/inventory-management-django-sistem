@@ -17,12 +17,66 @@
 {% if perms.outflows.add_outflow %}
     <div class="row mb-3">
         <div class="col-md-6">
-            <a href="{% url 'outflow_create' %}" class="btn btn-success float-start">
-                <i class="bi bi-plus-lg"></i> Nova Saída
-            </a>
+            <div class="float-start">
+                <a href="{% url 'outflow_create' %}" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i> Nova Saída
+                </a>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exportModal">
+                    <i class="bi bi-file-earmark-arrow-down"></i> Exportar
+                </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal">
+                    <i class="bi bi-file-earmark-arrow-up"></i> Importar
+                </button>
+            </div>
         </div>
     </div>
 {% endif %}
+
+<!-- Modal Exportar -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exportModalLabel">Exportar Saídas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Escolha o formato do arquivo para exportar todos as saídas:</p>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'outflow_export' %}?format=csv" class="btn btn-outline-primary">CSV</a>
+                    <a href="{% url 'outflow_export' %}?format=json" class="btn btn-outline-primary">JSON</a>
+                    <a href="{% url 'outflow_export' %}?format=xml" class="btn btn-outline-primary">XML</a>
+                    <a href="{% url 'outflow_export' %}?format=pdf" class="btn btn-outline-primary">PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Importar -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Importar Saídas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'outflow_import' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="importFile" class="form-label">Selecione o arquivo (CSV, JSON, XLSX, XML)</label>
+                        <input class="form-control" type="file" id="importFile" name="file" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Importar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="row mb-3">
     <div class="col-md-6">
@@ -87,7 +141,7 @@
                         <td>{{ outflow.created_at|date:"d/m/Y H:i" }}</td>
                         <td>{{ outflow.updated_at|date:"d/m/Y H:i" }}</td>
                         {% if perms.outflows.view_outflow %}
-                            <td align="center">
+                            <td class="text-center">
                                 <a href="{% url 'outflow_detail' outflow.id %}" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>

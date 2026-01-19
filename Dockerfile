@@ -18,6 +18,7 @@ ENV UV_COMPILE_BYTECODE=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
+    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copia arquivos de dependência
@@ -45,8 +46,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     netcat-openbsd \
     curl \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    shared-mime-info \
+    fontconfig \
     && rm -rf /var/lib/apt/lists/* \
-    && groupadd -r appuser && useradd -r -g appuser appuser
+    && groupadd -r appuser && useradd -r -g appuser appuser \
+    && mkdir -p /home/appuser/.cache && chown -R appuser:appuser /home/appuser
+
+# Define home para o appuser e variáveis de cache
+ENV HOME=/home/appuser
+ENV XDG_CACHE_HOME=/home/appuser/.cache
 
 # Copia o ambiente virtual do estagio builder
 COPY --from=builder /inventory-management-django-system/.venv /inventory-management-django-system/.venv

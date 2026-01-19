@@ -13,8 +13,16 @@ from django.views.generic import (
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 
+from app.views import ExportView, ImportView
 from brands.models import Brand
 from product_models import forms, models, serializers
+
+PERMISSIONS = [
+    "product_models.view_product_model",
+    "product_models.add_product_model",
+    "product_models.change_product_model",
+    "product_models.delete_product_model",
+]
 
 
 class ProductModelListView(
@@ -26,7 +34,7 @@ class ProductModelListView(
     template_name = "product_model_list.html"
     context_object_name = "product_models"
     paginate_by = 10
-    permission_required = "product_models.view_product_model"
+    permission_required = PERMISSIONS
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -56,7 +64,7 @@ class ProductModelCreateView(
     template_name = "product_model_create.html"
     form_class = forms.ProductModelForm
     success_url = reverse_lazy("product_model_list")
-    permission_required = "product_models.add_product_model"
+    permission_required = PERMISSIONS
 
 
 class ProductModelDetailView(
@@ -66,7 +74,7 @@ class ProductModelDetailView(
 ):
     model = models.ProductModel
     template_name = "product_model_detail.html"
-    permission_required = "product_models.view_product_model"
+    permission_required = PERMISSIONS
 
 
 class ProductModelUpdateView(
@@ -78,7 +86,7 @@ class ProductModelUpdateView(
     template_name = "product_model_update.html"
     form_class = forms.ProductModelForm
     success_url = reverse_lazy("product_model_list")
-    permission_required = "product_models.change_product_model"
+    permission_required = PERMISSIONS
 
 
 class ProductModelDeleteView(
@@ -89,7 +97,19 @@ class ProductModelDeleteView(
     model = models.ProductModel
     template_name = "product_model_delete.html"
     success_url = reverse_lazy("product_model_list")
-    permission_required = "product_models.delete_product_model"
+    permission_required = PERMISSIONS
+
+
+class ProductModelExportView(ExportView):
+    model = models.ProductModel
+    filename = "modelos-de-produto"
+    permission_required = PERMISSIONS
+
+
+class ProductModelImportView(ImportView):
+    model = models.ProductModel
+    success_url = reverse_lazy("product_model_list")
+    permission_required = PERMISSIONS
 
 
 class ProductModelListCreateAPIView(generics.ListCreateAPIView):

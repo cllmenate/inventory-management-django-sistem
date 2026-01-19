@@ -13,6 +13,7 @@ from django.views.generic import (
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 
+from app.views import ExportView, ImportView
 from suppliers import forms, models, serializers
 
 
@@ -81,6 +82,18 @@ class SupplierDeleteView(
     template_name = "supplier_delete.html"
     success_url = reverse_lazy("supplier_list")
     permission_required = "suppliers.delete_supplier"
+
+
+class SupplierExportView(ExportView):
+    model = models.Supplier
+    filename = "fornecedores"
+    permission_required = "suppliers.view_supplier"
+
+
+class SupplierImportView(ImportView):
+    model = models.Supplier
+    success_url = reverse_lazy("supplier_list")
+    permission_required = "suppliers.add_supplier"
 
 
 class SupplierListCreateAPIView(generics.ListCreateAPIView):

@@ -11,8 +11,18 @@ from django.views.generic import (
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 
-from app import metrics
+from app.services import metrics
+from app.views import ExportView, ImportView
+from brands.models import Brand
+from categories.models import Category
 from outflows import forms, models, serializers
+
+PERMISSIONS = [
+    "outflows.view_outflow",
+    "outflows.add_outflow",
+    "outflows.change_outflow",
+    "outflows.delete_outflow",
+]
 
 
 # Create your views here.
@@ -21,7 +31,7 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "outflow_list.html"
     context_object_name = "outflows"
     paginate_by = 10
-    permission_required = "outflows.view_outflow"
+    permission_required = PERMISSIONS
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -52,6 +62,8 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["sales_metrics"] = metrics.get_sales_metrics()
+        context["categories"] = Category.objects.all()
+        context["brands"] = Brand.objects.all()
 
         return context
 
@@ -65,7 +77,7 @@ class OutflowCreateView(
     template_name = "outflow_create.html"
     form_class = forms.OutflowForm
     success_url = reverse_lazy("outflow_list")
-    permission_required = "outflows.add_outflow"
+    permission_required = PERMISSIONS
 
 
 class OutflowDetailView(
@@ -75,7 +87,19 @@ class OutflowDetailView(
 ):
     model = models.Outflows
     template_name = "outflow_detail.html"
-    permission_required = "outflows.view_outflow"
+    permission_required = PERMISSIONS
+
+
+class OutflowExportView(ExportView):
+    model = models.Outflows
+    filename = "outflows"
+    permission_required = PERMISSIONS
+
+
+class OutflowImportView(ImportView):
+    model = models.Outflows
+    success_url = reverse_lazy("outflow_list")
+    permission_required = PERMISSIONS
 
 
 class OutflowListCreateAPIView(generics.ListCreateAPIView):

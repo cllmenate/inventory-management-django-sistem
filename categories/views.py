@@ -14,7 +14,15 @@ from django.views.generic import (
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 
+from app.views import ExportView, ImportView
 from categories import forms, models, serializers
+
+PERMISSIONS = [
+    "categories.view_category",
+    "categories.add_category",
+    "categories.change_category",
+    "categories.delete_category",
+]
 
 
 # Create your views here.
@@ -27,7 +35,7 @@ class CategoryListView(
     template_name = "category_list.html"
     context_object_name = "categories"
     paginate_by = 10
-    permission_required = "categories.view_category"
+    permission_required = PERMISSIONS
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -59,7 +67,7 @@ class CategoryCreateView(
     template_name = "category_create.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("category_list")
-    permission_required = "categories.add_category"
+    permission_required = PERMISSIONS
 
 
 class CategoryDetailView(
@@ -69,7 +77,7 @@ class CategoryDetailView(
 ):
     model = models.Category
     template_name = "category_detail.html"
-    permission_required = "categories.view_category"
+    permission_required = PERMISSIONS
 
 
 class CategoryUpdateView(
@@ -81,7 +89,7 @@ class CategoryUpdateView(
     template_name = "category_update.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("category_list")
-    permission_required = "categories.change_category"
+    permission_required = PERMISSIONS
 
 
 class CategoryDeleteView(
@@ -92,7 +100,19 @@ class CategoryDeleteView(
     model = models.Category
     template_name = "category_delete.html"
     success_url = reverse_lazy("category_list")
-    permission_required = "categories.delete_category"
+    permission_required = PERMISSIONS
+
+
+class CategoryExportView(ExportView):
+    model = models.Category
+    filename = "categorias"
+    permission_required = PERMISSIONS
+
+
+class CategoryImportView(ImportView):
+    model = models.Category
+    success_url = reverse_lazy("category_list")
+    permission_required = PERMISSIONS
 
 
 class CategoryListCreateAPIView(

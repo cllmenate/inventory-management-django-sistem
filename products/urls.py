@@ -28,4 +28,14 @@ urlpatterns = [
         views.ProductDeleteView.as_view(),
         name="product_delete",
     ),
+    path(
+        "products/export/",
+        views.ProductExportView.as_view(),
+        name="product_export",
+    ),
+    path(
+        "products/import/",
+        views.ProductImportView.as_view(),
+        name="product_import",
+    ),
 ]
