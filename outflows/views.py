@@ -18,10 +18,8 @@ from categories.models import Category
 from outflows import forms, models, serializers
 
 PERMISSIONS = [
-    "outflows.view_outflow",
-    "outflows.add_outflow",
-    "outflows.change_outflow",
-    "outflows.delete_outflow",
+    "outflows.view_outflows",
+    "outflows.add_outflows",
 ]
 
 
@@ -31,7 +29,7 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "outflow_list.html"
     context_object_name = "outflows"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -77,7 +75,7 @@ class OutflowCreateView(
     template_name = "outflow_create.html"
     form_class = forms.OutflowForm
     success_url = reverse_lazy("outflow_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class OutflowDetailView(
@@ -87,19 +85,19 @@ class OutflowDetailView(
 ):
     model = models.Outflows
     template_name = "outflow_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class OutflowExportView(ExportView):
     model = models.Outflows
     filename = "outflows"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class OutflowImportView(ImportView):
     model = models.Outflows
     success_url = reverse_lazy("outflow_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class OutflowListCreateAPIView(generics.ListCreateAPIView):

@@ -18,7 +18,10 @@ class DataImportService:
             elif self.file_type == "xlsx" or self.file_type == "xls":
                 return pd.read_excel(self.file)
             elif self.file_type == "xml":
-                return pd.read_xml(self.file)
+                try:
+                    return pd.read_xml(self.file, parser="lxml")
+                except Exception:
+                    return pd.read_xml(self.file)
             else:
                 raise ValueError(
                     f"Formato de arquivo '{self.file_type}' não suportado."
@@ -55,9 +58,37 @@ class DataImportService:
                         for csv_col, model_field in mapping_dict.items()
                     }
 
-                # Limpeza básica de dados
-                # (remover None de campos obrigatórios se necessário)
-                # ou conversão de tipos específicos
+                # Resolução automática de ForeignKeys por Nome/Título
+                for field_name, value in data.items():
+                    if value is None or value == "":
+                        continue
+
+                    field = model_class._meta.get_field(field_name)
+                    if field.is_relation and field.many_to_one:
+                        related_model = field.related_model
+                        # Tenta encontrar o objeto pelo Nome ou Título
+                        # se o valor não for um ID numérico
+                        if not str(value).isdigit():
+                            related_obj = None
+                            # Campos comuns para busca por nome
+                            search_fields = ["name", "title", "nome", "titulo"]
+                            for s_field in search_fields:
+                                try:
+                                    related_model._meta.get_field(s_field)
+                                    related_obj = related_model.objects.filter(
+                                        **{f"{s_field}__iexact": str(value).strip()}  # noqa: E501
+                                    ).first()
+                                    if related_obj:
+                                        break
+                                except Exception:
+                                    continue
+
+                            if related_obj:
+                                data[field_name] = related_obj
+                            else:
+                                raise ValidationError(
+                                    f"Relacionamento '{value}' não encontrado no modelo {related_model.__name__}."  # noqa: E501
+                                )
 
                 # Instancia o modelo (sem salvar ainda) para validar
                 obj = model_class(**data)
@@ -69,9 +100,19 @@ class DataImportService:
         if errors:
             raise ValidationError(errors)
 
-        # Bulk Create para performance (Best Practice em Django)
+        # Usar save() em vez de bulk_create para garantir que Signals
+        # (estoque) sejam disparados
+        created_count = 0
         if objects_to_create:
             with transaction.atomic():
-                model_class.objects.bulk_create(objects_to_create)
+                for obj in objects_to_create:
+                    obj.save()
+                    created_count += 1
 
-        return len(objects_to_create)
+            # Limpa o cache para garantir que
+            # a UI mostre os novos dados imediatamente
+            from django.core.cache import cache
+
+            cache.clear()
+
+        return created_count

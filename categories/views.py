@@ -35,7 +35,7 @@ class CategoryListView(
     template_name = "category_list.html"
     context_object_name = "categories"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -67,7 +67,7 @@ class CategoryCreateView(
     template_name = "category_create.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("category_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class CategoryDetailView(
@@ -77,7 +77,7 @@ class CategoryDetailView(
 ):
     model = models.Category
     template_name = "category_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class CategoryUpdateView(
@@ -89,7 +89,7 @@ class CategoryUpdateView(
     template_name = "category_update.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("category_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[2]
 
 
 class CategoryDeleteView(
@@ -100,19 +100,19 @@ class CategoryDeleteView(
     model = models.Category
     template_name = "category_delete.html"
     success_url = reverse_lazy("category_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[3]
 
 
 class CategoryExportView(ExportView):
     model = models.Category
     filename = "categorias"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class CategoryImportView(ImportView):
     model = models.Category
     success_url = reverse_lazy("category_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class CategoryListCreateAPIView(

@@ -3,9 +3,9 @@ name = "inventory-management-django-system"
 version = "1.1.0"
 description = "Inventory Management System"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
-    "django>=6.0.1",
+    "django>=5.2.7,<6.0",
     "djangorestframework>=3.16.1",
     "djangorestframework-simplejwt>=5.5.1",
     "python-dotenv>=0.9.9",
@@ -18,10 +18,12 @@ dependencies = [
     "sentry-sdk[django]>=1.40.6",
     "gunicorn>=21.2.0",
     "uvicorn[standard]>=0.29.0",
-    "flower>=2.0.1",
     "pandas>=2.3.3",
     "openpyxl>=3.1.5",
     "weasyprint>=68.0",
+    "lxml>=5.3.0",
+    "django-celery-results>=2.6.0",
+    "django-celery-beat>=2.7.0",
 ]
 
 

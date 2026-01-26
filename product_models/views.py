@@ -18,10 +18,10 @@ from brands.models import Brand
 from product_models import forms, models, serializers
 
 PERMISSIONS = [
-    "product_models.view_product_model",
-    "product_models.add_product_model",
-    "product_models.change_product_model",
-    "product_models.delete_product_model",
+    "product_models.view_productmodel",
+    "product_models.add_productmodel",
+    "product_models.change_productmodel",
+    "product_models.delete_productmodel",
 ]
 
 
@@ -34,7 +34,7 @@ class ProductModelListView(
     template_name = "product_model_list.html"
     context_object_name = "product_models"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -64,7 +64,7 @@ class ProductModelCreateView(
     template_name = "product_model_create.html"
     form_class = forms.ProductModelForm
     success_url = reverse_lazy("product_model_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductModelDetailView(
@@ -74,7 +74,7 @@ class ProductModelDetailView(
 ):
     model = models.ProductModel
     template_name = "product_model_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class ProductModelUpdateView(
@@ -86,7 +86,7 @@ class ProductModelUpdateView(
     template_name = "product_model_update.html"
     form_class = forms.ProductModelForm
     success_url = reverse_lazy("product_model_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductModelDeleteView(
@@ -97,19 +97,19 @@ class ProductModelDeleteView(
     model = models.ProductModel
     template_name = "product_model_delete.html"
     success_url = reverse_lazy("product_model_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductModelExportView(ExportView):
     model = models.ProductModel
     filename = "modelos-de-produto"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductModelImportView(ImportView):
     model = models.ProductModel
     success_url = reverse_lazy("product_model_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductModelListCreateAPIView(generics.ListCreateAPIView):

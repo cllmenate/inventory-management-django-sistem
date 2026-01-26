@@ -16,6 +16,13 @@ from rest_framework import generics
 from app.views import ExportView, ImportView
 from suppliers import forms, models, serializers
 
+PERMISSIONS = [
+    "suppliers.view_supplier",
+    "suppliers.add_supplier",
+    "suppliers.change_supplier",
+    "suppliers.delete_supplier",
+]
+
 
 # Create your views here.
 class SupplierListView(
@@ -27,7 +34,7 @@ class SupplierListView(
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
     paginate_by = 10
-    permission_required = "suppliers.view_supplier"
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -48,7 +55,7 @@ class SupplierCreateView(
     template_name = "supplier_create.html"
     form_class = forms.SupplierForm
     success_url = reverse_lazy("supplier_list")
-    permission_required = "suppliers.add_supplier"
+    permission_required = PERMISSIONS[1]
 
 
 class SupplierDetailView(
@@ -58,7 +65,7 @@ class SupplierDetailView(
 ):
     model = models.Supplier
     template_name = "supplier_detail.html"
-    permission_required = "suppliers.view_supplier"
+    permission_required = PERMISSIONS[0]
 
 
 class SupplierUpdateView(
@@ -70,7 +77,7 @@ class SupplierUpdateView(
     template_name = "supplier_update.html"
     form_class = forms.SupplierForm
     success_url = reverse_lazy("supplier_list")
-    permission_required = "suppliers.add_supplier"
+    permission_required = PERMISSIONS[2]
 
 
 class SupplierDeleteView(
@@ -81,19 +88,19 @@ class SupplierDeleteView(
     model = models.Supplier
     template_name = "supplier_delete.html"
     success_url = reverse_lazy("supplier_list")
-    permission_required = "suppliers.delete_supplier"
+    permission_required = PERMISSIONS[3]
 
 
 class SupplierExportView(ExportView):
     model = models.Supplier
     filename = "fornecedores"
-    permission_required = "suppliers.view_supplier"
+    permission_required = PERMISSIONS[1]
 
 
 class SupplierImportView(ImportView):
     model = models.Supplier
     success_url = reverse_lazy("supplier_list")
-    permission_required = "suppliers.add_supplier"
+    permission_required = PERMISSIONS[1]
 
 
 class SupplierListCreateAPIView(generics.ListCreateAPIView):

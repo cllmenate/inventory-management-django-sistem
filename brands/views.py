@@ -31,7 +31,7 @@ class BrandListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "brand_list.html"
     context_object_name = "brands"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -59,13 +59,13 @@ class BrandCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = "brand_create.html"
     form_class = forms.BrandForm
     success_url = reverse_lazy("brand_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class BrandDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Brand
     template_name = "brand_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class BrandUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -73,26 +73,26 @@ class BrandUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = "brand_update.html"
     form_class = forms.BrandForm
     success_url = reverse_lazy("brand_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[2]
 
 
 class BrandDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Brand
     template_name = "brand_delete.html"
     success_url = reverse_lazy("brand_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[3]
 
 
 class BrandExportView(ExportView):
     model = models.Brand
     filename = "marcas"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class BrandImportView(ImportView):
     model = models.Brand
     success_url = reverse_lazy("brand_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class BrandListCreateAPIView(generics.ListCreateAPIView):

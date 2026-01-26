@@ -37,7 +37,7 @@ class ProductListView(
     template_name = "product_list.html"
     context_object_name = "products"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -85,7 +85,7 @@ class ProductCreateView(
     template_name = "product_create.html"
     form_class = forms.ProductForm
     success_url = reverse_lazy("product_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductDetailView(
@@ -95,7 +95,7 @@ class ProductDetailView(
 ):
     model = models.Product
     template_name = "product_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class ProductUpdateView(
@@ -107,7 +107,7 @@ class ProductUpdateView(
     template_name = "product_update.html"
     form_class = forms.ProductForm
     success_url = reverse_lazy("product_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductDeleteView(
@@ -118,19 +118,19 @@ class ProductDeleteView(
     model = models.Product
     template_name = "product_delete.html"
     success_url = reverse_lazy("product_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductExportView(ExportView):
     model = models.Product
     filename = "produtos"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductImportView(ImportView):
     model = models.Product
     success_url = reverse_lazy("product_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):

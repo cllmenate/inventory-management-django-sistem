@@ -59,13 +59,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",  # CORS
+
+    "django_celery_results",
+    "django_celery_beat",
+
+    "corsheaders",
+
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+
     "drf_spectacular",
     "drf_spectacular_sidecar",
+
     "authentication",
+    "notifications",
     "brands",
     "categories",
     "suppliers",
@@ -136,12 +144,13 @@ else:
 # Celery Configuration
 CELERY_BROKER_URL = os.getenv(
     "CELERY_BROKER_URL",
-    "redis://localhost:6379/0"
+    "redis://inventory_redis:6379/0"
 )
-CELERY_RESULT_BACKEND = os.getenv(
-    "CELERY_RESULT_BACKEND",
-    "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = (
+    "django-db"
 )
+CELERY_RESULT_EXTENDED = True
+CELERY_CACHE_BACKEND = "default"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
@@ -152,7 +161,10 @@ if os.getenv("POSTGRES_DB"):
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": os.getenv("REDIS_URL", "redis://localhost:6379/1"),
+            "LOCATION": os.getenv(
+                "REDIS_URL",
+                "redis://inventory_redis:6379/1"
+            ),
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
             },
@@ -172,17 +184,17 @@ else:
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": (
-            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"  # noqa: E501
         ),
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.MinimumLengthValidator"),
+        "NAME": ("django.contrib.auth.password_validation.MinimumLengthValidator"),  # noqa: E501
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.CommonPasswordValidator"),
+        "NAME": ("django.contrib.auth.password_validation.CommonPasswordValidator"),  # noqa: E501
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.NumericPasswordValidator"),
+        "NAME": ("django.contrib.auth.password_validation.NumericPasswordValidator"),  # noqa: E501
     },
 ]
 
@@ -202,8 +214,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -249,7 +264,7 @@ SIMPLE_JWT = {
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
     "USER_AUTHENTICATION_RULE": (
-        "rest_framework_simplejwt.authentication.default_user_authentication_rule"
+        "rest_framework_simplejwt.authentication.default_user_authentication_rule"  # noqa: E501
     ),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "TOKEN_TYPE_CLAIM": "token_type",
@@ -272,9 +287,7 @@ CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "False") == "True"
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
     "http://localhost:3000"
-).split(
-    ","
-)
+).split(",")
 
 # Logging Configuration
 LOGGING = {
@@ -283,12 +296,12 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": (
-                "{levelname} {asctime} {module} {process:d} {thread:d} {message}"
+                "{levelname} {asctime} {module} {process:d} {thread:d} {message}"  # noqa: E501
             ),
             "style": "{",
         },
         "simple": {
-            "format": "{levelname} {message}",
+            "format": "{levelname} {message}",  # noqa: E501
             "style": "{",
         },
     },

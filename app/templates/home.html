@@ -6,17 +6,17 @@
 
 {% block content %}
 
-    {% if perms.products.view_product and perms.inflows.view_inflow %}
+    {% if perms.products.view_product and perms.inflows.view_inflows %}
         {% include 'components/_product_metrics.html' %}
     {% endif %}
 
-    {% if perms.products.view_product and perms.outflows.view_outflow %}
+    {% if perms.products.view_product and perms.outflows.view_outflows %}
         {% include 'components/_sales_metrics.html' %}
     {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {% if perms.products.view_product and perms.outflows.view_outflow %}
+    {% if perms.products.view_product and perms.outflows.view_outflows %}
         <div class="row mt-4 justify-content-center">
 
             <div class="col-md-6 text-center">
@@ -90,7 +90,7 @@
                 {% if product_count_by_category != '{}' %}
                     <h5 class="mb-3">Produtos por Categoria</h5>
                     <div class="mb-4"></div>
-                    <div class="embed-responsive embed-responsive-1by1" style="width: 400px; display: inline-block;">
+                    <div class="embed-responsive embed-responsive-1by1" style="width: 250px; display: inline-block;">
                         <canvas id="productByCategoryChart" class="embed-responsive-item"></canvas>
                     </div>
                 {% endif %}
@@ -100,7 +100,7 @@
                 {% if product_count_by_category != '{}' %}
                     <h5 class="mb-3">Produtos por Marca</h5>
                     <div class="mb-4"></div>
-                    <div style="width: 400px; display: inline-block;">
+                    <div style="width: 250px; display: inline-block;">
                         <canvas id="productByBrandChart" class="embed-responsive-item"></canvas>
                     </div>
                 {% endif %}

@@ -3,11 +3,10 @@ services:
     build:
       context: .
       target: runtime
-    # Usa Uvicorn via Gunicorn para produção
     command: /start.sh
     volumes:
-      - static_volume:/inventory-management-django-system/staticfiles
-      - media_volume:/inventory-management-django-system/mediafiles
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     env_file:
       - .env
     environment:
@@ -27,7 +26,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
+          cpus: "1.0"
           memory: 1G
     logging:
       driver: "json-file"
@@ -45,18 +44,18 @@ services:
       context: .
       target: runtime
     command: celery -A app worker -l info
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "celery -A app inspect ping | grep -q 'OK'"]
       interval: 60s
       timeout: 10s
       retries: 3
-      start_period: 20s
-    env_file:
-      - .env
+      start_period: 30s
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: "0.50"
           memory: 512M
     logging:
       driver: "json-file"
@@ -69,41 +68,42 @@ services:
       inventory_redis:
         condition: service_healthy
 
-  inventory_flower:
+  inventory_beat:
     build:
       context: .
       target: runtime
-    command: celery -A app flower --address=0.0.0.0 --port=5555 --broker=${REDIS_URL}
-    ports:
-      - "5555:5555"
+    command: celery -A app beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    restart: unless-stopped
+    env_file:
+      - .env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5555/"]
+      test: ["CMD-SHELL", "celery -A app inspect ping | grep -q 'OK'"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 15s
-    env_file:
-      - .env
+      start_period: 20s
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
     depends_on:
+      inventory_db:
+        condition: service_healthy
       inventory_redis:
         condition: service_healthy
 
   inventory_db:
     image: postgres:17.7-alpine3.23
+    env_file:
+      - .env
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
-    volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
-    env_file:
-      - .env
     logging:
       driver: "json-file"
       options:
@@ -112,13 +112,13 @@ services:
 
   inventory_redis:
     image: redis:8.2.3-alpine
+    volumes:
+      - redis_data_dev:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
       retries: 5
-    volumes:
-      - redis_data_dev:/data
     logging:
       driver: "json-file"
       options:
@@ -129,9 +129,9 @@ services:
     build: ./nginx
     restart: always
     volumes:
-      - static_volume:/inventory-management-django-system/staticfiles
-      - media_volume:/inventory-management-django-system/mediafiles
-      - ./site:/inventory-management-django-system/site
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
+      - ./site:/app/site
     ports:
       - "80:8080"
     healthcheck:

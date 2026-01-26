@@ -11,8 +11,8 @@ from django.shortcuts import redirect, render
 from django.views import View
 
 from app.services import metrics
-from app.services.export_data import DataExportService
-from app.services.import_data import DataImportService
+from app.tasks import export_data_async, import_data_async
+from notifications.models import TaskNotification
 
 
 @login_required(login_url="login")
@@ -47,23 +47,31 @@ class ExportView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         file_format = request.GET.get("format", "csv")
-        queryset = self.model.objects.all()
-        # Optional: apply filters here if needed
+        valid_formats = ["csv", "json", "xml", "pdf"]
 
-        if file_format == "csv":
-            return DataExportService.export_to_csv(queryset, self.filename)
-        elif file_format == "json":
-            return DataExportService.export_to_json(queryset, self.filename)
-        elif file_format == "xml":
-            return DataExportService.export_to_xml(queryset, self.filename)
-        elif file_format == "pdf" and self.template_name:
-            context = {self.model._meta.verbose_name_plural.lower(): queryset}
-            return DataExportService.export_to_pdf(
-                queryset, self.template_name, context, self.filename
-            )
-        else:
+        if file_format not in valid_formats:
             messages.error(request, "Formato de exportação inválido.")
             return redirect(request.META.get("HTTP_REFERER", "/"))
+
+        # Enfileirar task assíncrona PRIMEIRO para obter o task_id
+        task = export_data_async.apply_async(
+            args=[None]
+        )  # notification_id será None temporariamente
+
+        # Criar notificação COM o task_id já definido
+        TaskNotification.objects.create(
+            user=request.user,
+            task_type="export",
+            task_id=task.id,
+            model_name=self.model.__name__,
+            file_format=file_format,
+        )
+
+        messages.success(
+            request,
+            "Exportação iniciada! Acesse Notificações para acompanhar o progresso e fazer download quando concluída.",  # noqa: E501
+        )
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class ImportView(LoginRequiredMixin, PermissionRequiredMixin, View):
@@ -72,22 +80,55 @@ class ImportView(LoginRequiredMixin, PermissionRequiredMixin, View):
     mapping_dict = None
 
     def post(self, request, *args, **kwargs):
+        import os
+        import tempfile
+
         file_obj = request.FILES.get("file")
         if not file_obj:
             messages.error(request, "Nenhum arquivo enviado.")
             return redirect(request.META.get("HTTP_REFERER", "/"))
 
+        # Salvar arquivo temporariamente no servidor
         file_type = file_obj.name.split(".")[-1].lower()
-        service = DataImportService(file_obj, file_type)
 
-        try:
-            count = service.transform_and_load(self.model, self.mapping_dict)
-            messages.success(
-                request, f"Importação concluída: {count} registros inseridos."
-            )
-        except Exception as e:
-            messages.error(request, f"Erro na importação: {str(e)}")
+        # Criar diretório temporário se não existir
+        # Usar mediafiles (volume compartilhado) ao invés de MEDIA_ROOT
+        temp_dir = "/app/mediafiles/temp"
+        os.makedirs(temp_dir, exist_ok=True)
 
-        return redirect(self.success_url or request.META.get(
-            "HTTP_REFERER", "/"
-        ))
+        temp_file = tempfile.NamedTemporaryFile(
+            delete=False, suffix=f".{file_type}", dir=temp_dir
+        )
+
+        for chunk in file_obj.chunks():
+            temp_file.write(chunk)
+        temp_file.close()
+
+        # Enfileirar task assíncrona PRIMEIRO para obter o task_id
+        task = import_data_async.apply_async(
+            args=[
+                None,
+                temp_file.name,
+                self.mapping_dict,
+            ]  # notification_id será None temporariamente
+        )
+
+        # Criar notificação COM o task_id já definido
+        TaskNotification.objects.create(
+            user=request.user,
+            task_type="import",
+            task_id=task.id,
+            model_name=self.model.__name__,
+        )
+
+        # Atualizar a task com o notification_id correto
+        # (a task vai precisar buscar a notificação pelo task_id)
+
+        messages.success(
+            request,
+            "Importação iniciada! Acesse Notificações para acompanhar o progresso.",  # noqa: E501
+        )
+
+        return redirect(
+            self.success_url or request.META.get("HTTP_REFERER", "/")
+        )

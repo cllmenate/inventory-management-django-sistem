@@ -18,10 +18,8 @@ from categories.models import Category
 from inflows import forms, models, serializers
 
 PERMISSIONS = [
-    "inflows.view_inflow",
-    "inflows.add_inflow",
-    "inflows.change_inflow",
-    "inflows.delete_inflow",
+    "inflows.view_inflows",
+    "inflows.add_inflows",
 ]
 
 
@@ -35,7 +33,7 @@ class InflowListView(
     template_name = "inflow_list.html"
     context_object_name = "inflows"
     paginate_by = 10
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -81,7 +79,7 @@ class InflowCreateView(
     template_name = "inflow_create.html"
     form_class = forms.InflowForm
     success_url = reverse_lazy("inflow_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class InflowDetailView(
@@ -91,20 +89,20 @@ class InflowDetailView(
 ):
     model = models.Inflows
     template_name = "inflow_detail.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[0]
 
 
 class InflowExportView(ExportView):
     model = models.Inflows
     filename = "inflows"
     template_name = "inflow_list.html"
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class InflowImportView(ImportView):
     model = models.Inflows
     success_url = reverse_lazy("inflow_list")
-    permission_required = PERMISSIONS
+    permission_required = PERMISSIONS[1]
 
 
 class InflowListCreateAPIView(generics.ListCreateAPIView):
