@@ -13,6 +13,12 @@
               <span class="ms-1">Dashboard</span>
             </a>
           </li>
+          <li>
+            <a href="{% url 'notifications:notifications_list' %}" class="nav-link px-0 align-middle">
+              <i class="bi bi-bell fs-4"></i>
+              <span class="ms-1">Notificações</span>
+            </a>
+          </li>
           {% if perms.suppliers.view_supplier %}
             <li>
               <a href="{% url 'supplier_list' %}" class="nav-link px-0 align-middle">
@@ -37,14 +43,6 @@
               </a>
             </li>
           {% endif %}
-          {% if perms.products.view_product %}
-            <li>
-              <a href="{% url 'product_list' %}" class="nav-link px-0 align-middle">
-                <i class="bi bi-box-seam fs-4"></i>
-                <span class="ms-1">Produtos</span>
-              </a>
-            </li>
-          {% endif %}
           {% if perms.product_models.view_product_model %}
             <li>
               <a href="{% url 'product_model_list' %}" class="nav-link px-0 align-middle">
@@ -53,7 +51,15 @@
               </a>
             </li>
           {% endif %}
-          {% if perms.inflows.view_inflow %}
+          {% if perms.products.view_product %}
+            <li>
+              <a href="{% url 'product_list' %}" class="nav-link px-0 align-middle">
+                <i class="bi bi-box-seam fs-4"></i>
+                <span class="ms-1">Produtos</span>
+              </a>
+            </li>
+          {% endif %}
+          {% if perms.inflows.view_inflows %}
             <li>
               <a href="{% url 'inflow_list' %}" class="nav-link px-0 align-middle">
                 <i class="bi bi-arrow-down-left-square fs-4"></i>
@@ -61,7 +67,7 @@
               </a>
             </li>
           {% endif %}
-          {% if perms.outflows.view_outflow %}
+          {% if perms.outflows.view_outflows %}
             <li>
               <a href="{% url 'outflow_list' %}" class="nav-link px-0 align-middle">
                 <i class="bi bi-arrow-up-right-square fs-4"></i>
@@ -70,11 +76,14 @@
             </li>
           {% endif %}
           {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle">
-                <i class="bi bi-person-fill-gear fs-4"></i>
-                <span class="ms-1">Admin</span>
-              </a>
+            {% if perms.auth.view_user %}
+              <li class="nav-item">
+                <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle">
+                  <i class="bi bi-person-fill-gear fs-4"></i>
+                  <span class="ms-1">Admin</span>
+                </a>
+              </li>
+            {% endif %}
 
             <li class="nav-item">
               <a href="/docs/" target="_blank" class="nav-link px-0 align-middle">

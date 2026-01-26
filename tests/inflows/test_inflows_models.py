@@ -17,7 +17,10 @@ class TestInflowsModel:
         supplier = SupplierFactory()
 
         inflow = InflowFactory(
-            product=product, supplier=supplier, quantity=50, description="Initial stock"
+            product=product,
+            supplier=supplier,
+            quantity=50,
+            description="Initial stock",
         )
 
         assert inflow.id is not None
@@ -35,9 +38,9 @@ class TestInflowsModel:
 
     def test_inflow_ordering(self):
         """Test inflows are ordered by created_at descending."""
-        inflow1 = InflowFactory()
-        inflow2 = InflowFactory()
-        inflow3 = InflowFactory()
+        InflowFactory()
+        InflowFactory()
+        InflowFactory()
 
         inflows = Inflows.objects.all()
 

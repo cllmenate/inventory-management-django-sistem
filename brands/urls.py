@@ -28,4 +28,14 @@ urlpatterns = [
         views.BrandDeleteView.as_view(),
         name="brand_delete",
     ),
+    path(
+        "brands/export/",
+        views.BrandExportView.as_view(),
+        name="brand_export",
+    ),
+    path(
+        "brands/import/",
+        views.BrandImportView.as_view(),
+        name="brand_import",
+    ),
 ]

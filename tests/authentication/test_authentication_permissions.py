@@ -23,7 +23,10 @@ class TestDRFPermissions:
     def test_user_with_permissions_can_access(self):
         """Test user with proper permissions can access endpoints."""
         # Create user with permissions
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser",
+            password="testpass123",
+        )
         permissions = Permission.objects.all()
         user.user_permissions.set(permissions)
 
@@ -41,7 +44,10 @@ class TestDRFPermissions:
     def test_user_without_permissions_denied(self):
         """Test user without permissions is denied access."""
         # Create user without permissions
-        user = User.objects.create_user(username="noperm", password="testpass123")
+        user = User.objects.create_user(
+            username="noperm",
+            password="testpass123",
+        )
 
         # Authenticate
         client = APIClient()
@@ -58,7 +64,10 @@ class TestDRFPermissions:
     def test_model_permissions_enforced(self):
         """Test Django model permissions are enforced."""
         # Create user
-        user = User.objects.create_user(username="limiteduser", password="testpass123")
+        user = User.objects.create_user(
+            username="limiteduser",
+            password="testpass123",
+        )
 
         # Add only view permission
         view_permission = Permission.objects.get(codename="view_brand")

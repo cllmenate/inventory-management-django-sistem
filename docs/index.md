@@ -47,3 +47,21 @@ inventory-management-django-system/
 - **Banco de Dados**: PostgreSQL 17
 - **Cache**: Redis
 - **Infraestrutura**: Docker & Docker Compose
+
+## Navegação
+
+- [Guia de Arquitetura](architecture.md): Entenda como o sistema foi projetado.
+- [Referência de API](api.md): Documentação dos endpoints da API.
+- [Guia de Contribuição](contributing.md): Saiba como colaborar com o projeto.
+
+## Instalação Rápida
+
+Consulte o [README](../README.md) para instruções detalhadas de instalação.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Autores / Contato
+
+- **Nattam Pereira** - *Portfólio* - [GitHub](https://github.com/cllmenate) - Copyright (c) 2026

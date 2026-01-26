@@ -2,7 +2,12 @@
 
 import pytest
 
-from tests.factories import CategoryFactory, ProductFactory, ProductModelFactory
+from tests.factories import (
+    BrandFactory,
+    CategoryFactory,
+    ProductFactory,
+    ProductModelFactory,
+)
 
 
 @pytest.fixture
@@ -27,3 +32,9 @@ def product_model():
 def category():
     """Create a category for product tests."""
     return CategoryFactory()
+
+
+@pytest.fixture
+def brand():
+    """Create a brand for product tests."""
+    return BrandFactory()

@@ -18,7 +18,7 @@ class TestInflowSignals:
         initial_quantity = product.quantity
 
         # Act: Create an inflow
-        inflow = InflowFactory(product=product, supplier=supplier, quantity=25)
+        InflowFactory(product=product, supplier=supplier, quantity=25)
 
         # Assert: Product quantity should be incremented
         product.refresh_from_db()
@@ -32,7 +32,7 @@ class TestInflowSignals:
         supplier = SupplierFactory()
 
         # Act
-        inflow = InflowFactory(product=product, supplier=supplier, quantity=100)
+        InflowFactory(product=product, supplier=supplier, quantity=100)
 
         # Assert
         product.refresh_from_db()

@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h2>Minhas Notificações</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Modelo</th>
+        <th>Status</th>
+        <th>Registros</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for notif in notifications %}
+      <tr class="{% if not notif.is_read %}table-info{% endif %}">
+        <td>{{ notif.get_task_type_display }}</td>
+        <td>{{ notif.model_name }}</td>
+        <td>
+          {% if notif.status == 'completed' %}
+          <span class="badge bg-success">Concluído</span>
+          {% elif notif.status == 'failed' %}
+          <span class="badge bg-danger">Falhou</span>
+          {% elif notif.status == 'processing' %}
+          <span class="badge bg-warning">Processando</span>
+          {% else %}
+          <span class="badge bg-secondary">Pendente</span>
+          {% endif %}
+        </td>
+        <td>{{ notif.record_count|default:"-" }}</td>
+        <td>{{ notif.created_at|date:"d/m/Y H:i" }}</td>
+        <td>
+          {% if notif.status == 'completed' and notif.task_type == 'export' %}
+          <a
+            href="{% url 'notifications:notifications_download' notif.id %}"
+            class="btn btn-sm btn-primary"
+          >
+            <i class="bi bi-download"></i> Download
+          </a>
+          {% endif %} {% if notif.status == 'failed' %}
+          <button
+            class="btn btn-sm btn-danger"
+            title="{{ notif.error_message }}"
+            data-bs-toggle="tooltip"
+          >
+            <i class="bi bi-exclamation-triangle"></i> Erro
+          </button>
+          {% endif %} {% if notif.status == 'completed' and not notif.is_read %}
+          <a
+            href="{% url 'notifications:notifications_mark_read' notif.id %}"
+            class="btn btn-sm btn-secondary"
+          >
+            Marcar como lido
+          </a>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">Nenhuma notificação</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+          >Anterior</a
+        >
+      </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <span class="page-link"
+          >{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span
+        >
+      </li>
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+          >Próximo</a
+        >
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+<script>
+  // Inicializar tooltips do Bootstrap
+  document.addEventListener("DOMContentLoaded", function () {
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+</script>
+{% endblock %}

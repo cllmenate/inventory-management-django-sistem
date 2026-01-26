@@ -14,4 +14,14 @@ urlpatterns = [
         views.InflowDetailView.as_view(),
         name="inflow_detail",
     ),
+    path(
+        "inflows/export/",
+        views.InflowExportView.as_view(),
+        name="inflow_export",
+    ),
+    path(
+        "inflows/import/",
+        views.InflowImportView.as_view(),
+        name="inflow_import",
+    ),
 ]

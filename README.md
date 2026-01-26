@@ -39,6 +39,7 @@ Um sistema completo de gestão de inventário focado em rastreabilidade de produ
    ```
 
 3. Suba os containers:
+
    ```bash
    docker-compose up -d --build
    ```
@@ -73,6 +74,7 @@ O sistema estará disponível em: `http://localhost:8000`
    ```
 
 5. Inicie o servidor:
+
    ```bash
    python manage.py runserver
    ```
@@ -101,4 +103,4 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ## Autores / Contato
 
-* **Nattam Pereira** - *Portfólio* - [GitHub](https://github.com/cllmenate) - Copyright (c) 2026
+- **Nattam Pereira** - *Portfólio* - [GitHub](https://github.com/cllmenate) - Copyright (c) 2026

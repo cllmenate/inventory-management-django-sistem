@@ -47,6 +47,8 @@ urlpatterns = [
     path("", include("products.urls")),
     path("", include("inflows.urls")),
     path("", include("outflows.urls")),
+    # Notificações
+    path("notifications/", include("notifications.urls")),
     # API URLs
     path(API_PATH, include("brands.api_urls")),
     path(API_PATH, include("categories.api_urls")),

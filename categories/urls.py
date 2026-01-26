@@ -28,4 +28,14 @@ urlpatterns = [
         views.CategoryDeleteView.as_view(),
         name="category_delete",
     ),
+    path(
+        "categories/export/",
+        views.CategoryExportView.as_view(),
+        name="category_export",
+    ),
+    path(
+        "categories/import/",
+        views.CategoryImportView.as_view(),
+        name="category_import",
+    ),
 ]

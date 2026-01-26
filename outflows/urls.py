@@ -18,4 +18,14 @@ urlpatterns = [
         views.OutflowDetailView.as_view(),
         name="outflow_detail",
     ),
+    path(
+        "outflows/export/",
+        views.OutflowExportView.as_view(),
+        name="outflow_export",
+    ),
+    path(
+        "outflows/import/",
+        views.OutflowImportView.as_view(),
+        name="outflow_import",
+    ),
 ]

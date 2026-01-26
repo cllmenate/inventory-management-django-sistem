@@ -4,7 +4,7 @@ python manage.py migrate --noinput
 python manage.py collectstatic --noinput
 
 # Exporta PYTHONPATH para garantir que o pacote app seja encontrado
-export PYTHONPATH=$PYTHONPATH:/inventory-management-django-system
+export PYTHONPATH=$PYTHONPATH:/app
 
 # Inicia o servidor apropriado dependendo do ambiente
 if [ "$DEBUG" = "True" ] || [ "$DEBUG" = "1" ]; then
@@ -13,9 +13,10 @@ if [ "$DEBUG" = "True" ] || [ "$DEBUG" = "1" ]; then
 else
     echo "Iniciando em modo de PRODUÇÃO (Gunicorn)..."
     python manage.py collectstatic --noinput
-    exec gunicorn --bind 0.0.0.0:8000 \
+    exec uvicorn app.asgi:application \
+        --host 0.0.0.0 \
+        --port 8000 \
         --workers 4 \
-        --worker-class uvicorn.workers.UvicornWorker \
-        --log-level info \
-        app.asgi:application
+        --lifespan off \
+        --log-level info
 fi
