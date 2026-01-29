@@ -67,7 +67,8 @@ COPY --from=builder /app/.venv /app/.venv
 COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/prod/start.sh /start.sh
 COPY ./docker/prod/worker.sh /worker.sh
-RUN chmod +x /entrypoint.sh /start.sh /worker.sh
+RUN sed -i 's/\r$//' /entrypoint.sh /start.sh /worker.sh && \
+    chmod +x /entrypoint.sh /start.sh /worker.sh
 
 # Copia o código da aplicação
 COPY . /app

@@ -18,10 +18,17 @@ plugins:
 
 nav:
   - Home: index.md
+  - Funcionalidades: features.md
+  - Casos de Uso: use-cases.md
   - Arquitetura: architecture.md
+  - Modelo de Dados: data-model.md
+  - Tarefas Assíncronas: async-tasks.md
   - Desenvolvimento: development.md
+  - Testes: testing.md
   - API: api.md
+  - Configuração: configuration.md
   - Deploy: deployment.md
+  - Roadmap: roadmap.md
   - Contribuição: contributing.md
   - Release Notes: release-notes.md
 
@@ -45,7 +52,6 @@ markdown_extensions:
       custom_checkbox: true
   - attr_list
   - md_in_html
-
 
 extra_javascript:
   - https://unpkg.com/mermaid/dist/mermaid.min.js

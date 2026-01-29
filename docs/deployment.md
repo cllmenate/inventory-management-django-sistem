@@ -1,47 +1,45 @@
-# Deploy
+# Deploy e DevOps
 
-Este guia cobre o processo de deploy da aplicação utilizando Docker.
+Este guia aborda o ciclo de vida de produção e as operações do sistema.
 
-## Docker em Produção
+## 🚀 Produção com Docker Compose
 
-A aplicação é totalmente conteinerizada e pronta para rodar em qualquer ambiente que suporte Docker (AWS ECS, DigitalOcean App Platform, Servidor VPS, etc.).
+O arquivo `docker-compose.prod.yml` é otimizado para produção:
 
-### Arquivos de Configuração
+- **Imagens**: Utiliza o stage `runtime` do Dockerfile, resultando em imagens de ~150MB.
+- **Segurança**: Roda com usuário não-root (`appuser`).
+- **Restart Policy**: `unless-stopped` para alta disponibilidade.
+- **Logs**: Rotação de logs configurada para evitar estouro de disco.
 
-- `Dockerfile`: Multi-stage build para criar imagens leves e seguras.
-- `docker-compose.prod.yml`: Orquestração dos serviços para produção (Web, Worker, Nginx, DB, Redis).
-- `.env.prod`: Variáveis de ambiente específicas de produção.
+### Comandos de Deploy
 
-### Passo a Passo para Deploy
+```bash
+# Build e Deploy
+docker-compose -f docker-compose.prod.yml up -d --build
 
-1. **Configurar Variáveis de Meio Ambiente:**
-   Crie um arquivo `.env.prod` com as credenciais reais do banco de dados e chaves secretas. **NUNCA commite este arquivo.**
+# Verificar logs
+docker-compose -f docker-compose.prod.yml logs -f inventory_web
+```
 
-2. **Build e Execução:**
+## 🔄 Pipeline de CI/CD (GitHub Actions)
 
-   ```bash
-   docker-compose -f docker-compose.prod.yml up -d --build
-   ```
+Localizado em `.github/workflows/ci-cd.yml`, o pipeline garante que:
 
-3. **Verificação de Saúde:**
-   O Docker Compose possui `healthchecks` configurados. Verifique se os serviços estão saudáveis:
+1. **Linting**: Ruff e MyPy validam o estilo.
+2. **Security**: `detect-secrets` verifica vazamentos de chaves.
+3. **Testes**: Pytest roda toda a suíte de testes.
+4. **Deploy Automático**: (Opcional) Trigger para atualizar serviços via SSH ou push para registry.
 
-   ```bash
-   docker-compose -f docker-compose.prod.yml ps
-   ```
+## 🛡️ Checklist de Segurança de Produção
 
-4. **Arquivos Estáticos e Media:**
-   O Nginx é configurado para servir arquivos estáticos e media volumes compartilhados. O container `inventory_web` roda o `collectstatic` automaticamente no script de entrada.
+- [ ] `DEBUG` desativado.
+- [ ] `ALLOWED_HOSTS` configurado com o domínio real.
+- [ ] Senhas de banco e chaves JWT únicas e complexas.
+- [ ] Volume de `staticfiles` e `mediafiles` montado corretamente no Nginx.
+- [ ] Sentry DSN configurado para alerta de erros.
 
-### Nginx como Proxy Reverso
+## 📁 Gestão de Arquivos e Armazenamento
 
-Utilizamos o Nginx na frente da aplicação Python (Uvicorn/Gunicorn) para:
-
-- Servir arquivos estáticos (CSS, JS, Imagens).
-- Servir a documentação estática (MKDocs).
-- Adicionar headers de segurança.
-- Fazer balanceamento de carga (se houver múltiplas réplicas).
-
-### CI/CD
-
-O projeto conta com um workflow do GitHub Actions (`ci-cd.yml`) que roda os testes e linters a cada push. Para deploy contínuo, este workflow pode ser estendido para fazer push da imagem Docker para um Container Registry (ex: Docker Hub, ECR).
+- **Static**: Coletados via `python manage.py collectstatic` no build.
+- **Media**: Armazenados no volume `media_volume`. O sistema gera relatórios PDF e CSV que ficam disponíveis para download do usuário por este volume.
+- **Backup**: Recomenda-se o backup periódico do volume `postgres_data_prod`.

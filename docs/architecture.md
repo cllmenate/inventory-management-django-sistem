@@ -1,49 +1,94 @@
 # Guia de Arquitetura
 
-Este documento fornece uma visão geral técnica do Sistema de Gestão de Estoque.
+Este documento fornece um aprofundamento técnico sobre a infraestrutura e o fluxo de dados do sistema.
 
-## 🏗️ Visão Geral do Sistema
+## 🏗️ Topologia da Infraestrutura
 
-O sistema é construído como um monólito modular utilizando **Django**, com foco em robustez, escalabilidade e facilidade de manutenção. A comunicação externa é realizada através de uma **API REST** documentada, enquanto tarefas assíncronas são gerenciadas por filas de mensagens.
+O sistema utiliza uma arquitetura de serviços coordenados via Docker Compose, garantindo isolamento e escalabilidade horizontal para os workers.
 
-### Stack Tecnológica Principal
+```mermaid
+graph LR
+    User[Usuário] -->|HTTPS| Nginx["Nginx (Proxy Reverso)"]
+    Nginx -->|Port 8000| Gunicorn["Gunicorn (Django)"]
+    
+    subgraph "Core System"
+        Gunicorn --> DB[(PostgreSQL 17)]
+        Gunicorn --> Redis[(Redis)]
+    end
 
-- **Framework Web**: Django 6.0
-- **API**: Django Rest Framework (DRF)
-- **Banco de Dados**: PostgreSQL 17
-- **Cache & Mensageria**: Redis
-- **Processamento Assíncrono**: Celery + Flower
-- **Servidor de Aplicação**: Gunicorn + Uvicorn
-- **Proxy Reverso**: Nginx
-- **Monitoramento**: Sentry
+    subgraph "Background Processing"
+        Redis --> Worker["Celery Worker (Tasks)"]
+        Worker --> DB
+        Beat["Celery Beat (Schedule)"] --> Redis
+    end
 
-## 🧩 Modelo de Dados
+    subgraph "Observability"
+        Gunicorn -.-> Sentry[Sentry.io]
+        Worker -.-> Sentry
+    end
+```
 
-O núcleo do sistema gira em torno do gerenciamento de produtos e suas movimentações (entradas e saídas). Abaixo está o diagrama de Entidade-Relacionamento simplificado:
+## 🐳 Componentes Docker
+
+O sistema roda em containers isolados que se comunicam via rede interna.
+
+```mermaid
+graph TB
+    subgraph "Host Machine"
+        subgraph "Docker Network: inventory_network"
+            Nginx["nginx:alpine<br/>inventory_nginx<br/>Port: 80→80"]
+            Web["python:3.13-slim<br/>inventory_web<br/>Port: 8000"]
+            Worker["python:3.13-slim<br/>inventory_worker"]
+            Beat["python:3.13-slim<br/>inventory_beat"]
+            Flower["python:3.13-slim<br/>inventory_flower<br/>Port: 5555"]
+            DB["postgres:17-alpine<br/>inventory_db<br/>Port: 5432"]
+            Redis["redis:7-alpine<br/>inventory_redis<br/>Port: 6379"]
+        end
+        
+        Volumes["Volumes (Persistent)<br/>postgres_data<br/>redis_data<br/>media_volume"]
+    end
+
+    Nginx -->|Proxy Pass :8000| Web
+    Nginx -->|Serve /static/| Volumes
+    Nginx -->|Serve /media/| Volumes
+    Web --> DB
+    Web --> Redis
+    Worker --> DB
+    Worker --> Redis
+    Beat --> Redis
+    Flower --> Redis
+    DB -.->|Persists| Volumes
+    Redis -.->|Persists| Volumes
+    Web -.->|Uploads| Volumes
+```
+
+### Health Checks
+
+Cada serviço possui verificações de saúde:
+
+```yaml
+# docker-compose.yml
+healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
+```
+
+## 📊 Modelo de Dados (ERD)
+
+A estrutura do banco de dados é projetada para integridade referencial total.
 
 ```mermaid
 erDiagram
-    Brand ||--o{ ProductModel : "tem"
-    ProductModel ||--o{ Product : "define"
-    Category ||--o{ Product : "categoriza"
     Product ||--o{ Inflow : "recebe"
     Product ||--o{ Outflow : "emite"
+    Brand ||--o{ ProductModel : "possui"
+    ProductModel ||--o{ Product : "define"
+    Category ||--o{ Product : "classifica"
     Supplier ||--o{ Inflow : "fornece"
-
-    Brand {
-        string name
-        text description
-    }
-
-    Category {
-        string name
-        text description
-    }
-
-    ProductModel {
-        string name
-        string brand_id FK
-    }
+    User ||--o{ TaskNotification : "recebe"
 
     Product {
         string title
@@ -51,157 +96,109 @@ erDiagram
         decimal cost_price
         decimal sell_price
         int quantity
-        string category_id FK
-        string product_model_id FK
     }
-
-    Supplier {
-        string name
-        string email
-    }
-
-    Inflow {
-        int quantity
-        string product_id FK
-        string supplier_id FK
-        datetime created_at
-    }
-
-    Outflow {
-        int quantity
-        string product_id FK
-        datetime created_at
+    
+    TaskNotification {
+        string task_id
+        string status
+        string task_type
+        datetime completed_at
     }
 ```
 
-### Principais Entidades
+## 🔄 Lifecycle de Tarefas Assíncronas
 
-1. **Product (Produto)**: Entidade central. Mantém o estado atual do estoque (`quantity`), preços e metadados.
-2. **Inflow (Entrada)**: Registra o aumento de estoque. Vincula um produto a um fornecedor (`Supplier`).
-3. **Outflow (Saída)**: Registra a baixa de estoque. Representa vendas ou retiradas.
-4. **Auxiliares**: `Brand` (Marca), `Category` (Categoria) e `ProductModel` (Modelo) servem para classificar e organizar os produtos.
-
-## ⚙️ Infraestrutura e Deploy
-
-A infraestrutura é totalmente conteinerizada usando Docker, garantindo paridade entre desenvolvimento e produção.
+As tarefas de exportação/importação seguem um fluxo de estados gerenciado pelo Celery e rastreado no banco de dados.
 
 ```mermaid
-graph TD
-    User[Usuário / Cliente] -->|HTTP/HTTPS| Nginx[Nginx Proxy]
-    Nginx -->|Proxy Pass| Web["Django App (Gunicorn/Uvicorn)"]
-
-    subgraph Services
-        Web -->|Lê/Escreve| DB[(PostgreSQL)]
-        Web -->|Cache/Filas| Redis[(Redis)]
-
-        Worker[Celery Worker] -->|Consome Tarefas| Redis
-        Worker -->|Persiste Dados| DB
-
-        Flower[Flower Dashboard] -->|Monitora| Redis
-    end
+stateDiagram-v2
+    [*] --> Pendente: Usuário solicita Export
+    Pendente --> Processando: Worker captura tarefa
+    Processando --> Concluido: Sucesso (Arquivo gerado)
+    Processando --> Falha: Erro capturado
+    Concluido --> [*]
+    Falha --> Pendente: Retry (opcional)
+    Falha --> [*]
 ```
 
-### Serviços
+## ⚙️ Componentes de Infraestrutura
 
-- **inventory_web**: Container principal da aplicação Django.
-- **inventory_worker**: Processa tarefas em background (ex: relatórios pesados, envio de emails).
-- **inventory_db**: Banco de dados relacional persistente.
-- **inventory_redis**: Broker para o Celery e backend de cache para o Django.
-- **inventory_nginx**: Servidor web que serve arquivos estáticos e faz proxy para a aplicação.
+### Nginx (Proxy Reverso)
 
-## 🔐 Segurança e Autenticação
+O Nginx atua como a primeira camada de defesa e otimização:
 
-- **Autenticação**: Baseada em **JWT (JSON Web Tokens)** via `rest_framework_simplejwt`.
-- **Permissões**: Controle de acesso baseado em cargos (Role-Based Access Control) nativo do Django (`add_product`, `view_product`, etc.).
-- **Variáveis de Ambiente**: Segredos (chaves de API, senhas de DB) são gerenciados via `.env` e nunca commitados no código.
+- **Proxy Pass**: Encaminha requisições dinâmicas para o Gunicorn.
+- **Static Serving**: Serve diretamente os arquivos em `/staticfiles/` sem onerar o Django.
+- **Media Serving**: Gerencia o download de arquivos protegidos em `/mediafiles/` (como exports gerados).
+- **Docs Hosting**: Serve esta documentação estática (MKDocs) em `/docs/`.
 
-### Fluxo de Autenticação (JWT)
+### Celery & Redis
 
-A autenticação é stateless, utilizando tokens de acesso e refresh.
+- **Broker**: O Redis armazena a fila de mensagens.
+- **Worker**: Processa tarefas `shared_task` (exports, imports).
+- **Beat**: Um agendador que dispara tarefas periódicas (ex: `update_dashboard_metrics_cache` a cada 5 minutos).
+- **Result Backend**: Utilizamos `django-db` para persistir o histórico de resultados das tarefas, permitindo que o usuário veja o status em "Notificações".
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant API as Django API
-    participant DB as Database
+### Monitoramento com Sentry
 
-    Client->>API: POST /api/v1/authentication/token/ (user, password)
-    API->>DB: Valida Credenciais
-    alt Credenciais Válidas
-        DB-->>API: User OK
-        API-->>Client: Retorna Access Token + Refresh Token
-    else Inválido
-        API-->>Client: 401 Unauthorized
-    end
+Configurado em `app/settings.py`, o Sentry captura:
 
-    Note over Client, API: Requisições subsequentes
+- Exceções não tratadas (500 errors).
+- Gargalos de performance em queries SQL.
+- Erros em tarefas assíncronas do Celery.
 
-    Client->>API: GET /api/v1/products/ (Header: Bearer <access_token>)
-    API->>API: Verifica Assinatura do Token
-    alt Token Válido
-        API->>DB: Consulta Dados
-        DB-->>API: Dados
-        API-->>Client: 200 OK (JSON)
-    else Token Expirado
-        API-->>Client: 401 Unauthorized
-    end
-```
+---
 
-### Fluxo CRUD de Produto
-
-Exemplo do ciclo de vida de uma requisição de criação de produto.
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant View as ProductListCreateView
-    participant Serializer as ProductSerializer
-    participant Model as Product Model
-    participant DB as Postgres
-
-    User->>View: POST /api/v1/products/ (JSON)
-    View->>View: Check Permissions (add_product)
-
-    View->>Serializer: Validate Data
-    alt Dados Válidos
-        Serializer->>Model: Create Instance
-        Model->>DB: INSERT INTO products ...
-        DB-->>Model: ID: 123
-        Model-->>Serializer: Instance Saved
-        Serializer-->>View: Serialized Data
-        View-->>User: 201 Created (JSON)
-    else Dados Inválidos
-        Serializer-->>View: Validation Errors
-        View-->>User: 400 Bad Request
-    end
-```
-
-### Fluxo de Segurança
-
-Camadas de segurança implementadas na requisição.
+## 🔐 Camadas de Segurança
 
 ```mermaid
 flowchart TD
-    Req["Requisição HTTP"] --> Nginx[Nginx]
-    Nginx -->|"Rate Limit / SSL"| Gunicorn["Gunicorn WSGI"]
-    Gunicorn -->|"Host Check"| Django["Django SecurityMiddleware"]
-    Django --> CORS["CORS Headers"]
-    CORS --> Auth["JWT Authentication"]
-    Auth --> Perm["DRF Permissions (IsAuthenticated)"]
-    Perm --> View["API View Logic"]
+    A[Internet] --> B{Nginx}
+    B -->|CORS Check| C[Django Security Middleware]
+    C --> D{Authentication}
+    D -->|JWT Valid?| E[DRF Permissions]
+    D -->|Invalid| F[401 Unauthorized]
+    E -->|IsAdmin/IsStaff| G[Admin Dashboard]
+    E -->|Model Permissions| H[API Resource]
+```
 
-    subgraph "Django App"
-        Django
-        CORS
-        Auth
-        Perm
-        View
+### Fluxo de Autenticação (JWT)
+
+O sistema utiliza `rest_framework_simplejwt`:
+
+1. **Login**: O cliente envia credenciais e recebe `access` e `refresh` tokens.
+2. **Access Token**: Curta duração (30 min), enviado no header `Authorization: Bearer <token>`.
+3. **Refresh Token**: Longa duração (7 dias), usado para obter um novo `access` sem re-autenticar.
+4. **Blacklist**: Ao deslogar (logout), o token é colocado em uma blacklist no banco de dados.
+
+```mermaid
+sequenceDiagram
+    participant Cliente
+    participant API as API (Django)
+    participant DB as Banco de Dados
+
+    Cliente->>API: POST /token/ (username, password)
+    API->>DB: Verifica credenciais
+    alt Credenciais Válidas
+        DB-->>API: Usuário encontrado
+        API-->>Cliente: Retorna Access + Refresh Tokens
+    else Credenciais Inválidas
+        API-->>Cliente: 401 Unauthorized
+    end
+
+    Note over Cliente, API: Uso do token em requisições
+    Cliente->>API: GET /products/ (Header: Bearer <access_token>)
+    API->>API: Valida assinatura do token
+    alt Token Válido
+        API-->>Cliente: 200 OK (Dados dos produtos)
+    else Token Expirado/Inválido
+        API-->>Cliente: 401 Unauthorized
     end
 ```
 
-## 📏 Padrões de Código
+## 📊 Estratégia de Caching
 
-- **Linting**: Ruff é utilizado para garantir estilo e qualidade de código (PEP 8).
-- **Tipagem**: MyPy é usado para verificação estática de tipos.
-- **Testes**: Pytest é o framework de testes, com cobertura monitorada via `pytest-cov`.
-- **Pre-commit**: Hooks garantem que nada seja commitado sem passar pelos padrões de qualidade.
+Para garantir que o dashboard seja carregado em milissegundos, utilizamos cache agressivo no Redis:
+
+- **Métricas Globais**: Armazenadas como chaves JSON `metrics:product`, `metrics:sales`, etc.
+- **Invalidação**: O cache é renovado pelo Celery Beat ou via signals em alterações críticas.

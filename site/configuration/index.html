@@ -1,0 +1,1574 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação do Sistema de Gestão de Estoque">
+      
+      
+        <meta name="author" content="Equipe de Desenvolvimento">
+      
+      
+        <link rel="canonical" href="http://localhost:8000/configuration/">
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+        <link rel="next" href="../deployment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Configuração - Sistema de Gestão de Estoque</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuracao-do-sistema" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-header__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sistema de Gestão de Estoque
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuração
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-nav__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sistema de Gestão de Estoque
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcionalidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelo de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Variáveis de Ambiente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Variáveis de Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquivo-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivo .env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabela-completa-de-variaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela Completa de Variáveis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguranca-geracao-de-chaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Segurança: Geração de Chaves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Segurança: Geração de Chaves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secret_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SECRET_KEY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signing_key-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SIGNING_KEY (JWT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ambientes-dev-vs-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌍 Ambientes: Dev vs Prod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌍 Ambientes: Dev vs Prod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenvolvimento (docker-compose.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao-docker-composeprodyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produção (docker-compose.prod.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-cache-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Configuração de Cache (Redis)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Configuração de Cache (Redis)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uso-no-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso no código
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔒 Configuração de CORS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-email-futuro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📧 Configuração de Email (Futuro)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-seguranca-para-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Checklist de Segurança para Produção
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-docker-persistentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐳 Volumes Docker Persistentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 Volumes Docker Persistentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenvolvimento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produção
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-de-configuracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Debugging de Configuração
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Debugging de Configuração">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verificar-variaveis-carregadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificar variáveis carregadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testar-conexao-com-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testar conexão com PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testar-conexao-com-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testar conexão com Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribuição
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Variáveis de Ambiente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Variáveis de Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquivo-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivo .env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabela-completa-de-variaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela Completa de Variáveis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguranca-geracao-de-chaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Segurança: Geração de Chaves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Segurança: Geração de Chaves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secret_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SECRET_KEY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signing_key-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SIGNING_KEY (JWT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ambientes-dev-vs-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌍 Ambientes: Dev vs Prod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌍 Ambientes: Dev vs Prod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenvolvimento (docker-compose.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao-docker-composeprodyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produção (docker-compose.prod.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-cache-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Configuração de Cache (Redis)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Configuração de Cache (Redis)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uso-no-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso no código
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔒 Configuração de CORS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-de-email-futuro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📧 Configuração de Email (Futuro)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-seguranca-para-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Checklist de Segurança para Produção
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-docker-persistentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐳 Volumes Docker Persistentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 Volumes Docker Persistentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenvolvimento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produção
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-de-configuracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Debugging de Configuração
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Debugging de Configuração">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verificar-variaveis-carregadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificar variáveis carregadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testar-conexao-com-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testar conexão com PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testar-conexao-com-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testar conexão com Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="configuracao-do-sistema">Configuração do Sistema</h1>
+<p>Esta página documenta todas as variáveis de ambiente, configurações de segurança e diferenças entre ambientes de desenvolvimento e produção.</p>
+<hr />
+<h2 id="variaveis-de-ambiente">🔧 Variáveis de Ambiente</h2>
+<h3 id="arquivo-env">Arquivo <code>.env</code></h3>
+<p>O sistema utiliza um arquivo <code>.env</code> na raiz do projeto para configurações sensíveis. Use <code>.env.example</code> como template.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Copiar template</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+</span></code></pre></div>
+<h3 id="tabela-completa-de-variaveis">Tabela Completa de Variáveis</h3>
+<table>
+<thead>
+<tr>
+<th>Variável</th>
+<th>Tipo</th>
+<th>Obrigatória</th>
+<th>Padrão (Dev)</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Django Core</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>Boolean</td>
+<td>✅</td>
+<td><code>True</code></td>
+<td>Ativa modo de debug (⚠️ <code>False</code> em prod)</td>
+</tr>
+<tr>
+<td><code>SECRET_KEY</code></td>
+<td>String</td>
+<td>✅</td>
+<td>-</td>
+<td>Chave de criptografia Django</td>
+</tr>
+<tr>
+<td><code>SIGNING_KEY</code></td>
+<td>String</td>
+<td>✅</td>
+<td>-</td>
+<td>Chave de assinatura JWT</td>
+</tr>
+<tr>
+<td><code>ALLOWED_HOSTS</code></td>
+<td>String (CSV)</td>
+<td>✅</td>
+<td><code>localhost,127.0.0.1</code></td>
+<td>Hosts permitidos</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>POSTGRES_DB</code></td>
+<td>String</td>
+<td>✅</td>
+<td><code>inventory_db</code></td>
+<td>Nome do banco</td>
+</tr>
+<tr>
+<td><code>POSTGRES_USER</code></td>
+<td>String</td>
+<td>✅</td>
+<td><code>inventory_user</code></td>
+<td>Usuário PostgreSQL</td>
+</tr>
+<tr>
+<td><code>POSTGRES_PASSWORD</code></td>
+<td>String</td>
+<td>✅</td>
+<td>-</td>
+<td>Senha do banco</td>
+</tr>
+<tr>
+<td><code>POSTGRES_HOST</code></td>
+<td>String</td>
+<td>✅</td>
+<td><code>inventory_db</code></td>
+<td>Host do PostgreSQL</td>
+</tr>
+<tr>
+<td><code>POSTGRES_PORT</code></td>
+<td>Integer</td>
+<td>✅</td>
+<td><code>5432</code></td>
+<td>Porta do PostgreSQL</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>REDIS_HOST</code></td>
+<td>String</td>
+<td>✅</td>
+<td><code>inventory_redis</code></td>
+<td>Host do Redis</td>
+</tr>
+<tr>
+<td><code>REDIS_PORT</code></td>
+<td>Integer</td>
+<td>✅</td>
+<td><code>6379</code></td>
+<td>Porta do Redis</td>
+</tr>
+<tr>
+<td><code>REDIS_DB</code></td>
+<td>Integer</td>
+<td>❌</td>
+<td><code>0</code></td>
+<td>Índice do banco Redis</td>
+</tr>
+<tr>
+<td><strong>Celery</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CELERY_BROKER_URL</code></td>
+<td>String</td>
+<td>✅</td>
+<td><code>redis://inventory_redis:6379/0</code></td>
+<td>URL do broker</td>
+</tr>
+<tr>
+<td><code>CELERY_RESULT_BACKEND</code></td>
+<td>String</td>
+<td>❌</td>
+<td><code>django-db</code></td>
+<td>Backend de resultados</td>
+</tr>
+<tr>
+<td><strong>Sentry</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SENTRY_DSN</code></td>
+<td>String</td>
+<td>❌</td>
+<td>-</td>
+<td>DSN do Sentry (monitoramento)</td>
+</tr>
+<tr>
+<td><code>SENTRY_ENVIRONMENT</code></td>
+<td>String</td>
+<td>❌</td>
+<td><code>development</code></td>
+<td>Ambiente (<code>dev</code>, <code>prod</code>)</td>
+</tr>
+<tr>
+<td><strong>CORS</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CORS_ALLOWED_ORIGINS</code></td>
+<td>String (CSV)</td>
+<td>❌</td>
+<td><code>http://localhost:3000</code></td>
+<td>Origins permitidas</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="seguranca-geracao-de-chaves">🔐 Segurança: Geração de Chaves</h2>
+<h3 id="secret_key">SECRET_KEY</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Gerar nova chave Django</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())&quot;</span>
+</span></code></pre></div>
+<h3 id="signing_key-jwt">SIGNING_KEY (JWT)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Gerar chave forte para JWT</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import secrets; print(secrets.token_urlsafe(64))&quot;</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: Use chaves <strong>diferentes</strong> para <code>SECRET_KEY</code> e <code>SIGNING_KEY</code>.</p>
+</blockquote>
+<hr />
+<h2 id="ambientes-dev-vs-prod">🌍 Ambientes: Dev vs Prod</h2>
+<h3 id="desenvolvimento-docker-composeyml">Desenvolvimento (docker-compose.yml)</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">inventory_web</span><span class="p">:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=True</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALLOWED_HOSTS=localhost,127.0.0.1</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SENTRY_ENVIRONMENT=development</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python manage.py runserver 0.0.0.0:8000</span>
+</span></code></pre></div>
+<p><strong>Características</strong>:
+- Hot reload (código atualiza automaticamente)
+- Debug toolbar ativado
+- Logs verbosos no console
+- SQLite para testes (via pytest)</p>
+<h3 id="producao-docker-composeprodyml">Produção (docker-compose.prod.yml)</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">inventory_web</span><span class="p">:</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=False</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SENTRY_ENVIRONMENT=production</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gunicorn app.wsgi:application --bind 0.0.0.0:8000</span>
+</span></code></pre></div>
+<p><strong>Características</strong>:
+- <code>DEBUG=False</code> (obrigatório)
+- Gunicorn com múltiplos workers
+- Logs enviados para Sentry
+- HTTPS obrigatório (Nginx)</p>
+<hr />
+<h2 id="configuracao-de-cache-redis">📊 Configuração de Cache (Redis)</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># settings.py</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.redis.RedisCache&#39;</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;redis://</span><span class="si">{</span><span class="n">REDIS_HOST</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">REDIS_PORT</span><span class="si">}</span><span class="s1">/1&#39;</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="s1">&#39;CLIENT_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;django_redis.client.DefaultClient&#39;</span><span class="p">,</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="p">},</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="s1">&#39;KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;inventory&#39;</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="s1">&#39;TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># 5 minutos padrão</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="p">}</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="uso-no-codigo">Uso no código</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.core.cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Salvar</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;metrics:product&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Ler</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">data</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics:product&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="configuracao-de-cors">🔒 Configuração de CORS</h2>
+<p>Para permitir que frontends externos acessem a API:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># .env</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">CORS_ALLOWED_ORIGINS</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">3000</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="o">.</span><span class="n">seudominio</span><span class="o">.</span><span class="n">com</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># settings.py (já configurado)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">CORS_ALLOWED_ORIGINS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CORS_ALLOWED_ORIGINS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="configuracao-de-email-futuro">📧 Configuração de Email (Futuro)</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Para notificações por email</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;django.core.mail.backends.smtp.EmailBackend&#39;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">EMAIL_HOST</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;EMAIL_HOST&#39;</span><span class="p">,</span> <span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">EMAIL_PORT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;EMAIL_PORT&#39;</span><span class="p">,</span> <span class="mi">587</span><span class="p">))</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">EMAIL_USE_TLS</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">EMAIL_HOST_USER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;EMAIL_USER&#39;</span><span class="p">)</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;EMAIL_PASSWORD&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="checklist-de-seguranca-para-producao">🛡️ Checklist de Segurança para Produção</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>DEBUG = False</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ALLOWED_HOSTS</code> configurado com domínio real</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>SECRET_KEY</code> única e complexa (mínimo 50 caracteres)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>SIGNING_KEY</code> diferente de <code>SECRET_KEY</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Senha do PostgreSQL forte (mínimo 16 caracteres)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sentry DSN configurado para monitoramento</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> HTTPS configurado no Nginx</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Firewall bloqueando portas 5432, 6379 (apenas Docker interno)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Backup automático do volume <code>postgres_data_prod</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Logs rotacionados (configurado no <code>docker-compose.prod.yml</code>)</li>
+</ul>
+<hr />
+<h2 id="volumes-docker-persistentes">🐳 Volumes Docker Persistentes</h2>
+<h3 id="desenvolvimento">Desenvolvimento</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">postgres_data</span><span class="p">:</span><span class="w">  </span><span class="c1"># Dados do banco</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">redis_data</span><span class="p">:</span><span class="w">     </span><span class="c1"># Dados do Redis</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">media_volume</span><span class="p">:</span><span class="w">   </span><span class="c1"># Arquivos de upload (exports)</span>
+</span></code></pre></div>
+<h3 id="producao">Produção</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">postgres_data_prod</span><span class="p">:</span><span class="w">  </span><span class="c1"># ⚠️ Fazer backup diário</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">redis_data_prod</span><span class="p">:</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">media_volume_prod</span><span class="p">:</span><span class="w">   </span><span class="c1"># Relatórios gerados</span>
+</span></code></pre></div>
+<hr />
+<h2 id="debugging-de-configuracao">🔍 Debugging de Configuração</h2>
+<h3 id="verificar-variaveis-carregadas">Verificar variáveis carregadas</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Dentro do container</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>inventory_web<span class="w"> </span>bash
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python<span class="w"> </span>manage.py<span class="w"> </span>shell
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>&gt;&gt;&gt;<span class="w"> </span>from<span class="w"> </span>django.conf<span class="w"> </span>import<span class="w"> </span>settings
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>&gt;&gt;&gt;<span class="w"> </span>print<span class="o">(</span>settings.DEBUG<span class="o">)</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>&gt;&gt;&gt;<span class="w"> </span>print<span class="o">(</span>settings.DATABASES<span class="o">)</span>
+</span></code></pre></div>
+<h3 id="testar-conexao-com-postgresql">Testar conexão com PostgreSQL</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>inventory_db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>inventory_user<span class="w"> </span>-d<span class="w"> </span>inventory_db<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;SELECT 1;&#39;</span>
+</span></code></pre></div>
+<h3 id="testar-conexao-com-redis">Testar conexão com Redis</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>inventory_redis<span class="w"> </span>redis-cli<span class="w"> </span>ping
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Resposta: PONG</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "navigation.indexes", "content.code.copy", "content.action.edit", "content.view.source"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

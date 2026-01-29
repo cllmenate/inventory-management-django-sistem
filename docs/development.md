@@ -1,96 +1,79 @@
-# Desenvolvimento
+# Guia de Desenvolvimento e QA
 
-Este guia aborda as práticas de configuração de ambiente, fluxo de desenvolvimento e padrões do projeto.
+Este documento detalha os padrões de qualidade e procedimentos de teste do sistema.
 
-## Configuração do Ambiente de Desenvolvimento
+## 🛠️ Ambiente de Desenvolvimento
 
-### Pré-requisitos
+### Gerenciamento com UV
 
-- Python 3.13+
-- Docker & Docker Compose
-- Git
-- `uv` (Gerenciador de pacotes)
+O projeto utiliza o **Astral UV**, que é significativamente mais rápido que o `pip` e gerencia ambientes virtuais automaticamente.
 
-### Setup Local
+- **Sincronizar ambiente**: `uv sync`
+- **Adicionar dependência**: `uv add <package>`
+- **Rodar comando no venv**: `uv run <command>`
 
-1. **Clone o repositório:**
+### Variáveis de Ambiente (.env)
 
-   ```bash
-   git clone https://github.com/cllmenate/inventory-management-django-sistem.git
-   cd inventory-management-django-system
-   ```
+Configurações críticas em `app/settings.py` dependem do `.env`:
 
-2. **Instale as dependências com `uv`:**
+- `DEBUG`: `True` em dev, `False` em prod.
+- `SECRET_KEY`: Chave de segurança do Django.
+- `SIGNING_KEY`: Chave para assinatura de tokens JWT.
+- `POSTGRES_DB/...`: Credenciais do banco.
 
-   ```bash
-   uv sync --dev
-   ```
+## 🧪 Estratégia de Testes
 
-3. **Configure o `.env`:**
-   Copie o exemplo e ajuste conforme necessário.
+Utilizamos **Pytest** com uma suíte de testes robusta que cobre unitários, integração e comportamento.
 
-   ```bash
-   cp .env.example .env
-   ```
-
-4. **Suba o banco de dados via Docker:**
-
-   ```bash
-   docker-compose up -d inventory_db inventory_redis
-   ```
-
-5. **Rode as migrações:**
-
-   ```bash
-   uv run python manage.py migrate
-   ```
-
-6. **Execute o servidor local:**
-   ```bash
-   uv run python manage.py runserver
-   ```
-
-## Guidelines e Padrões
-
-Seguimos estritamente os padrões da comunidade Python e Django.
-
-### Linting e Formatação
-
-Utilizamos **Ruff** para garantir a qualidade do código.
-
-- **Lint:** `uv run ruff check .`
-- **Format:** `uv run ruff format .`
-
-### Tipagem Estática
-
-Utilizamos **MyPy** para garantir a segurança de tipos.
-
-- **Check:** `uv run mypy .`
-
-### Hooks de Git
-
-O **Pre-commit** roda automaticamente antes de cada commit para verificar linting, trailing whitespaces e chaves secretas.
-
-- Instalar hooks: `uv run pre-commit install`
-
-## Testes Automatizados
-
-O projeto utiliza **Pytest** como runner de testes.
-
-### Executando Testes
+### Execução de Testes
 
 ```bash
-# Rodar todos os testes
+# Execução padrão
 uv run pytest
 
-# Rodar com cobertura
-uv run pytest --cov=app
+# Verificação de cobertura (Coverage)
+uv run pytest --cov=. --cov-report=html
 ```
 
-### Estrutura de Testes
+### Categorias de Testes
 
-Os testes estão localizados na pasta `tests/` e espelham a estrutura das apps.
+- **Unitários**: Testam modelos e lógica isolada (ex: `tests/products/test_models.py`).
+- **Integração**: Testam o fluxo entre camadas (ex: logic -> database -> cache).
+- **API (Request Tests)**: Testam os endpoints DRF (ex: `tests/api/v1/`).
+- **Signals**: Verificam se o estoque é atualizado corretamente após uma entrada/saída.
 
-- `tests/authentication/`: Testes de login e permissões.
-- `tests/products/`: Testes de CRUD de produtos.
-- `tests/integration/`: Testes de integração de API.
+### Mocking e Utilidades
+
+- **Factory Boy**: Usado para gerar dados de teste consistentes sem escrita manual de objetos.
+- **Time-machine**: Usado para testar comportamentos que dependem da data/hora (ex: relatórios diários).
+- **Database**: O ambiente de testes utiliza **SQLite em memória** por padrão para velocidade, configurado no `pyproject.toml` via `pytest-env`.
+
+## 💎 Qualidade de Código (Linting)
+
+Não aceitamos código sem validação de estilo e tipos.
+
+### Ruff (Linter & Formatter)
+
+Substitui o Flake8, Black e Isort com desempenho muito superior.
+
+```bash
+uv run ruff check .  # Lint
+uv run ruff format . # Format
+```
+
+### MyPy (Type Checking)
+
+Garante que a tipagem estática do Python seja respeitada, reduzindo erros de runtime.
+
+```bash
+uv run mypy .
+```
+
+### Pre-commit Hooks
+
+Configurado para rodar antes de cada `git commit`:
+
+- Limpeza de espaços em branco.
+- Check de arquivos YAML/JSON.
+- Verificação de secrets (prevenção de vazamento de chaves).
+- Execução rápida do Ruff.

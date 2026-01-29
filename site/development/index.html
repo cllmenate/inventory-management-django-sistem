@@ -15,10 +15,10 @@
         <link rel="canonical" href="http://localhost:8000/development/">
       
       
-        <link rel="prev" href="../architecture/">
+        <link rel="prev" href="../async-tasks/">
       
       
-        <link rel="next" href="../api/">
+        <link rel="next" href="../testing/">
       
       
         
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#desenvolvimento" class="md-skip">
+        <a href="#guia-de-desenvolvimento-e-qa" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -229,6 +229,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcionalidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../architecture/" class="md-nav__link">
         
   
@@ -237,6 +291,60 @@
     
   
     Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelo de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
   
 
     
@@ -316,22 +424,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuracao-do-ambiente-de-desenvolvimento" class="md-nav__link">
+  <a href="#ambiente-de-desenvolvimento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuração do Ambiente de Desenvolvimento
+        🛠️ Ambiente de Desenvolvimento
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuração do Ambiente de Desenvolvimento">
+    <nav class="md-nav" aria-label="🛠️ Ambiente de Desenvolvimento">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pre-requisitos" class="md-nav__link">
+  <a href="#gerenciamento-com-uv" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pré-requisitos
+        Gerenciamento com UV
       
     </span>
   </a>
@@ -339,10 +447,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setup-local" class="md-nav__link">
+  <a href="#variaveis-de-ambiente-env" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup Local
+        Variáveis de Ambiente (.env)
       
     </span>
   </a>
@@ -355,22 +463,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#guidelines-e-padroes" class="md-nav__link">
+  <a href="#estrategia-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Guidelines e Padrões
+        🧪 Estratégia de Testes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Guidelines e Padrões">
+    <nav class="md-nav" aria-label="🧪 Estratégia de Testes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#linting-e-formatacao" class="md-nav__link">
+  <a href="#execucao-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Linting e Formatação
+        Execução de Testes
       
     </span>
   </a>
@@ -378,10 +486,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tipagem-estatica" class="md-nav__link">
+  <a href="#categorias-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tipagem Estática
+        Categorias de Testes
       
     </span>
   </a>
@@ -389,10 +497,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#hooks-de-git" class="md-nav__link">
+  <a href="#mocking-e-utilidades" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hooks de Git
+        Mocking e Utilidades
       
     </span>
   </a>
@@ -405,22 +513,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testes-automatizados" class="md-nav__link">
+  <a href="#qualidade-de-codigo-linting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Testes Automatizados
+        💎 Qualidade de Código (Linting)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Testes Automatizados">
+    <nav class="md-nav" aria-label="💎 Qualidade de Código (Linting)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#executando-testes" class="md-nav__link">
+  <a href="#ruff-linter-formatter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executando Testes
+        Ruff (Linter &amp; Formatter)
       
     </span>
   </a>
@@ -428,10 +536,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#estrutura-de-testes" class="md-nav__link">
+  <a href="#mypy-type-checking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estrutura de Testes
+        MyPy (Type Checking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-commit Hooks
       
     </span>
   </a>
@@ -447,6 +566,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -485,6 +631,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../deployment/" class="md-nav__link">
         
   
@@ -493,6 +666,33 @@
     
   
     Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
   
 
     
@@ -586,22 +786,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuracao-do-ambiente-de-desenvolvimento" class="md-nav__link">
+  <a href="#ambiente-de-desenvolvimento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuração do Ambiente de Desenvolvimento
+        🛠️ Ambiente de Desenvolvimento
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuração do Ambiente de Desenvolvimento">
+    <nav class="md-nav" aria-label="🛠️ Ambiente de Desenvolvimento">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pre-requisitos" class="md-nav__link">
+  <a href="#gerenciamento-com-uv" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pré-requisitos
+        Gerenciamento com UV
       
     </span>
   </a>
@@ -609,10 +809,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setup-local" class="md-nav__link">
+  <a href="#variaveis-de-ambiente-env" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup Local
+        Variáveis de Ambiente (.env)
       
     </span>
   </a>
@@ -625,22 +825,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#guidelines-e-padroes" class="md-nav__link">
+  <a href="#estrategia-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Guidelines e Padrões
+        🧪 Estratégia de Testes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Guidelines e Padrões">
+    <nav class="md-nav" aria-label="🧪 Estratégia de Testes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#linting-e-formatacao" class="md-nav__link">
+  <a href="#execucao-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Linting e Formatação
+        Execução de Testes
       
     </span>
   </a>
@@ -648,10 +848,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tipagem-estatica" class="md-nav__link">
+  <a href="#categorias-de-testes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tipagem Estática
+        Categorias de Testes
       
     </span>
   </a>
@@ -659,10 +859,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#hooks-de-git" class="md-nav__link">
+  <a href="#mocking-e-utilidades" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hooks de Git
+        Mocking e Utilidades
       
     </span>
   </a>
@@ -675,22 +875,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testes-automatizados" class="md-nav__link">
+  <a href="#qualidade-de-codigo-linting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Testes Automatizados
+        💎 Qualidade de Código (Linting)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Testes Automatizados">
+    <nav class="md-nav" aria-label="💎 Qualidade de Código (Linting)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#executando-testes" class="md-nav__link">
+  <a href="#ruff-linter-formatter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executando Testes
+        Ruff (Linter &amp; Formatter)
       
     </span>
   </a>
@@ -698,10 +898,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#estrutura-de-testes" class="md-nav__link">
+  <a href="#mypy-type-checking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estrutura de Testes
+        MyPy (Type Checking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-commit Hooks
       
     </span>
   </a>
@@ -730,82 +941,64 @@
 
 
 
-<h1 id="desenvolvimento">Desenvolvimento</h1>
-<p>Este guia aborda as práticas de configuração de ambiente, fluxo de desenvolvimento e padrões do projeto.</p>
-<h2 id="configuracao-do-ambiente-de-desenvolvimento">Configuração do Ambiente de Desenvolvimento</h2>
-<h3 id="pre-requisitos">Pré-requisitos</h3>
+<h1 id="guia-de-desenvolvimento-e-qa">Guia de Desenvolvimento e QA</h1>
+<p>Este documento detalha os padrões de qualidade e procedimentos de teste do sistema.</p>
+<h2 id="ambiente-de-desenvolvimento">🛠️ Ambiente de Desenvolvimento</h2>
+<h3 id="gerenciamento-com-uv">Gerenciamento com UV</h3>
+<p>O projeto utiliza o <strong>Astral UV</strong>, que é significativamente mais rápido que o <code>pip</code> e gerencia ambientes virtuais automaticamente.</p>
 <ul>
-<li>Python 3.13+</li>
-<li>Docker &amp; Docker Compose</li>
-<li>Git</li>
-<li><code>uv</code> (Gerenciador de pacotes)</li>
+<li><strong>Sincronizar ambiente</strong>: <code>uv sync</code></li>
+<li><strong>Adicionar dependência</strong>: <code>uv add &lt;package&gt;</code></li>
+<li><strong>Rodar comando no venv</strong>: <code>uv run &lt;command&gt;</code></li>
 </ul>
-<h3 id="setup-local">Setup Local</h3>
-<ol>
-<li><strong>Clone o repositório:</strong></li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/cllmenate/inventory-management-django-sistem.git
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>inventory-management-django-system
-</span></code></pre></div>
-<ol>
-<li><strong>Instale as dependências com <code>uv</code>:</strong></li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev
-</span></code></pre></div>
-<ol>
-<li><strong>Configure o <code>.env</code>:</strong>
-   Copie o exemplo e ajuste conforme necessário.</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
-</span></code></pre></div>
-<ol>
-<li><strong>Suba o banco de dados via Docker:</strong></li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>inventory_db<span class="w"> </span>inventory_redis
-</span></code></pre></div>
-<ol>
-<li><strong>Rode as migrações:</strong></li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
-</span></code></pre></div>
-<ol>
-<li><strong>Execute o servidor local:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>manage.py<span class="w"> </span>runserver
-</span></code></pre></div></li>
-</ol>
-<h2 id="guidelines-e-padroes">Guidelines e Padrões</h2>
-<p>Seguimos estritamente os padrões da comunidade Python e Django.</p>
-<h3 id="linting-e-formatacao">Linting e Formatação</h3>
-<p>Utilizamos <strong>Ruff</strong> para garantir a qualidade do código.</p>
+<h3 id="variaveis-de-ambiente-env">Variáveis de Ambiente (.env)</h3>
+<p>Configurações críticas em <code>app/settings.py</code> dependem do <code>.env</code>:</p>
 <ul>
-<li><strong>Lint:</strong> <code>uv run ruff check .</code></li>
-<li><strong>Format:</strong> <code>uv run ruff format .</code></li>
+<li><code>DEBUG</code>: <code>True</code> em dev, <code>False</code> em prod.</li>
+<li><code>SECRET_KEY</code>: Chave de segurança do Django.</li>
+<li><code>SIGNING_KEY</code>: Chave para assinatura de tokens JWT.</li>
+<li><code>POSTGRES_DB/...</code>: Credenciais do banco.</li>
 </ul>
-<h3 id="tipagem-estatica">Tipagem Estática</h3>
-<p>Utilizamos <strong>MyPy</strong> para garantir a segurança de tipos.</p>
-<ul>
-<li><strong>Check:</strong> <code>uv run mypy .</code></li>
-</ul>
-<h3 id="hooks-de-git">Hooks de Git</h3>
-<p>O <strong>Pre-commit</strong> roda automaticamente antes de cada commit para verificar linting, trailing whitespaces e chaves secretas.</p>
-<ul>
-<li>Instalar hooks: <code>uv run pre-commit install</code></li>
-</ul>
-<h2 id="testes-automatizados">Testes Automatizados</h2>
-<p>O projeto utiliza <strong>Pytest</strong> como runner de testes.</p>
-<h3 id="executando-testes">Executando Testes</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Rodar todos os testes</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Rodar com cobertura</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>app
+<h2 id="estrategia-de-testes">🧪 Estratégia de Testes</h2>
+<p>Utilizamos <strong>Pytest</strong> com uma suíte de testes robusta que cobre unitários, integração e comportamento.</p>
+<h3 id="execucao-de-testes">Execução de Testes</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Execução padrão</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Verificação de cobertura (Coverage)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>.<span class="w"> </span>--cov-report<span class="o">=</span>html
 </span></code></pre></div>
-<h3 id="estrutura-de-testes">Estrutura de Testes</h3>
-<p>Os testes estão localizados na pasta <code>tests/</code> e espelham a estrutura das apps.</p>
+<h3 id="categorias-de-testes">Categorias de Testes</h3>
 <ul>
-<li><code>tests/authentication/</code>: Testes de login e permissões.</li>
-<li><code>tests/products/</code>: Testes de CRUD de produtos.</li>
-<li><code>tests/integration/</code>: Testes de integração de API.</li>
+<li><strong>Unitários</strong>: Testam modelos e lógica isolada (ex: <code>tests/products/test_models.py</code>).</li>
+<li><strong>Integração</strong>: Testam o fluxo entre camadas (ex: logic -&gt; database -&gt; cache).</li>
+<li><strong>API (Request Tests)</strong>: Testam os endpoints DRF (ex: <code>tests/api/v1/</code>).</li>
+<li><strong>Signals</strong>: Verificam se o estoque é atualizado corretamente após uma entrada/saída.</li>
+</ul>
+<h3 id="mocking-e-utilidades">Mocking e Utilidades</h3>
+<ul>
+<li><strong>Factory Boy</strong>: Usado para gerar dados de teste consistentes sem escrita manual de objetos.</li>
+<li><strong>Time-machine</strong>: Usado para testar comportamentos que dependem da data/hora (ex: relatórios diários).</li>
+<li><strong>Database</strong>: O ambiente de testes utiliza <strong>SQLite em memória</strong> por padrão para velocidade, configurado no <code>pyproject.toml</code> via <code>pytest-env</code>.</li>
+</ul>
+<h2 id="qualidade-de-codigo-linting">💎 Qualidade de Código (Linting)</h2>
+<p>Não aceitamos código sem validação de estilo e tipos.</p>
+<h3 id="ruff-linter-formatter">Ruff (Linter &amp; Formatter)</h3>
+<p>Substitui o Flake8, Black e Isort com desempenho muito superior.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.<span class="w">  </span><span class="c1"># Lint</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>format<span class="w"> </span>.<span class="w"> </span><span class="c1"># Format</span>
+</span></code></pre></div>
+<h3 id="mypy-type-checking">MyPy (Type Checking)</h3>
+<p>Garante que a tipagem estática do Python seja respeitada, reduzindo erros de runtime.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>mypy<span class="w"> </span>.
+</span></code></pre></div>
+<h3 id="pre-commit-hooks">Pre-commit Hooks</h3>
+<p>Configurado para rodar antes de cada <code>git commit</code>:</p>
+<ul>
+<li>Limpeza de espaços em branco.</li>
+<li>Check de arquivos YAML/JSON.</li>
+<li>Verificação de secrets (prevenção de vazamento de chaves).</li>
+<li>Execução rápida do Ruff.</li>
 </ul>
 
 

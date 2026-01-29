@@ -15,10 +15,10 @@
         <link rel="canonical" href="http://localhost:8000/api/">
       
       
-        <link rel="prev" href="../development/">
+        <link rel="prev" href="../testing/">
       
       
-        <link rel="next" href="../deployment/">
+        <link rel="next" href="../configuration/">
       
       
         
@@ -229,6 +229,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcionalidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../architecture/" class="md-nav__link">
         
   
@@ -256,6 +310,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelo de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../development/" class="md-nav__link">
         
   
@@ -264,6 +372,33 @@
     
   
     Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
   
 
     
@@ -343,10 +478,266 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#principais-endpoints" class="md-nav__link">
+  <a href="#base-url" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Principais Endpoints
+        🌐 Base URL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacao-interativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentação Interativa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-de-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ Mapa de Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Autenticação JWT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Autenticação JWT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-obter-token-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Obter Token (Login)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-usar-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Usar Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Refresh Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-logout-blacklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Logout (Blacklist)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Recursos Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Recursos Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#products-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Products (Produtos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Products (Produtos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-listar-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Listar Produtos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-exportar-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Exportar Produtos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflows-entradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inflows (Entradas)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inflows (Entradas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-registrar-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Registrar Entrada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codigos-de-status-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Códigos de Status HTTP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permissoes-por-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔒 Permissões por Endpoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 Permissões por Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niveis-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Níveis de Acesso
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#payload-padrao-de-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Payload Padrão de Erro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtros-e-busca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Filtros e Busca
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Filtros e Busca">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-limiting-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Rate Limiting (Throttling)
       
     </span>
   </a>
@@ -368,6 +759,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../deployment/" class="md-nav__link">
         
   
@@ -376,6 +794,33 @@
     
   
     Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
   
 
     
@@ -469,10 +914,266 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#principais-endpoints" class="md-nav__link">
+  <a href="#base-url" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Principais Endpoints
+        🌐 Base URL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacao-interativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentação Interativa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-de-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ Mapa de Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Autenticação JWT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Autenticação JWT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-obter-token-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Obter Token (Login)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-usar-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Usar Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Refresh Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-logout-blacklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Logout (Blacklist)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Recursos Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Recursos Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#products-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Products (Produtos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Products (Produtos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-listar-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Listar Produtos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-exportar-produtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Exportar Produtos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflows-entradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inflows (Entradas)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inflows (Entradas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-registrar-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Registrar Entrada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codigos-de-status-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Códigos de Status HTTP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permissoes-por-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔒 Permissões por Endpoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 Permissões por Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niveis-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Níveis de Acesso
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#payload-padrao-de-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Payload Padrão de Erro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtros-e-busca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Filtros e Busca
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Filtros e Busca">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-limiting-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Rate Limiting (Throttling)
       
     </span>
   </a>
@@ -497,14 +1198,237 @@
 
 
 <h1 id="referencia-de-api">Referência de API</h1>
-<p>A documentação interativa da API está disponível através do Swagger UI.</p>
+<p>Esta página documenta todos os endpoints REST da API, incluindo autenticação, permissões e exemplos de request/response.</p>
+<hr />
+<h2 id="base-url">🌐 Base URL</h2>
 <ul>
-<li><a href="/api/v1/docs/">Acessar Swagger UI</a></li>
-<li><a href="/api/v1/redoc/">Acessar ReDoc</a></li>
-<li><a href="/api/v1/schema/">Baixar Schema OpenAPI</a></li>
+<li><strong>Desenvolvimento</strong>: <code>http://localhost:8000/api/v1/</code></li>
+<li><strong>Produção</strong>: <code>https://yourdomain.com/api/v1/</code></li>
 </ul>
-<h2 id="principais-endpoints">Principais Endpoints</h2>
-<p>Esta seção será expandida com detalhes sobre os principais recursos da API.</p>
+<hr />
+<h2 id="documentacao-interativa">📚 Documentação Interativa</h2>
+<p>| Ferramenta | URL | Descrição |
+| <strong>Swagger UI</strong> | <code>/api/v1/docs/</code> | Interface interativa para testar endpoints |
+| <strong>ReDoc</strong> | <code>/api/v1/redoc/</code> | Documentação limpa e navegável |
+| <strong>Schema OpenAPI</strong> | <code>/api/v1/schema/</code> | Especificação OpenAPI 3.0 (JSON) |</p>
+<hr />
+<h2 id="mapa-de-endpoints">🗺️ Mapa de Endpoints</h2>
+<pre class="mermaid"><code>flowchart TD
+    API["/api/v1/"]
+
+    API --&gt; Auth[Autenticação]
+    API --&gt; Resources[Recursos]
+
+    Auth --&gt; Login["/token/ (POST)"]
+    Auth --&gt; Refresh["/token/refresh/ (POST)"]
+    Auth --&gt; Verify["/token/verify/ (POST)"]
+    Auth --&gt; Logout["/auth/logout/ (POST)"]
+
+    Resources --&gt; Brands["/brands/"]
+    Resources --&gt; Categories["/categories/"]
+    Resources --&gt; Suppliers["/suppliers/"]
+    Resources --&gt; Models["/product-models/"]
+    Resources --&gt; Products["/products/"]
+    Resources --&gt; Inflows["/inflows/"]
+    Resources --&gt; Outflows["/outflows/"]
+
+    Products --&gt; Export["/products/export/ (POST)"]
+    Inflows --&gt; ImportIn["/inflows/import/ (POST)"]</code></pre>
+<hr />
+<h2 id="autenticacao-jwt">🔐 Autenticação JWT</h2>
+<h3 id="1-obter-token-login">1. Obter Token (Login)</h3>
+<p><strong>Endpoint</strong>: <code>POST /api/v1/token/</code></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Request</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;senha123&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// Response</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">&quot;refresh&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">&quot;access&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="2-usar-token">2. Usar Token</h3>
+<p>Adicione o token em <strong>todas as requisições</strong>:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">GET /api/v1/products/</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">Authorization: Bearer &lt;access_token&gt;</span>
+</span></code></pre></div>
+<h3 id="3-refresh-token">3. Refresh Token</h3>
+<p><strong>Endpoint</strong>: <code>POST /api/v1/token/refresh/</code></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Request</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;refresh&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1">// Response</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">{</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nt">&quot;access&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="4-logout-blacklist">4. Logout (Blacklist)</h3>
+<p><strong>Endpoint</strong>: <code>POST /api/v1/auth/logout/</code></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Request</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;refresh&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Response</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Token adicionado à blacklist com sucesso.&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="recursos-principais">📋 Recursos Principais</h2>
+<h3 id="products-produtos">Products (Produtos)</h3>
+<p>| Método | Endpoint | Ação | Permissão |
+| GET | <code>/products/</code> | Listar produtos | Autenticado |
+| POST | <code>/products/</code> | Criar produto | IsStaff |
+| GET | <code>/products/{id}/</code> | Detalhar produto | Autenticado |
+| PUT/PATCH | <code>/products/{id}/</code> | Atualizar produto | IsStaff |
+| DELETE | <code>/products/{id}/</code> | Deletar produto | IsAdmin |
+| <strong>POST</strong> | <code>/products/export/</code> | <strong>Exportar dados</strong> | Autenticado |</p>
+<h4 id="exemplo-listar-produtos">Exemplo: Listar Produtos</h4>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">GET /api/v1/products/?page=1&amp;page_size=10</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">// Response</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">{</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">  &quot;count&quot;: 50,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">  &quot;next&quot;: &quot;http://localhost:8000/api/v1/products/?page=2&quot;,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">  &quot;previous&quot;: null,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">  &quot;results&quot;: [</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">    {</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">      &quot;id&quot;: 1,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">      &quot;title&quot;: &quot;Notebook Dell Inspiron&quot;,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">      &quot;serial_number&quot;: &quot;SN-00001&quot;,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">      &quot;cost_price&quot;: &quot;2500.00&quot;,</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">      &quot;sell_price&quot;: &quot;3200.00&quot;,</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">      &quot;quantity&quot;: 15,</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">      &quot;product_model&quot;: {</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">        &quot;id&quot;: 1,</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="err">        &quot;name&quot;: &quot;Inspiron 15 3000&quot;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="err">      },</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">      &quot;category&quot;: {</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">        &quot;id&quot;: 1,</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="err">        &quot;name&quot;: &quot;Eletrônicos&quot;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">      }</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">    }</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">  ]</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">}</span>
+</span></code></pre></div>
+<h4 id="exemplo-exportar-produtos">Exemplo: Exportar Produtos</h4>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="err">POST /api/v1/products/export/</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">Content-Type: application/json</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">{</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">  &quot;file_format&quot;: &quot;csv&quot;  // csv, json, xml, pdf</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">}</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">// Response (202 Accepted)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">{</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">  &quot;message&quot;: &quot;Export iniciado&quot;,</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">  &quot;task_id&quot;: &quot;abc123-def456&quot;,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">  &quot;notification_id&quot;: 42</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="err">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="inflows-entradas">Inflows (Entradas)</h3>
+<p>| Método | Endpoint | Ação | Permissão |
+| GET | <code>/inflows/</code> | Listar entradas | Autenticado |
+| POST | <code>/inflows/</code> | Registrar entrada | IsStaff |
+| GET | <code>/inflows/{id}/</code> | Detalhar entrada | Autenticado |
+| <strong>POST</strong> | <code>/inflows/import/</code> | <strong>Importar dados CSV</strong> | IsStaff |</p>
+<h4 id="exemplo-registrar-entrada">Exemplo: Registrar Entrada</h4>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">POST /api/v1/inflows/</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">Content-Type: application/json</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="err">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="err">  &quot;supplier&quot;: 5,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">  &quot;product&quot;: 10,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="err">  &quot;quantity&quot;: 50,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="err">  &quot;description&quot;: &quot;NF 12345/2025&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">}</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="err">// Response (201 Created)</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="err">{</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">  &quot;id&quot;: 123,</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">  &quot;supplier&quot;: {</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="err">    &quot;id&quot;: 5,</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="err">    &quot;name&quot;: &quot;FornecedorX&quot;</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="err">  },</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="err">  &quot;product&quot;: {</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="err">    &quot;id&quot;: 10,</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="err">    &quot;title&quot;: &quot;Mouse Gamer&quot;,</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="err">    &quot;quantity&quot;: 100  // Atualizado automaticamente</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="err">  },</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="err">  &quot;quantity&quot;: 50,</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="err">  &quot;description&quot;: &quot;NF 12345/2025&quot;,</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="err">  &quot;created_at&quot;: &quot;2026-01-28T22:00:00Z&quot;</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="err">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="codigos-de-status-http">⚠️ Códigos de Status HTTP</h2>
+<p>| Código | Significado | Quando Ocorre |
+| <strong>200</strong> | OK | Requisição bem-sucedida |
+| <strong>201</strong> | Created | Recurso criado com sucesso |
+| <strong>202</strong> | Accepted | Tarefa assíncrona iniciada |
+| <strong>400</strong> | Bad Request | Dados inválidos no request |
+| <strong>401</strong> | Unauthorized | Token ausente ou inválido |
+| <strong>403</strong> | Forbidden | Usuário sem permissão |
+| <strong>404</strong> | Not Found | Recurso não encontrado |
+| <strong>500</strong> | Server Error | Erro interno do servidor |</p>
+<hr />
+<h2 id="permissoes-por-endpoint">🔒 Permissões por Endpoint</h2>
+<pre class="mermaid"><code>flowchart TD
+    Request[Request] --&gt; Auth{Autenticado?}
+    Auth --&gt;|Não| Error401[401 Unauthorized]
+    Auth --&gt;|Sim| CheckPerm{Permissão OK?}
+    CheckPerm --&gt;|Não| Error403[403 Forbidden]
+    CheckPerm --&gt;|Sim| Process[Processar Request]
+    Process --&gt; Response[200/201/202]</code></pre>
+<h3 id="niveis-de-acesso">Níveis de Acesso</h3>
+<ol>
+<li><strong>AllowAny</strong>: Sem autenticação (apenas <code>/token/</code>)</li>
+<li><strong>IsAuthenticated</strong>: Qualquer usuário autenticado</li>
+<li><strong>IsStaff</strong>: Usuários com <code>is_staff=True</code></li>
+<li><strong>IsAdminUser</strong>: Usuários com <code>is_superuser=True</code></li>
+</ol>
+<hr />
+<h2 id="payload-padrao-de-erro">📦 Payload Padrão de Erro</h2>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Authentication credentials were not provided.&quot;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">// Ou para erros de validação:</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="nt">&quot;field_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="s2">&quot;Este campo é obrigatório.&quot;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="filtros-e-busca">🔍 Filtros e Busca</h2>
+<h3 id="query-parameters">Query Parameters</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="err">GET /api/v1/products/?search=notebook&amp;ordering=-created_at&amp;category=1</span>
+</span></code></pre></div>
+<p>| Parâmetro | Tipo | Descrição |
+| <code>search</code> | String | Busca por título ou serial_number |
+| <code>ordering</code> | String | Campo para ordenação (- para DESC) |
+| <code>category</code> | Integer | Filtrar por categoria |
+| <code>page</code> | Integer | Número da página |
+| <code>page_size</code> | Integer | Itens por página (max: 100) |</p>
+<hr />
+<h2 id="rate-limiting-throttling">🚀 Rate Limiting (Throttling)</h2>
+<ul>
+<li><strong>Usuário autenticado</strong>: 1000 requests/hora</li>
+<li><strong>Anônimo</strong>: 100 requests/hora</li>
+</ul>
+<p>Se exceder:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Request was throttled. Expected available in 3600 seconds.&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</span></code></pre></div>
 
 
 

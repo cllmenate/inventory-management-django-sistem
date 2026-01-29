@@ -1,14 +1,14 @@
 # Sistema de Gestão de Estoque
 
 ![Python Version](https://img.shields.io/badge/python-3.13-blue)
-![Django Version](https://img.shields.io/badge/django-6.0-green)
+![Django Version](https://img.shields.io/badge/django-5.2.7-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 Um sistema completo de gestão de inventário focado em rastreabilidade de produtos, fornecedores e movimentações financeiras.
 
 ## 🚀 Tecnologias
 
-- **Backend**: Python 3.13, Django 6.0, Django Rest Framework
+- **Backend**: Python 3.13, Django 5.2.7, Django Rest Framework
 - **Banco de Dados**: PostgreSQL
 - **Cache & Filas**: Redis, Celery
 - **Infraestrutura**: Docker, Docker Compose
@@ -17,7 +17,7 @@ Um sistema completo de gestão de inventário focado em rastreabilidade de produ
 
 ## 📚 Documentação
 
-- **[Documentação Completa](docs/index.md)**: Guias de arquitetura, instalação e contribuição.
+- **[Documentação Completa](docs/index.md)**
 - **API Swagger**: `/api/v1/docs/`
 - **ReDoc**: `/api/v1/redoc/`
 

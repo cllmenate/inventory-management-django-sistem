@@ -1,0 +1,1615 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação do Sistema de Gestão de Estoque">
+      
+      
+        <meta name="author" content="Equipe de Desenvolvimento">
+      
+      
+        <link rel="canonical" href="http://localhost:8000/testing/">
+      
+      
+        <link rel="prev" href="../development/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Testes - Sistema de Gestão de Estoque</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estrategia-de-testes" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-header__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sistema de Gestão de Estoque
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Testes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-nav__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sistema de Gestão de Estoque
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcionalidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelo de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stack-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Stack de Testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📂 Estrutura de Testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Configuração Pytest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Configuração Pytest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyproject.toml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flags Importantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-boy-geracao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏭 Factory Boy (Geração de Dados)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏭 Factory Boy (Geração de Dados)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-productfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: ProductFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-nos-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso nos Testes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categorias-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Categorias de Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Categorias de Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-testes-unitarios-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Testes Unitários (Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-testes-de-api-requestresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Testes de API (Request/Response)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-testes-de-integracao-fluxo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Testes de Integração (Fluxo Completo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-machine-simulacao-de-tempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕐 Time-Machine (Simulação de Tempo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cobertura-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Cobertura de Código
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Cobertura de Código">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executar-com-relatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executar com Relatório
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targets-de-cobertura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets de Cobertura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures-globais-conftestpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Fixtures Globais (conftest.py)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executando-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Executando Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Executando Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos Principais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-pipeline-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Pipeline (GitHub Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Debugging de Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Debugging de Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usar-debugger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usar Debugger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-queries-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Queries SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boas-praticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Boas Práticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribuição
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stack-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Stack de Testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📂 Estrutura de Testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Configuração Pytest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Configuração Pytest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyproject.toml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flags Importantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-boy-geracao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏭 Factory Boy (Geração de Dados)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏭 Factory Boy (Geração de Dados)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-productfactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: ProductFactory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-nos-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso nos Testes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categorias-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Categorias de Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Categorias de Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-testes-unitarios-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Testes Unitários (Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-testes-de-api-requestresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Testes de API (Request/Response)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-testes-de-integracao-fluxo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Testes de Integração (Fluxo Completo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-machine-simulacao-de-tempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕐 Time-Machine (Simulação de Tempo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cobertura-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Cobertura de Código
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Cobertura de Código">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executar-com-relatorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executar com Relatório
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targets-de-cobertura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets de Cobertura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures-globais-conftestpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Fixtures Globais (conftest.py)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executando-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Executando Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Executando Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos Principais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-pipeline-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Pipeline (GitHub Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Debugging de Testes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Debugging de Testes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usar-debugger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usar Debugger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-queries-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Queries SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boas-praticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Boas Práticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="estrategia-de-testes">Estratégia de Testes</h1>
+<p>Esta página documenta a abordagem de testes do sistema, cobrindo configuração, fixtures, factories e cobertura de código.</p>
+<hr />
+<h2 id="stack-de-testes">🧪 Stack de Testes</h2>
+<p>| Ferramenta | Função | Versão |
+| <strong>Pytest</strong> | Framework de testes | ~8.3.3 |
+| <strong>pytest-django</strong> | Integração Pytest + Django | ~4.9.0 |
+| <strong>pytest-cov</strong> | Relatório de cobertura | ~6.0.0 |
+| <strong>Factory Boy</strong> | Geração de dados de teste | ~3.3.1 |
+| <strong>time-machine</strong> | Simulação de data/hora | ~2.16.0 |</p>
+<hr />
+<h2 id="estrutura-de-testes">📂 Estrutura de Testes</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>tests/
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├──<span class="w"> </span>conftest.py<span class="w">                 </span><span class="c1"># Fixtures globais</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├──<span class="w"> </span>factories/<span class="w">                  </span><span class="c1"># Factory Boy</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│<span class="w">   </span>├──<span class="w"> </span>brand_factory.py
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│<span class="w">   </span>├──<span class="w"> </span>category_factory.py
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│<span class="w">   </span>├──<span class="w"> </span>product_factory.py
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│<span class="w">   </span>└──<span class="w"> </span>...
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├──<span class="w"> </span>api/<span class="w">                        </span><span class="c1"># Testes de API (DRF)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│<span class="w">   </span>└──<span class="w"> </span>v1/
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│<span class="w">       </span>├──<span class="w"> </span>test_products.py
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│<span class="w">       </span>├──<span class="w"> </span>test_inflows.py
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│<span class="w">       </span>└──<span class="w"> </span>...
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├──<span class="w"> </span>brands/<span class="w">                     </span><span class="c1"># Testes unitários</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│<span class="w">   </span>├──<span class="w"> </span>test_models.py
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│<span class="w">   </span>├──<span class="w"> </span>test_views.py
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│<span class="w">   </span>└──<span class="w"> </span>test_serializers.py
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>└──<span class="w"> </span>integration/<span class="w">                </span><span class="c1"># Testes de integração</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span>└──<span class="w"> </span>test_stock_flow.py
+</span></code></pre></div>
+<hr />
+<h2 id="configuracao-pytest">⚙️ Configuração Pytest</h2>
+<h3 id="pyprojecttoml">pyproject.toml</h3>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool.pytest.ini_options]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">DJANGO_SETTINGS_MODULE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;app.settings&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;test_*.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*_test.py&quot;</span><span class="p">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="s2">    --ds=app.settings</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s2">    --reuse-db</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s2">    --nomigrations</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s2">    --cov=.</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="s2">    --cov-report=html</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="s2">    --cov-report=term-missing:skip-covered</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="s2">    -x</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="s2">    --tb=short</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">[tool.pytest_env]</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Força uso de SQLite em memória para testes</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">DATABASE_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sqlite:///:memory:&quot;</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">CELERY_TASK_ALWAYS_EAGER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;True&quot;</span><span class="w">  </span><span class="c1"># Executa tasks síncronas</span>
+</span></code></pre></div>
+<h3 id="flags-importantes">Flags Importantes</h3>
+<ul>
+<li><code>--reuse-db</code>: Reutiliza banco entre execuções (mais rápido)</li>
+<li><code>--nomigrations</code>: Usa modelo direto (evita migrations lentas)</li>
+<li><code>-x</code>: Para no primeiro erro</li>
+<li><code>--cov</code>: Ativa relatório de cobertura</li>
+</ul>
+<hr />
+<h2 id="factory-boy-geracao-de-dados">🏭 Factory Boy (Geração de Dados)</h2>
+<h3 id="exemplo-productfactory">Exemplo: ProductFactory</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># tests/factories/product_factory.py</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">factory</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">products.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Product</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.brand_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrandFactory</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.category_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">CategoryFactory</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.product_model_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductModelFactory</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">ProductFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">Product</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Faker</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">product_model</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">ProductModelFactory</span><span class="p">)</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">category</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">CategoryFactory</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">description</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Faker</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">max_nb_chars</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">serial_number</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;SN-</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">05d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">cost_price</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Faker</span><span class="p">(</span><span class="s1">&#39;pydecimal&#39;</span><span class="p">,</span> <span class="n">left_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">right_digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">sell_price</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Faker</span><span class="p">(</span><span class="s1">&#39;pydecimal&#39;</span><span class="p">,</span> <span class="n">left_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">right_digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="n">quantity</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Faker</span><span class="p">(</span><span class="s1">&#39;random_int&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="uso-nos-testes">Uso nos Testes</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">tests.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductFactory</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_product_creation</span><span class="p">():</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="c1"># Cria um produto com todas as dependências</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">product</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="p">()</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">assert</span> <span class="n">product</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="k">assert</span> <span class="n">product</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_multiple_products</span><span class="p">():</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="c1"># Cria múltiplos produtos de uma vez</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">products</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+</span></code></pre></div>
+<hr />
+<h2 id="categorias-de-testes">📝 Categorias de Testes</h2>
+<h3 id="1-testes-unitarios-models">1. Testes Unitários (Models)</h3>
+<p><strong>Propósito</strong>: Validar lógica de negócio isolada.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># tests/products/test_models.py</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">tests.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductFactory</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestProductModel</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_str_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">product</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Notebook Dell&quot;</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">product</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Notebook Dell&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_default_quantity_is_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">product</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">quantity</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="k">assert</span> <span class="n">product</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="mi">0</span>
+</span></code></pre></div>
+<h3 id="2-testes-de-api-requestresponse">2. Testes de API (Request/Response)</h3>
+<p><strong>Propósito</strong>: Validar endpoints REST.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># tests/api/v1/test_products.py</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">tests.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductFactory</span><span class="p">,</span> <span class="n">UserFactory</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestProductAPI</span><span class="p">:</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">setup_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">UserFactory</span><span class="p">()</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_list_products</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="n">ProductFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/api/v1/products/&#39;</span><span class="p">)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_product_requires_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/api/v1/products/&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>        <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span>
+</span></code></pre></div>
+<h3 id="3-testes-de-integracao-fluxo-completo">3. Testes de Integração (Fluxo Completo)</h3>
+<p><strong>Propósito</strong>: Validar interação entre múltiplos componentes.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># tests/integration/test_stock_flow.py</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">tests.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductFactory</span><span class="p">,</span> <span class="n">InflowFactory</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestStockFlow</span><span class="p">:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_inflow_updates_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Testa se signal de Inflow atualiza estoque.&quot;&quot;&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">product</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="p">(</span><span class="n">quantity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="c1"># Registra uma entrada</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="n">InflowFactory</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">,</span> <span class="n">quantity</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="c1"># Verifica se saldo foi atualizado</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">product</span><span class="o">.</span><span class="n">refresh_from_db</span><span class="p">()</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="k">assert</span> <span class="n">product</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="mi">15</span>
+</span></code></pre></div>
+<hr />
+<h2 id="time-machine-simulacao-de-tempo">🕐 Time-Machine (Simulação de Tempo)</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time_machine</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nd">@time_machine</span><span class="o">.</span><span class="n">travel</span><span class="p">(</span><span class="s2">&quot;2025-12-31 23:59:59&quot;</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_end_of_year_report</span><span class="p">():</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa relatório de fim de ano.&quot;&quot;&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="c1"># O sistema pensa que é 31/12/2025</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">assert</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2025</span>
+</span></code></pre></div>
+<hr />
+<h2 id="cobertura-de-codigo">📊 Cobertura de Código</h2>
+<h3 id="executar-com-relatorio">Executar com Relatório</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Rodar testes com cobertura</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Abrir relatório HTML</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--directory<span class="w"> </span>htmlcov<span class="w"> </span><span class="m">8080</span>
+</span></code></pre></div>
+<h3 id="targets-de-cobertura">Targets de Cobertura</h3>
+<p>| Componente | Target | Atual |
+| Models | 100% | ~95% |
+| Views | 90% | ~88% |
+| Serializers | 95% | ~92% |
+| Logic/Services | 95% | ~90% |
+| <strong>Global</strong> | <strong>90%</strong> | <strong>~89%</strong> |</p>
+<hr />
+<h2 id="fixtures-globais-conftestpy">🔍 Fixtures Globais (conftest.py)</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># tests/conftest.py</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">api_client</span><span class="p">():</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Cliente autenticado para APIs.&quot;&quot;&quot;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">return</span> <span class="n">APIClient</span><span class="p">()</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">authenticated_user</span><span class="p">(</span><span class="n">db</span><span class="p">):</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Usuário autenticado.&quot;&quot;&quot;</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">tests.factories</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserFactory</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    <span class="k">return</span> <span class="n">UserFactory</span><span class="p">()</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">admin_client</span><span class="p">(</span><span class="n">admin_user</span><span class="p">):</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Cliente com usuário admin.&quot;&quot;&quot;</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    <span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    <span class="n">client</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">admin_user</span><span class="p">)</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    <span class="k">return</span> <span class="n">client</span>
+</span></code></pre></div>
+<hr />
+<h2 id="executando-testes">🚀 Executando Testes</h2>
+<h3 id="comandos-principais">Comandos Principais</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Todos os testes</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Apenas um arquivo</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/products/test_models.py
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Apenas um teste específico</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/products/test_models.py::test_product_creation
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># Com output verboso</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-v
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1"># Parar no primeiro erro</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-x
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="c1"># Ver print() statements</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-s
+</span></code></pre></div>
+<h3 id="cicd-pipeline-github-actions">CI/CD Pipeline (GitHub Actions)</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># .github/workflows/ci-cd.yml</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Tests</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="no">uv run pytest --cov --cov-report=xml</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload Coverage</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codecov/codecov-action@v3</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./coverage.xml</span>
+</span></code></pre></div>
+<hr />
+<h2 id="debugging-de-testes">🛠️ Debugging de Testes</h2>
+<h3 id="usar-debugger">Usar Debugger</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_something</span><span class="p">():</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="nb">breakpoint</span><span class="p">()</span>  <span class="c1"># Para execução aqui</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="c1"># ou</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="ver-queries-sql">Ver Queries SQL</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.test.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">override_settings</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">connection</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nd">@override_settings</span><span class="p">(</span><span class="n">DEBUG</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_with_sql_debug</span><span class="p">():</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="c1"># Suas queries...</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">connection</span><span class="o">.</span><span class="n">queries</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="boas-praticas">✅ Boas Práticas</h2>
+<ol>
+<li><strong>Independência</strong>: Cada teste deve rodar isoladamente</li>
+<li><strong>Fixtures</strong>: Use factories em vez de criar objetos manualmente</li>
+<li><strong>Nomenclatura</strong>: <code>test_&lt;acão&gt;_&lt;resultado_esperado&gt;</code></li>
+<li><strong>AAA Pattern</strong>: Arrange, Act, Assert</li>
+<li><strong>Coverage</strong>: Mantenha acima de 85%</li>
+<li><strong>Velocidade</strong>: Suite completa deve rodar em &lt; 2 minutos</li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># ✅ BOM</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_outflow_reduces_quantity</span><span class="p">():</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="c1"># Arrange</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">product</span> <span class="o">=</span> <span class="n">ProductFactory</span><span class="p">(</span><span class="n">quantity</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="c1"># Act</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">OutflowFactory</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">,</span> <span class="n">quantity</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="c1"># Assert</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">product</span><span class="o">.</span><span class="n">refresh_from_db</span><span class="p">()</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="k">assert</span> <span class="n">product</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="mi">7</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="c1"># ❌ RUIM (vários asserts não relacionados)</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_everything</span><span class="p">():</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    <span class="k">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>    <span class="k">assert</span> <span class="s2">&quot;foo&quot;</span> <span class="o">!=</span> <span class="s2">&quot;bar&quot;</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>    <span class="c1"># ...</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "navigation.indexes", "content.code.copy", "content.action.edit", "content.view.source"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

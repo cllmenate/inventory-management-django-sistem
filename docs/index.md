@@ -1,67 +1,33 @@
 # Visão Geral do Projeto
 
-Bem-vindo à documentação oficial do **Sistema de Gestão de Estoque**.
+O **Sistema de Gestão de Estoque** é uma solução empresarial robusta desenvolvida para centralizar e otimizar o controle de inventário. O projeto nasceu da necessidade de um sistema que combinasse a facilidade de uso de um monólito com a escalabilidade de processos assíncronos modernos.
 
-Este é um sistema robusto desenvolvido para empresas que necessitam controlar seu inventário de forma eficiente. Ele permite o cadastro de produtos, fornecedores, marcas, categorias e o registro detalhado de todas as movimentações de entrada e saída.
+## 🎯 Nossa Visão
 
-## 🚀 Funcionalidades Principais
+Proporcionar aos gestores uma visão clara e em tempo real de seus ativos, minimizando perdas por vencimento, falta de estoque ou falhas operacionais. O sistema é construído sobre pilares de **auditabilidade**, **desempenho** e **segurança**.
 
-- **Gestão de Produtos**: Controle total sobre o catálogo de itens.
-- **Entradas e Saídas**: Registro fiscal e físico de movimentações.
-- **Controle de Estoque**: Atualização automática de quantidades.
-- **Dashboards**: Visualização de métricas (implementação futura).
-- **API REST**: Pronta para integração com mobile e outros sistemas.
+## 🛠️ Stack Tecnológica
 
-## 📂 Estrutura do Projeto
+| Camada | Tecnologia | Papel |
+| :--- | :--- | :--- |
+| **Backend** | Django 5.2 | Framework principal e ORM |
+| **API** | REST Framework | Camada de comunicação stateless |
+| **Documentação API** | drf-spectacular | Geração de esquema OpenAPI 3.0 |
+| **Banco de Dados** | PostgreSQL 17 | Persistência de dados relacional |
+| **Cache & Broker** | Redis | Cache de métricas e tarefas Celery |
+| **Async Tasks** | Celery & Beat | Processamento de relatórios e agendamentos |
+| **Interface** | HTML/Vanilla CSS | Frontend responsivo servido pelo Django |
+| **Monitoramento** | Sentry SDK | Rastreamento de erros e performance |
 
-Abaixo, a estrutura de diretórios explicada para desenvolvedores:
+## 📂 Estrutura Modular
 
-```ascii
-inventory-management-django-system/
-├── app/                    # Configurações principais do Django (settings, urls)
-├── authentication/         # App de Usuários e Autenticação (JWT)
-├── brands/                 # App de Marcas
-├── categories/             # App de Categorias
-├── product_models/         # App de Modelos de Produtos
-├── products/               # App de Produtos (Core do sistema)
-├── suppliers/              # App de Fornecedores
-├── inflows/                # App de Entradas de Estoque
-├── outflows/               # App de Saídas de Estoque
-├── docker/                 # Scripts e Dockerfiles auxiliares
-├── docs/                   # Documentação do projeto (MKDocs)
-├── nginx/                  # Configuração do Proxy Reverso
-├── tests/                  # Testes automatizados (Pytest)
-├── db.sqlite3              # Banco local (apenas para dev rápido)
-├── docker-compose.yml      # Orquestração para Desenvolvimento
-├── docker-compose.prod.yml # Orquestração para Produção
-├── manage.py               # CLI do Django
-├── pyproject.toml          # Gerenciamento de dependências (UV)
-└── README.md               # Guia Rápido
-```
+O projeto é dividido em aplicações Django independentes (apps), permitindo uma manutenção isolada:
 
-## 🛠️ Tecnologias Utilizadas
+- **Core Apps**: `products`, `brands`, `categories`, `product_models`.
+- **Movimentação**: `inflows` (entradas), `outflows` (saídas).
+- **Serviços**: `notifications` (rastreio de tarefas), `authentication` (JWT).
+- **Infra**: `nginx` (proxy), `docker` (conteinerização).
 
-- **Backend**: Python 3.13, Django 6.0
-- **API**: Django Rest Framework (DRF)
-- **Documentação**: Drf-spectacular (OpenAPI 3) & MkDocs
-- **Banco de Dados**: PostgreSQL 17
-- **Cache**: Redis
-- **Infraestrutura**: Docker & Docker Compose
+---
 
-## Navegação
-
-- [Guia de Arquitetura](architecture.md): Entenda como o sistema foi projetado.
-- [Referência de API](api.md): Documentação dos endpoints da API.
-- [Guia de Contribuição](contributing.md): Saiba como colaborar com o projeto.
-
-## Instalação Rápida
-
-Consulte o [README](../README.md) para instruções detalhadas de instalação.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## Autores / Contato
-
-- **Nattam Pereira** - *Portfólio* - [GitHub](https://github.com/cllmenate) - Copyright (c) 2026
+### [Explorar Funcionalidades](features.md) | [Guia de Arquitetura](architecture.md) | [Começar Desenvolvimento](development.md) | [Casos de Uso](use-cases.md)

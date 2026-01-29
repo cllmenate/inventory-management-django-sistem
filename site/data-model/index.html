@@ -12,13 +12,13 @@
         <meta name="author" content="Equipe de Desenvolvimento">
       
       
-        <link rel="canonical" href="http://localhost:8000/architecture/">
+        <link rel="canonical" href="http://localhost:8000/data-model/">
       
       
-        <link rel="prev" href="../use-cases/">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../data-model/">
+        <link rel="next" href="../async-tasks/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Arquitetura - Sistema de Gestão de Estoque</title>
+        <title>Modelo de Dados - Sistema de Gestão de Estoque</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#guia-de-arquitetura" class="md-skip">
+        <a href="#modelo-de-dados" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Arquitetura
+              Modelo de Dados
             
           </span>
         </div>
@@ -280,6 +280,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -299,7 +326,7 @@
   <span class="md-ellipsis">
     
   
-    Arquitetura
+    Modelo de Dados
   
 
     
@@ -317,7 +344,7 @@
   <span class="md-ellipsis">
     
   
-    Arquitetura
+    Modelo de Dados
   
 
     
@@ -343,10 +370,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topologia-da-infraestrutura" class="md-nav__link">
+  <a href="#diagrama-entidade-relacionamento-completo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ Topologia da Infraestrutura
+        🗺️ Diagrama Entidade-Relacionamento Completo
       
     </span>
   </a>
@@ -354,22 +381,99 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#componentes-docker" class="md-nav__link">
+  <a href="#documentacao-detalhada-dos-modelos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🐳 Componentes Docker
+        📋 Documentação Detalhada dos Modelos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🐳 Componentes Docker">
+    <nav class="md-nav" aria-label="📋 Documentação Detalhada dos Modelos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#health-checks" class="md-nav__link">
+  <a href="#brand-marca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Health Checks
+        Brand (Marca)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#category-categoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category (Categoria)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplier-fornecedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supplier (Fornecedor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#productmodel-modelo-de-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProductModel (Modelo de Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#product-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Product (Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflow-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inflow (Entrada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outflow-saida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outflow (Saída)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasknotification-notificacao-de-tarefa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TaskNotification (Notificação de Tarefa)
       
     </span>
   </a>
@@ -382,110 +486,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modelo-de-dados-erd" class="md-nav__link">
+  <a href="#regras-de-integridade-referencial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Modelo de Dados (ERD)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lifecycle-de-tarefas-assincronas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔄 Lifecycle de Tarefas Assíncronas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#componentes-de-infraestrutura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚙️ Componentes de Infraestrutura
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⚙️ Componentes de Infraestrutura">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nginx-proxy-reverso" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Nginx (Proxy Reverso)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#celery-redis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Celery &amp; Redis
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monitoramento-com-sentry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Monitoramento com Sentry
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#camadas-de-seguranca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔐 Camadas de Segurança
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔐 Camadas de Segurança">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fluxo-de-autenticacao-jwt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fluxo de Autenticação (JWT)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#estrategia-de-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Estratégia de Caching
+        🔗 Regras de Integridade Referencial
       
     </span>
   </a>
@@ -496,33 +500,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../data-model/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modelo de Dados
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -797,10 +774,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topologia-da-infraestrutura" class="md-nav__link">
+  <a href="#diagrama-entidade-relacionamento-completo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ Topologia da Infraestrutura
+        🗺️ Diagrama Entidade-Relacionamento Completo
       
     </span>
   </a>
@@ -808,22 +785,99 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#componentes-docker" class="md-nav__link">
+  <a href="#documentacao-detalhada-dos-modelos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🐳 Componentes Docker
+        📋 Documentação Detalhada dos Modelos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🐳 Componentes Docker">
+    <nav class="md-nav" aria-label="📋 Documentação Detalhada dos Modelos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#health-checks" class="md-nav__link">
+  <a href="#brand-marca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Health Checks
+        Brand (Marca)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#category-categoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category (Categoria)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplier-fornecedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supplier (Fornecedor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#productmodel-modelo-de-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProductModel (Modelo de Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#product-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Product (Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflow-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inflow (Entrada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outflow-saida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outflow (Saída)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasknotification-notificacao-de-tarefa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TaskNotification (Notificação de Tarefa)
       
     </span>
   </a>
@@ -836,110 +890,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modelo-de-dados-erd" class="md-nav__link">
+  <a href="#regras-de-integridade-referencial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Modelo de Dados (ERD)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lifecycle-de-tarefas-assincronas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔄 Lifecycle de Tarefas Assíncronas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#componentes-de-infraestrutura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚙️ Componentes de Infraestrutura
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⚙️ Componentes de Infraestrutura">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nginx-proxy-reverso" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Nginx (Proxy Reverso)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#celery-redis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Celery &amp; Redis
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monitoramento-com-sentry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Monitoramento com Sentry
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#camadas-de-seguranca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔐 Camadas de Segurança
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔐 Camadas de Segurança">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fluxo-de-autenticacao-jwt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fluxo de Autenticação (JWT)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#estrategia-de-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Estratégia de Caching
+        🔗 Regras de Integridade Referencial
       
     </span>
   </a>
@@ -963,172 +917,254 @@
 
 
 
-<h1 id="guia-de-arquitetura">Guia de Arquitetura</h1>
-<p>Este documento fornece um aprofundamento técnico sobre a infraestrutura e o fluxo de dados do sistema.</p>
-<h2 id="topologia-da-infraestrutura">🏗️ Topologia da Infraestrutura</h2>
-<p>O sistema utiliza uma arquitetura de serviços coordenados via Docker Compose, garantindo isolamento e escalabilidade horizontal para os workers.</p>
-<pre class="mermaid"><code>graph LR
-    User[Usuário] --&gt;|HTTPS| Nginx["Nginx (Proxy Reverso)"]
-    Nginx --&gt;|Port 8000| Gunicorn["Gunicorn (Django)"]
-
-    subgraph "Core System"
-        Gunicorn --&gt; DB[(PostgreSQL 17)]
-        Gunicorn --&gt; Redis[(Redis)]
-    end
-
-    subgraph "Background Processing"
-        Redis --&gt; Worker["Celery Worker (Tasks)"]
-        Worker --&gt; DB
-        Beat["Celery Beat (Schedule)"] --&gt; Redis
-    end
-
-    subgraph "Observability"
-        Gunicorn -.-&gt; Sentry[Sentry.io]
-        Worker -.-&gt; Sentry
-    end</code></pre>
-<h2 id="componentes-docker">🐳 Componentes Docker</h2>
-<p>O sistema roda em containers isolados que se comunicam via rede interna.</p>
-<pre class="mermaid"><code>graph TB
-    subgraph "Host Machine"
-        subgraph "Docker Network: inventory_network"
-            Nginx["nginx:alpine&lt;br/&gt;inventory_nginx&lt;br/&gt;Port: 80→80"]
-            Web["python:3.13-slim&lt;br/&gt;inventory_web&lt;br/&gt;Port: 8000"]
-            Worker["python:3.13-slim&lt;br/&gt;inventory_worker"]
-            Beat["python:3.13-slim&lt;br/&gt;inventory_beat"]
-            Flower["python:3.13-slim&lt;br/&gt;inventory_flower&lt;br/&gt;Port: 5555"]
-            DB["postgres:17-alpine&lt;br/&gt;inventory_db&lt;br/&gt;Port: 5432"]
-            Redis["redis:7-alpine&lt;br/&gt;inventory_redis&lt;br/&gt;Port: 6379"]
-        end
-
-        Volumes["Volumes (Persistent)&lt;br/&gt;postgres_data&lt;br/&gt;redis_data&lt;br/&gt;media_volume"]
-    end
-
-    Nginx --&gt;|Proxy Pass :8000| Web
-    Nginx --&gt;|Serve /static/| Volumes
-    Nginx --&gt;|Serve /media/| Volumes
-    Web --&gt; DB
-    Web --&gt; Redis
-    Worker --&gt; DB
-    Worker --&gt; Redis
-    Beat --&gt; Redis
-    Flower --&gt; Redis
-    DB -.-&gt;|Persists| Volumes
-    Redis -.-&gt;|Persists| Volumes
-    Web -.-&gt;|Uploads| Volumes</code></pre>
-<h3 id="health-checks">Health Checks</h3>
-<p>Cada serviço possui verificações de saúde:</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># docker-compose.yml</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">healthcheck</span><span class="p">:</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;curl&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-f&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/health/&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40s</span>
-</span></code></pre></div>
-<h2 id="modelo-de-dados-erd">📊 Modelo de Dados (ERD)</h2>
-<p>A estrutura do banco de dados é projetada para integridade referencial total.</p>
+<h1 id="modelo-de-dados">Modelo de Dados</h1>
+<p>Esta página documenta a estrutura completa do banco de dados, incluindo todos os modelos, relacionamentos e constraints.</p>
+<hr />
+<h2 id="diagrama-entidade-relacionamento-completo">🗺️ Diagrama Entidade-Relacionamento Completo</h2>
 <pre class="mermaid"><code>erDiagram
-    Product ||--o{ Inflow : "recebe"
-    Product ||--o{ Outflow : "emite"
     Brand ||--o{ ProductModel : "possui"
     ProductModel ||--o{ Product : "define"
     Category ||--o{ Product : "classifica"
+    Product ||--o{ Inflow : "recebe"
+    Product ||--o{ Outflow : "emite"
     Supplier ||--o{ Inflow : "fornece"
-    User ||--o{ TaskNotification : "recebe"
+    User ||--o{ TaskNotification : "possui"
+
+    Brand {
+        int id PK
+        string name UK
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    Category {
+        int id PK
+        string name UK
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    Supplier {
+        int id PK
+        string name UK
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    ProductModel {
+        int id PK
+        string name
+        int brand_id FK
+        text description
+        datetime created_at
+        datetime updated_at
+    }
 
     Product {
+        int id PK
         string title
-        string serial_number
+        int product_model_id FK
+        int category_id FK
+        text description
+        string serial_number UK
         decimal cost_price
         decimal sell_price
         int quantity
+        datetime created_at
+        datetime updated_at
+    }
+
+    Inflow {
+        int id PK
+        int supplier_id FK
+        int product_id FK
+        int quantity
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    Outflow {
+        int id PK
+        int product_id FK
+        int quantity
+        text description
+        datetime created_at
+        datetime updated_at
     }
 
     TaskNotification {
-        string task_id
-        string status
+        int id PK
+        int user_id FK
         string task_type
+        string task_id UK
+        string status
+        string model_name
+        string file_format
+        file file_path
+        int record_count
+        text error_message
+        boolean is_read
+        datetime created_at
+        datetime updated_at
         datetime completed_at
     }</code></pre>
-<h2 id="lifecycle-de-tarefas-assincronas">🔄 Lifecycle de Tarefas Assíncronas</h2>
-<p>As tarefas de exportação/importação seguem um fluxo de estados gerenciado pelo Celery e rastreado no banco de dados.</p>
-<pre class="mermaid"><code>stateDiagram-v2
-    [*] --&gt; Pendente: Usuário solicita Export
-    Pendente --&gt; Processando: Worker captura tarefa
-    Processando --&gt; Concluido: Sucesso (Arquivo gerado)
-    Processando --&gt; Falha: Erro capturado
-    Concluido --&gt; [*]
-    Falha --&gt; Pendente: Retry (opcional)
-    Falha --&gt; [*]</code></pre>
-<h2 id="componentes-de-infraestrutura">⚙️ Componentes de Infraestrutura</h2>
-<h3 id="nginx-proxy-reverso">Nginx (Proxy Reverso)</h3>
-<p>O Nginx atua como a primeira camada de defesa e otimização:</p>
+<hr />
+<h2 id="documentacao-detalhada-dos-modelos">📋 Documentação Detalhada dos Modelos</h2>
+<h3 id="brand-marca">Brand (Marca)</h3>
+<p><strong>App</strong>: <code>brands</code><br />
+<strong>Propósito</strong>: Armazena fabricantes ou marcas próprias de produtos.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>name</code> | Char(100) | NOT NULL | Nome da marca |
+| <code>description</code> | Text | Nullable | Descrição adicional |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
 <ul>
-<li><strong>Proxy Pass</strong>: Encaminha requisições dinâmicas para o Gunicorn.</li>
-<li><strong>Static Serving</strong>: Serve diretamente os arquivos em <code>/staticfiles/</code> sem onerar o Django.</li>
-<li><strong>Media Serving</strong>: Gerencia o download de arquivos protegidos em <code>/mediafiles/</code> (como exports gerados).</li>
-<li><strong>Docs Hosting</strong>: Serve esta documentação estática (MKDocs) em <code>/docs/</code>.</li>
-</ul>
-<h3 id="celery-redis">Celery &amp; Redis</h3>
-<ul>
-<li><strong>Broker</strong>: O Redis armazena a fila de mensagens.</li>
-<li><strong>Worker</strong>: Processa tarefas <code>shared_task</code> (exports, imports).</li>
-<li><strong>Beat</strong>: Um agendador que dispara tarefas periódicas (ex: <code>update_dashboard_metrics_cache</code> a cada 5 minutos).</li>
-<li><strong>Result Backend</strong>: Utilizamos <code>django-db</code> para persistir o histórico de resultados das tarefas, permitindo que o usuário veja o status em "Notificações".</li>
-</ul>
-<h3 id="monitoramento-com-sentry">Monitoramento com Sentry</h3>
-<p>Configurado em <code>app/settings.py</code>, o Sentry captura:</p>
-<ul>
-<li>Exceções não tratadas (500 errors).</li>
-<li>Gargalos de performance em queries SQL.</li>
-<li>Erros em tarefas assíncronas do Celery.</li>
+<li>Ordenação: <code>name</code> (alfabético)</li>
+<li>Índices: Padrão no PK</li>
 </ul>
 <hr />
-<h2 id="camadas-de-seguranca">🔐 Camadas de Segurança</h2>
-<pre class="mermaid"><code>flowchart TD
-    A[Internet] --&gt; B{Nginx}
-    B --&gt;|CORS Check| C[Django Security Middleware]
-    C --&gt; D{Authentication}
-    D --&gt;|JWT Valid?| E[DRF Permissions]
-    D --&gt;|Invalid| F[401 Unauthorized]
-    E --&gt;|IsAdmin/IsStaff| G[Admin Dashboard]
-    E --&gt;|Model Permissions| H[API Resource]</code></pre>
-<h3 id="fluxo-de-autenticacao-jwt">Fluxo de Autenticação (JWT)</h3>
-<p>O sistema utiliza <code>rest_framework_simplejwt</code>:</p>
-<ol>
-<li><strong>Login</strong>: O cliente envia credenciais e recebe <code>access</code> e <code>refresh</code> tokens.</li>
-<li><strong>Access Token</strong>: Curta duração (30 min), enviado no header <code>Authorization: Bearer &lt;token&gt;</code>.</li>
-<li><strong>Refresh Token</strong>: Longa duração (7 dias), usado para obter um novo <code>access</code> sem re-autenticar.</li>
-<li><strong>Blacklist</strong>: Ao deslogar (logout), o token é colocado em uma blacklist no banco de dados.</li>
-</ol>
-<pre class="mermaid"><code>sequenceDiagram
-    participant Cliente
-    participant API as API (Django)
-    participant DB as Banco de Dados
-
-    Cliente-&gt;&gt;API: POST /token/ (username, password)
-    API-&gt;&gt;DB: Verifica credenciais
-    alt Credenciais Válidas
-        DB--&gt;&gt;API: Usuário encontrado
-        API--&gt;&gt;Cliente: Retorna Access + Refresh Tokens
-    else Credenciais Inválidas
-        API--&gt;&gt;Cliente: 401 Unauthorized
-    end
-
-    Note over Cliente, API: Uso do token em requisições
-    Cliente-&gt;&gt;API: GET /products/ (Header: Bearer &lt;access_token&gt;)
-    API-&gt;&gt;API: Valida assinatura do token
-    alt Token Válido
-        API--&gt;&gt;Cliente: 200 OK (Dados dos produtos)
-    else Token Expirado/Inválido
-        API--&gt;&gt;Cliente: 401 Unauthorized
-    end</code></pre>
-<h2 id="estrategia-de-caching">📊 Estratégia de Caching</h2>
-<p>Para garantir que o dashboard seja carregado em milissegundos, utilizamos cache agressivo no Redis:</p>
+<h3 id="category-categoria">Category (Categoria)</h3>
+<p><strong>App</strong>: <code>categories</code><br />
+<strong>Propósito</strong>: Classificação lógica de produtos (ex: Eletrônicos, Alimentos).</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>name</code> | Char(100) | NOT NULL | Nome da categoria |
+| <code>description</code> | Text | Nullable | Descrição adicional |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
 <ul>
-<li><strong>Métricas Globais</strong>: Armazenadas como chaves JSON <code>metrics:product</code>, <code>metrics:sales</code>, etc.</li>
-<li><strong>Invalidação</strong>: O cache é renovado pelo Celery Beat ou via signals em alterações críticas.</li>
+<li>Ordenação: <code>name</code> (alfabético)</li>
 </ul>
+<hr />
+<h3 id="supplier-fornecedor">Supplier (Fornecedor)</h3>
+<p><strong>App</strong>: <code>suppliers</code><br />
+<strong>Propósito</strong>: Cadastro de fornecedores de mercadorias.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>name</code> | Char(100) | NOT NULL | Nome do fornecedor |
+| <code>description</code> | Text | Nullable | Observações |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>name</code> (alfabético)</li>
+</ul>
+<hr />
+<h3 id="productmodel-modelo-de-produto">ProductModel (Modelo de Produto)</h3>
+<p><strong>App</strong>: <code>product_models</code><br />
+<strong>Propósito</strong>: Definição técnica que agrupa variações de um mesmo tipo de produto.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>name</code> | Char(100) | NOT NULL | Nome do modelo |
+| <code>brand_id</code> | Integer | FK → Brand, CASCADE | Marca associada |
+| <code>description</code> | Text | NOT NULL | Especificações técnicas |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>name</code> (alfabético)</li>
+<li>Relacionamento: <code>brand.productmodel_set</code> (reverso)</li>
+</ul>
+<hr />
+<h3 id="product-produto">Product (Produto)</h3>
+<p><strong>App</strong>: <code>products</code><br />
+<strong>Propósito</strong>: SKU final para venda ou controle de estoque.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>title</code> | Char(500) | NOT NULL | Nome comercial |
+| <code>product_model_id</code> | Integer | FK → ProductModel, PROTECT | Modelo técnico |
+| <code>category_id</code> | Integer | FK → Category, PROTECT | Categoria |
+| <code>description</code> | Text(1000) | | Descrição detalhada |
+| <code>serial_number</code> | Char(100) | | Número de série/código |
+| <code>cost_price</code> | Decimal(10,2) | | Preço de custo |
+| <code>sell_price</code> | Decimal(10,2) | | Preço de venda sugerido |
+| <code>quantity</code> | Integer | Default=0 | Saldo em estoque |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>title</code> (alfabético)</li>
+<li>Relacionamentos: <code>inflows</code>, <code>outflows</code></li>
+</ul>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: O campo <code>quantity</code> é atualizado automaticamente via <strong>signals</strong> ao registrar <code>Inflow</code> ou <code>Outflow</code>.</p>
+</blockquote>
+<hr />
+<h3 id="inflow-entrada">Inflow (Entrada)</h3>
+<p><strong>App</strong>: <code>inflows</code><br />
+<strong>Propósito</strong>: Registro de reposição de estoque.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>supplier_id</code> | Integer | FK → Supplier, PROTECT | Fornecedor |
+| <code>product_id</code> | Integer | FK → Product, PROTECT | Produto recebido |
+| <code>quantity</code> | Integer | Positive | Quantidade recebida |
+| <code>description</code> | Text | Nullable | Notas fiscais/observações |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>-created_at</code> (mais recente primeiro)</li>
+</ul>
+<hr />
+<h3 id="outflow-saida">Outflow (Saída)</h3>
+<p><strong>App</strong>: <code>outflows</code><br />
+<strong>Propósito</strong>: Registro de vendas/baixas no inventário.</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>product_id</code> | Integer | FK → Product, PROTECT | Produto vendido |
+| <code>quantity</code> | Integer | Positive | Quantidade vendida |
+| <code>description</code> | Text | Nullable | Observações |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>-created_at</code> (mais recente primeiro)</li>
+</ul>
+<hr />
+<h3 id="tasknotification-notificacao-de-tarefa">TaskNotification (Notificação de Tarefa)</h3>
+<p><strong>App</strong>: <code>notifications</code><br />
+<strong>Propósito</strong>: Rastreamento de tarefas assíncronas (Celery).</p>
+<p>| Campo | Tipo | Constraints | Descrição |
+| <code>id</code> | Integer | PK, Auto | Identificador único |
+| <code>user_id</code> | Integer | FK → User, CASCADE | Usuário responsável |
+| <code>task_type</code> | Char(10) | Choices | <code>export</code> ou <code>import</code> |
+| <code>task_id</code> | Char(255) | UNIQUE | ID da tarefa Celery |
+| <code>status</code> | Char(20) | Choices | <code>pending</code>, <code>processing</code>, <code>completed</code>, <code>failed</code> |
+| <code>model_name</code> | Char(100) | | Nome do modelo exportado |
+| <code>file_format</code> | Char(10) | | Formato (CSV, PDF, JSON, XML) |
+| <code>file_path</code> | FileField | Nullable | Caminho do arquivo gerado |
+| <code>record_count</code> | Integer | Nullable | Total de registros processados |
+| <code>error_message</code> | Text | | Mensagem de erro (se houver) |
+| <code>is_read</code> | Boolean | Default=False | Status de leitura |
+| <code>created_at</code> | DateTime | Auto | Data de criação |
+| <code>updated_at</code> | DateTime | Auto | Última atualização |
+| <code>completed_at</code> | DateTime | Nullable | Data de conclusão |</p>
+<p><strong>Meta</strong>:</p>
+<ul>
+<li>Ordenação: <code>-created_at</code> (mais recente primeiro)</li>
+<li>Índices: <code>(user, is_read)</code>, <code>task_id</code></li>
+</ul>
+<hr />
+<h2 id="regras-de-integridade-referencial">🔗 Regras de Integridade Referencial</h2>
+<p>| Relacionamento | Tipo | On Delete |
+| ProductModel → Brand | Many-to-One | CASCADE |
+| Product → ProductModel | Many-to-One | PROTECT |
+| Product → Category | Many-to-One | PROTECT |
+| Inflow → Supplier | Many-to-One | PROTECT |
+| Inflow → Product | Many-to-One | PROTECT |
+| Outflow → Product | Many-to-One | PROTECT |
+| TaskNotification → User | Many-to-One | CASCADE |</p>
+<blockquote>
+<p><strong>PROTECT</strong>: Impede a exclusão se houverem dependências.<br />
+<strong>CASCADE</strong>: Exclui em cascata os registros dependentes.</p>
+</blockquote>
 
 
 

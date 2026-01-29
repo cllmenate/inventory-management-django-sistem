@@ -1,0 +1,1416 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação do Sistema de Gestão de Estoque">
+      
+      
+        <meta name="author" content="Equipe de Desenvolvimento">
+      
+      
+        <link rel="canonical" href="http://localhost:8000/async-tasks/">
+      
+      
+        <link rel="prev" href="../data-model/">
+      
+      
+        <link rel="next" href="../development/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Tarefas Assíncronas - Sistema de Gestão de Estoque</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tarefas-assincronas-celery" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-header__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sistema de Gestão de Estoque
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tarefas Assíncronas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sistema de Gestão de Estoque" class="md-nav__button md-logo" aria-label="Sistema de Gestão de Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sistema de Gestão de Estoque
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcionalidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelo de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarefas Assíncronas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-das-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Visão Geral das Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-export-data-assincrono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Task 1: Export Data (Assíncrono)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Task 1: Export Data (Assíncrono)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-execucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Execução
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-de-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parâmetros de Entrada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formatos-suportados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatos Suportados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-import-data-assincrono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Task 2: Import Data (Assíncrono)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📥 Task 2: Import Data (Assíncrono)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-execucao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Execução
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacoes-e-mapeamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validações e Mapeamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-save-individual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por que .save() individual?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-dashboard-metrics-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Task 3: Dashboard Metrics Cache
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Task 3: Dashboard Metrics Cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metricas-atualizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métricas Atualizadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracao-celery-beat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuração Celery Beat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-ttl-time-to-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache TTL (Time To Live)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-e-retry-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Configuração e Retry Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Configuração e Retry Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retry-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry Automático
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoramento-com-flower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoramento com Flower
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-e-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Debugging e Logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Debugging e Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ver-logs-do-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver logs do Worker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verificar-status-de-uma-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificar status de uma task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limpar-tarefas-antigas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpar tarefas antigas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribuição
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-das-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Visão Geral das Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-export-data-assincrono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Task 1: Export Data (Assíncrono)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Task 1: Export Data (Assíncrono)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-execucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Execução
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-de-entrada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parâmetros de Entrada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formatos-suportados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatos Suportados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-import-data-assincrono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Task 2: Import Data (Assíncrono)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📥 Task 2: Import Data (Assíncrono)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-execucao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Execução
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacoes-e-mapeamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validações e Mapeamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-save-individual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por que .save() individual?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-dashboard-metrics-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Task 3: Dashboard Metrics Cache
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Task 3: Dashboard Metrics Cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metricas-atualizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métricas Atualizadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracao-celery-beat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuração Celery Beat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-ttl-time-to-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache TTL (Time To Live)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-e-retry-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Configuração e Retry Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Configuração e Retry Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retry-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry Automático
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoramento-com-flower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoramento com Flower
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-e-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Debugging e Logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Debugging e Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ver-logs-do-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver logs do Worker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verificar-status-de-uma-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificar status de uma task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limpar-tarefas-antigas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpar tarefas antigas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tarefas-assincronas-celery">Tarefas Assíncronas (Celery)</h1>
+<p>Esta página documenta o sistema de processamento em background usando Celery, incluindo todas as tasks, fluxos e estratégias de retry.</p>
+<hr />
+<h2 id="visao-geral-das-tasks">📊 Visão Geral das Tasks</h2>
+<p>O sistema possui <strong>3 tasks principais</strong> rodando via Celery:</p>
+<p>| Task | Tipo | Trigger | Descrição |
+| <code>export_data_async</code> | On-demand | API Call | Exportação de dados para CSV/PDF/JSON/XML |
+| <code>import_data_async</code> | On-demand | API Call | Importação de dados via arquivo CSV |
+| <code>update_dashboard_metrics_cache</code> | Periódica | Celery Beat (5min) | Atualização de cache de métricas |</p>
+<hr />
+<h2 id="task-1-export-data-assincrono">🔄 Task 1: Export Data (Assíncrono)</h2>
+<p><strong>Nome</strong>: <code>app.tasks.export_data_async</code><br />
+<strong>Propósito</strong>: Gerar relatórios pesados sem travar a interface do usuário.</p>
+<h3 id="fluxo-de-execucao">Fluxo de Execução</h3>
+<pre class="mermaid"><code>flowchart TD
+    Start([Usuário solicita export]) --&gt; Create[Criar TaskNotification status=pending]
+    Create --&gt; Dispatch[Disparar Celery Task]
+    Dispatch --&gt; Return[Retornar 202 + Task ID]
+
+    Return -.-&gt; Worker[Celery Worker captura task]
+    Worker --&gt; UpdateProcessing[Atualizar status=processing]
+    UpdateProcessing --&gt; LoadData[Carregar dados do modelo via ORM]
+
+    LoadData --&gt; CheckFormat{Formato?}
+    CheckFormat --&gt;|CSV| GenCSV[Gerar CSV com Pandas]
+    CheckFormat --&gt;|JSON| GenJSON[Serializar para JSON]
+    CheckFormat --&gt;|XML| GenXML[Converter para XML]
+    CheckFormat --&gt;|PDF| GenPDF[Render HTML + WeasyPrint]
+
+    GenCSV --&gt; Save[Salvar arquivo em media/]
+    GenJSON --&gt; Save
+    GenXML --&gt; Save
+    GenPDF --&gt; Save
+
+    Save --&gt; UpdateCompleted[Atualizar status=completed]
+    UpdateCompleted --&gt; Notify[Usuário verifica notificações]
+    Notify --&gt; Download[Download liberado]
+
+    LoadData -.-&gt;|Erro| Failed[Atualizar status=failed]
+    Failed --&gt; LogError[Salvar error_message]</code></pre>
+<h3 id="parametros-de-entrada">Parâmetros de Entrada</h3>
+<ul>
+<li><strong><code>notification_id</code></strong>: ID da notificação criada previamente</li>
+<li>Se <code>None</code>, busca pelo <code>task_id</code> do Celery</li>
+</ul>
+<h3 id="formatos-suportados">Formatos Suportados</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># CSV: DataFrame exportado via Pandas</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">queryset</span> <span class="err">→</span> <span class="n">DataFrame</span> <span class="err">→</span> <span class="n">CSV</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># JSON: Serialização nativa do Django</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">queryset</span> <span class="err">→</span> <span class="n">model_to_dict</span> <span class="err">→</span> <span class="n">JSON</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># XML: Conversão manual</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">queryset</span> <span class="err">→</span> <span class="nb">dict</span> <span class="err">→</span> <span class="n">XML</span> <span class="n">string</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># PDF: Template HTML renderizado</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">queryset</span> <span class="err">→</span> <span class="n">Template</span> <span class="err">→</span> <span class="n">HTML</span> <span class="err">→</span> <span class="n">WeasyPrint</span> <span class="err">→</span> <span class="n">PDF</span>
+</span></code></pre></div>
+<h3 id="tratamento-de-erros">Tratamento de Erros</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Pending: Task criada
+    Pending --&gt; Processing: Worker inicia
+    Processing --&gt; Completed: Sucesso
+    Processing --&gt; Failed: Exceção capturada
+    Failed --&gt; [*]: Erro salvo em error_message
+    Completed --&gt; [*]: Arquivo disponível</code></pre>
+<hr />
+<h2 id="task-2-import-data-assincrono">📥 Task 2: Import Data (Assíncrono)</h2>
+<p><strong>Nome</strong>: <code>app.tasks.import_data_async</code><br />
+<strong>Propósito</strong>: Processar grandes volumes de dados sem bloquear a aplicação.</p>
+<h3 id="fluxo-de-execucao_1">Fluxo de Execução</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant API
+    participant Celery
+    participant DB
+    participant File as CSV File
+
+    User-&gt;&gt;API: POST /import/ (Upload CSV)
+    API-&gt;&gt;DB: Criar TaskNotification
+    API-&gt;&gt;Celery: Despachar import_data_async
+    API--&gt;&gt;User: 202 Accepted (Task ID)
+
+    Celery-&gt;&gt;File: Abrir e ler CSV
+    loop Para cada linha do CSV
+        Celery-&gt;&gt;DB: Validar dados
+        Celery-&gt;&gt;DB: .save() individual (triggers signals)
+    end
+
+    Celery-&gt;&gt;DB: Atualizar record_count
+    Celery-&gt;&gt;DB: status = completed
+    Celery--&gt;&gt;User: Notificação disponível</code></pre>
+<h3 id="validacoes-e-mapeamento">Validações e Mapeamento</h3>
+<p>O sistema utiliza o <strong><code>DataImportService</code></strong> que:</p>
+<ol>
+<li>Lê o CSV usando <code>pandas.read_csv()</code></li>
+<li>Converte campos conforme o mapeamento do modelo</li>
+<li>Chama <code>.save()</code> individual (não bulk) para disparar signals</li>
+<li>Registra erros linha a linha</li>
+</ol>
+<h3 id="por-que-save-individual">Por que <code>.save()</code> individual?</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># ❌ ERRADO: bulk_create ignora signals</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">([</span><span class="o">...</span><span class="p">])</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># ✅ CORRETO: save() individual dispara signals de estoque</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># Atualiza quantity via signal</span>
+</span></code></pre></div>
+<hr />
+<h2 id="task-3-dashboard-metrics-cache">📊 Task 3: Dashboard Metrics Cache</h2>
+<p><strong>Nome</strong>: <code>app.tasks.update_dashboard_metrics_cache</code><br />
+<strong>Propósito</strong>: Pré-calcular métricas pesadas a cada 5 minutos.</p>
+<h3 id="metricas-atualizadas">Métricas Atualizadas</h3>
+<p>| Chave Redis | Função | Descrição |
+| <code>metrics:product</code> | <code>get_product_metrics_raw()</code> | Total produtos, valor em estoque |
+| <code>metrics:sales</code> | <code>get_sales_metrics_raw()</code> | Vendas totais, faturamento |
+| <code>metrics:daily_sales</code> | <code>get_daily_sales_data_raw()</code> | Vendas por dia (últimos 30 dias) |
+| <code>metrics:daily_sales_quantity</code> | <code>get_daily_sales_quantity_data_raw()</code> | Quantidade vendida por dia |
+| <code>metrics:products_by_category</code> | <code>get_products_by_category_raw()</code> | Distribuição por categoria |
+| <code>metrics:products_by_brand</code> | <code>get_products_by_brand_raw()</code> | Distribuição por marca |</p>
+<h3 id="configuracao-celery-beat">Configuração Celery Beat</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># app/celery.py</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="s1">&#39;update-dashboard-metrics&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;app.tasks.update_dashboard_metrics_cache&#39;</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s1">&#39;*/5&#39;</span><span class="p">),</span>  <span class="c1"># A cada 5 minutos</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">},</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="cache-ttl-time-to-live">Cache TTL (Time To Live)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">cache_ttl</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">10</span>  <span class="c1"># 10 minutos</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># 2x o intervalo do beat para evitar cache miss</span>
+</span></code></pre></div>
+<hr />
+<h2 id="configuracao-e-retry-strategy">⚙️ Configuração e Retry Strategy</h2>
+<h3 id="retry-automatico">Retry Automático</h3>
+<p>Todas as tasks usam o retry padrão do Celery:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@shared_task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">default_retry_delay</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">export_data_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notification_id</span><span class="p">):</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="c1"># ...</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exc</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="monitoramento-com-flower">Monitoramento com Flower</h3>
+<ul>
+<li><strong>URL</strong>: <code>http://localhost:5555</code> (dev) ou porta configurada</li>
+<li><strong>Dashboard</strong>: Visualização de tasks ativas, failed, succeeded</li>
+<li><strong>Logs</strong>: Traceback de erros em tempo real</li>
+</ul>
+<hr />
+<h2 id="debugging-e-logs">🔍 Debugging e Logs</h2>
+<h3 id="ver-logs-do-worker">Ver logs do Worker</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Dev</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>inventory_worker
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Prod</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>docker-compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.prod.yml<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>inventory_worker
+</span></code></pre></div>
+<h3 id="verificar-status-de-uma-task">Verificar status de uma task</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">celery.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncResult</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>  <span class="c1"># PENDING, STARTED, SUCCESS, FAILURE</span>
+</span></code></pre></div>
+<h3 id="limpar-tarefas-antigas">Limpar tarefas antigas</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Shell Django</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>manage.py<span class="w"> </span>shell
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>&gt;&gt;&gt;<span class="w"> </span>from<span class="w"> </span>notifications.models<span class="w"> </span>import<span class="w"> </span>TaskNotification
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>&gt;&gt;&gt;<span class="w"> </span>TaskNotification.objects.filter<span class="o">(</span><span class="nv">status</span><span class="o">=</span><span class="s1">&#39;completed&#39;</span>,<span class="w"> </span><span class="nv">is_read</span><span class="o">=</span>True<span class="o">)</span>.delete<span class="o">()</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "navigation.indexes", "content.code.copy", "content.action.edit", "content.view.source"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
