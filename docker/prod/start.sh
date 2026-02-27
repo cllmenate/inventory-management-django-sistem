@@ -1,6 +1,6 @@
 #!/bin/sh
 # Roda migrações (opcional aqui, idealmente roda no CI/CD)
-python manage.py migrate --noinput
+# (Removido: as migrações já são executadas pelo pipeline CI/CD via "run --rm web")
 python manage.py collectstatic --noinput
 
 # Exporta PYTHONPATH para garantir que o pacote app seja encontrado

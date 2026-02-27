@@ -138,8 +138,11 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
       - ./site:/app/site
+      - certbot-etc:/etc/letsencrypt
+      - certbot-webroot:/var/www/certbot
     ports:
-      - "80:8080"
+      - "80:80"
+      - "443:443"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/"]
       interval: 30s
@@ -151,11 +154,23 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    depends_on:
       - inventory_web
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-webroot:/var/www/certbot
+    # Renova o certificado a cada 12h, o entrypoint do certbot é um script que dorme se já tiver certificado válido
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    depends_on:
+      - inventory_nginx
 
 volumes:
   postgres_data_prod:
   redis_data_prod:
   static_volume:
   media_volume:
+  certbot-etc:
+  certbot-webroot:

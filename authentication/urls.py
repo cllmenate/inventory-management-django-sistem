@@ -18,6 +18,8 @@ urlpatterns = [
         name="token_refresh",
     ),
     path(
-        "authentication/token/verify/", TokenVerifyView.as_view(), name="token_verify"
+        "authentication/token/verify/",
+        TokenVerifyView.as_view(),
+        name="token_verify",
     ),
 ]
