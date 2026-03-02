@@ -42,6 +42,9 @@ jobs:
         run: uv run ruff format --check .
 
       - name: Run Mypy (Type Check)
+        env:
+          SECRET_KEY: "secret-key-for-mypy"
+          SIGNING_KEY: "signing-key-for-mypy"
         run: uv run mypy .
 
   # ==========================================
@@ -109,6 +112,7 @@ jobs:
           POSTGRES_PASSWORD: password
           REDIS_URL: redis://localhost:6379/0
           SECRET_KEY: "secret-key-for-tests"
+          SIGNING_KEY: "signing-key-for-tests"
         run: |
           uv run pytest --cov=. --cov-report=xml
 
