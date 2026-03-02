@@ -38,7 +38,7 @@ class OutflowForm(forms.ModelForm):
         product = self.cleaned_data.get("product")
         quantity = self.cleaned_data.get("quantity")
 
-        if quantity > product.quantity:
+        if product and quantity and quantity > product.quantity:
             raise ValidationError(
                 "A quantidade de saída não pode ser maior que "
                 "a quantidade em estoque. "

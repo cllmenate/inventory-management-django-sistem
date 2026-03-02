@@ -1,6 +1,6 @@
 [project]
 name = "inventory-management-django-system"
-version = "1.1.0"
+version = "1.1.1"
 description = "Inventory Management System"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
@@ -58,6 +58,9 @@ dev = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.1",
     "pymdown-extensions>=10.20",
+    "mypy>=1.19.1",
+    "django-stubs>=5.2.9",
+    "djangorestframework-stubs>=3.16.8",
 ]
 
 # ========================================================
@@ -65,9 +68,21 @@ dev = [
 # ========================================================
 [tool.ruff]
 # Comprimento da linha (compatível com Black)
-line-length = 88
+line-length = 79
 # Versão alvo do Python
 target-version = "py313"
+
+[tool.ruff.format]
+# Habilita funcionalidades estendidas de indentação e
+# quebra de linha em fase "preview".
+# Isso quebra strings excessivamente longas e
+# ajusta melhor a indentação para evitar que E501 seja ativado.
+preview = true
+# Garante que docstrings tamém sejam formatadas e
+# fiquem dentro do limite de 79 caracteres.
+docstring-code-format = true
+docstring-code-line-length = 79
+
 
 [tool.ruff.lint]
 # Habilita regras:
@@ -91,7 +106,7 @@ known-first-party = ["app", "config"] # Suas pastas locais
 # CONFIGURAÇÃO DO MYPY (Static Type Checker)
 # ========================================================
 [tool.mypy]
-python_version = ">=3.13"
+python_version = "3.13"
 plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 # Rigor na checagem
@@ -104,9 +119,9 @@ warn_redundant_casts = true
 
 # Ignorar pastas de migrações e testes na checagem estrita
 exclude = [
-    "manage.py",
-    "**/migrations/",
-    "**/tests/"
+    "^manage\\.py$",
+    "migrations",
+    "tests"
 ]
 
 [tool.django-stubs]

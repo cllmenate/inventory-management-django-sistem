@@ -12,13 +12,13 @@ class TestNotificationURLs:
     def test_download_url(self):
         url = reverse(
             "notifications:notifications_download",
-            kwargs={"notification_id": 1}
+            kwargs={"notification_id": 1},
         )
         assert resolve(url).func == views.download_export
 
     def test_mark_read_url(self):
         url = reverse(
             "notifications:notifications_mark_read",
-            kwargs={"notification_id": 1}
+            kwargs={"notification_id": 1},
         )
         assert resolve(url).func == views.mark_notification_read

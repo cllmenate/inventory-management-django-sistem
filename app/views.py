@@ -1,4 +1,5 @@
 import json
+from typing import Any
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -41,9 +42,9 @@ def healthcheck(request):
 
 
 class ExportView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    model = None
-    filename = "export"
-    template_name = None  # Needed for PDF
+    model: Any = None
+    filename: str = "export"
+    template_name: Any = None  # Needed for PDF
 
     def get(self, request, *args, **kwargs):
         file_format = request.GET.get("format", "csv")
@@ -75,9 +76,9 @@ class ExportView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
 
 class ImportView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    model = None
-    success_url = None
-    mapping_dict = None
+    model: Any = None
+    success_url: Any = None
+    mapping_dict: dict[str, str] | None = None
 
     def post(self, request, *args, **kwargs):
         import os

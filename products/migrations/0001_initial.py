@@ -5,34 +5,61 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('categories', '0001_initial'),
-        ('product_models', '0001_initial'),
+        ("categories", "0001_initial"),
+        ("product_models", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=500)),
-                ('description', models.TextField(max_length=1000)),
-                ('serial_number', models.CharField(max_length=100)),
-                ('cost_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('sell_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('quantity', models.IntegerField(default=0)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='products', to='categories.category')),
-                ('product_model', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='products', to='product_models.productmodel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=500)),
+                ("description", models.TextField(max_length=1000)),
+                ("serial_number", models.CharField(max_length=100)),
+                (
+                    "cost_price",
+                    models.DecimalField(decimal_places=2, max_digits=10),
+                ),
+                (
+                    "sell_price",
+                    models.DecimalField(decimal_places=2, max_digits=10),
+                ),
+                ("quantity", models.IntegerField(default=0)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="products",
+                        to="categories.category",
+                    ),
+                ),
+                (
+                    "product_model",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="products",
+                        to="product_models.productmodel",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Produto',
-                'verbose_name_plural': 'Produtos',
-                'ordering': ['title'],
+                "verbose_name": "Produto",
+                "verbose_name_plural": "Produtos",
+                "ordering": ["title"],
             },
         ),
     ]

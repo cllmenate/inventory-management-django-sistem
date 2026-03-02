@@ -17,7 +17,7 @@ class TestOutflowSignals:
         initial_quantity = product.quantity
 
         # Act: Create an outflow
-        outflow = OutflowFactory(product=product, quantity=25)
+        OutflowFactory(product=product, quantity=25)
 
         # Assert: Product quantity should be decremented
         product.refresh_from_db()
@@ -30,7 +30,7 @@ class TestOutflowSignals:
         product = ProductFactory(quantity=50)
 
         # Act
-        outflow = OutflowFactory(product=product, quantity=50)
+        OutflowFactory(product=product, quantity=50)
 
         # Assert
         product.refresh_from_db()
@@ -73,12 +73,14 @@ class TestOutflowSignals:
         assert product.quantity == 90
 
     def test_outflow_can_create_negative_stock(self):
-        """Test outflow allows negative stock (business logic may need validation)."""
-        # Arrange: This tests current behavior - may need business logic to prevent
+        """Test outflow allows negative stock
+        (business logic may need validation)."""
+        # Arrange:
+        # This tests current behavior - may need business logic to prevent
         product = ProductFactory(quantity=10)
 
         # Act: Create outflow larger than stock
-        outflow = OutflowFactory(product=product, quantity=30)
+        OutflowFactory(product=product, quantity=30)
 
         # Assert: Currently allows negative (might want to add validation)
         product.refresh_from_db()
@@ -87,18 +89,13 @@ class TestOutflowSignals:
     def test_outflow_different_products_independent(self):
         """Test outflows for different products are independent."""
         # Arrange
-        product1 = ProductFactory(quantity=50)
-        product2 = ProductFactory(quantity=80)
+        products = [ProductFactory(quantity=50) for _ in range(2)]
 
         # Act
-        OutflowFactory(product=product1, quantity=10)
-        OutflowFactory(product=product2, quantity=20)
-
-        # Assert
-        product1.refresh_from_db()
-        product2.refresh_from_db()
-        assert product1.quantity == 40
-        assert product2.quantity == 60
+        for product in products:
+            OutflowFactory(product=product, quantity=10)
+            product.refresh_from_db()
+            assert product.quantity == 40
 
     def test_outflow_with_large_quantity(self):
         """Test outflow handles large quantities correctly."""

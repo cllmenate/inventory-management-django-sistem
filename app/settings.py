@@ -59,19 +59,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "django_celery_results",
     "django_celery_beat",
-
     "corsheaders",
-
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-
     "drf_spectacular",
     "drf_spectacular_sidecar",
-
     "authentication",
     "notifications",
     "brands",
@@ -137,18 +132,15 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
+            "NAME": str(BASE_DIR / "db.sqlite3"),
         }
     }
 
 # Celery Configuration
 CELERY_BROKER_URL = os.getenv(
-    "CELERY_BROKER_URL",
-    "redis://inventory_redis:6379/0"
+    "CELERY_BROKER_URL", "redis://inventory_redis:6379/0"
 )
-CELERY_RESULT_BACKEND = (
-    "django-db"
-)
+CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_EXTENDED = True
 CELERY_CACHE_BACKEND = "default"
 CELERY_ACCEPT_CONTENT = ["application/json"]
@@ -162,8 +154,7 @@ if os.getenv("POSTGRES_DB"):
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": os.getenv(
-                "REDIS_URL",
-                "redis://inventory_redis:6379/1"
+                "REDIS_URL", "redis://inventory_redis:6379/1"
             ),
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
@@ -188,13 +179,19 @@ AUTH_PASSWORD_VALIDATORS = [
         ),
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.MinimumLengthValidator"),  # noqa: E501
+        "NAME": (
+            "django.contrib.auth.password_validation.MinimumLengthValidator"
+        ),  # noqa: E501
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.CommonPasswordValidator"),  # noqa: E501
+        "NAME": (
+            "django.contrib.auth.password_validation.CommonPasswordValidator"
+        ),  # noqa: E501
     },
     {
-        "NAME": ("django.contrib.auth.password_validation.NumericPasswordValidator"),  # noqa: E501
+        "NAME": (
+            "django.contrib.auth.password_validation.NumericPasswordValidator"
+        ),  # noqa: E501
     },
 ]
 
@@ -275,7 +272,7 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     "TITLE": "Sistema de Gestão de Estoque",
     "DESCRIPTION": "Sistema de Gestão de Estoque",
-    "VERSION": "1.1.0",
+    "VERSION": "1.1.1",
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_DIST": "SIDECAR",  # shorthand to use the sidecar instead
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
@@ -285,8 +282,7 @@ SPECTACULAR_SETTINGS = {
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "False") == "True"
 CORS_ALLOWED_ORIGINS = os.getenv(
-    "CORS_ALLOWED_ORIGINS",
-    "http://localhost:3000"
+    "CORS_ALLOWED_ORIGINS", "http://localhost:3000"
 ).split(",")
 
 # Logging Configuration

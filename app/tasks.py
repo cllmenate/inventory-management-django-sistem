@@ -23,9 +23,7 @@ def export_data_async(self, notification_id):
                 task_id=self.request.id
             )
         else:
-            notification = TaskNotification.objects.get(
-                id=notification_id
-            )
+            notification = TaskNotification.objects.get(id=notification_id)
 
         notification.status = "processing"
         notification.save()
@@ -47,7 +45,7 @@ def export_data_async(self, notification_id):
                 "Inflows": "inflows",
                 "Outflows": "outflows",
             }
-            app_label = model_to_app.get(model_name)
+            app_label = model_to_app.get(model_name) or ""
             if not app_label:
                 raise ValueError(
                     f"App não encontrado para o modelo: {model_name}"
@@ -109,9 +107,7 @@ def import_data_async(self, notification_id, file_path, mapping_dict=None):
                 task_id=self.request.id
             )
         else:
-            notification = TaskNotification.objects.get(
-                id=notification_id
-            )
+            notification = TaskNotification.objects.get(id=notification_id)
 
         notification.status = "processing"
         notification.save()
@@ -130,7 +126,7 @@ def import_data_async(self, notification_id, file_path, mapping_dict=None):
                 "Inflows": "inflows",
                 "Outflows": "outflows",
             }
-            app_label = model_to_app.get(model_name)
+            app_label = model_to_app.get(model_name) or ""
             if not app_label:
                 raise ValueError(
                     f"App não encontrado para o modelo: {model_name}"

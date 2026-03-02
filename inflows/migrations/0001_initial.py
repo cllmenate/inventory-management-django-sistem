@@ -5,30 +5,51 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('products', '0001_initial'),
-        ('suppliers', '0001_initial'),
+        ("products", "0001_initial"),
+        ("suppliers", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Inflows',
+            name="Inflows",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField()),
-                ('description', models.TextField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='inflows', to='products.product')),
-                ('supplier', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='inflows', to='suppliers.supplier')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.PositiveIntegerField()),
+                ("description", models.TextField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="inflows",
+                        to="products.product",
+                    ),
+                ),
+                (
+                    "supplier",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="inflows",
+                        to="suppliers.supplier",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Entrada',
-                'verbose_name_plural': 'Entradas',
-                'ordering': ['-created_at'],
+                "verbose_name": "Entrada",
+                "verbose_name_plural": "Entradas",
+                "ordering": ["-created_at"],
             },
         ),
     ]

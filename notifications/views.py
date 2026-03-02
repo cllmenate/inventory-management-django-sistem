@@ -14,7 +14,9 @@ class TaskNotificationListView(LoginRequiredMixin, ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return TaskNotification.objects.filter(user=self.request.user)
+        if self.request.user.is_authenticated:
+            return TaskNotification.objects.filter(user=self.request.user)
+        return TaskNotification.objects.none()
 
 
 @login_required

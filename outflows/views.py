@@ -39,21 +39,15 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         brand = self.request.GET.get("brand")
 
         if product:
-            queryset = queryset.filter(
-                product__title__icontains=product
-            )
+            queryset = queryset.filter(product__title__icontains=product)
         if serial_number:
             queryset = queryset.filter(
                 product__serial_number__icontains=serial_number
             )
         if category:
-            queryset = queryset.filter(
-                product__category__id=category
-            )
+            queryset = queryset.filter(product__category__id=category)
         if brand:
-            queryset = queryset.filter(
-                product__brand__id=brand
-            )
+            queryset = queryset.filter(product__brand__id=brand)
 
         return queryset
 

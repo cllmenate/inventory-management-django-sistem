@@ -1,6 +1,8 @@
+from unittest.mock import patch
+
 import pytest
 from django.urls import reverse
-from unittest.mock import patch
+
 from suppliers.models import Supplier
 
 
@@ -13,7 +15,9 @@ class TestSupplierViews:
         assert response.status_code == 200
         assert supplier in response.context["suppliers"]
 
-    def test_supplier_list_view_filter(self, client, authenticated_user, supplier):
+    def test_supplier_list_view_filter(
+        self, client, authenticated_user, supplier
+    ):
         client.force_login(authenticated_user)
         url = reverse("supplier_list")
         response = client.get(url, {"name": supplier.name})
@@ -27,7 +31,11 @@ class TestSupplierViews:
     def test_supplier_create_view(self, client, authenticated_user):
         client.force_login(authenticated_user)
         url = reverse("supplier_create")
-        data = {"name": "New Supplier", "email": "sup@test.com", "description": "Desc"}
+        data = {
+            "name": "New Supplier",
+            "email": "sup@test.com",
+            "description": "Desc",
+        }
         response = client.post(url, data)
         assert response.status_code == 302
         assert Supplier.objects.filter(name="New Supplier").exists()
@@ -104,7 +112,11 @@ class TestSupplierAPI:
         assert response.status_code == 200
 
         # Create
-        data = {"name": "API Supplier", "email": "api@test.com", "description": "API"}
+        data = {
+            "name": "API Supplier",
+            "email": "api@test.com",
+            "description": "API",
+        }
         response = api_client.post(url, data)
         assert response.status_code == 201
         assert Supplier.objects.filter(name="API Supplier").exists()

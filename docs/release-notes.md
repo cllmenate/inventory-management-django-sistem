@@ -1,5 +1,15 @@
 # Release Notes
 
+## [v1.1.1] - 2026-03-02
+
+### 🐛 Correções (Hotfixes)
+
+- **Estabilidade e Qualidade**: Fortalecimento da tipagem estática do projeto com MyPy para previnir bugs na camada de serviços genéricos de importação/exportação.
+- **Refatorações e Code Smells**: Resolução de métricas do SonarQube mitigando Alta Complexidade Cognitiva de métodos massivos e otimizando fluxos de forms.
+- **Code Style**: Alinhamento rigoroso à regras de formatação PEP8 de 79 caracteres via Ruff e Flake8.
+
+---
+
 ## [v1.1.0] - 2026-01-27
 
 Esta versão traz melhorias significativas na visibilidade operacional do sistema, com foco em notificações e relatórios.

@@ -18,7 +18,10 @@ def complete_product_setup():
     category = CategoryFactory(name="Test Category")
     product_model = ProductModelFactory(name="Test Model", brand=brand)
     product = ProductFactory(
-        title="Test Product", product_model=product_model, category=category, quantity=0
+        title="Test Product",
+        product_model=product_model,
+        category=category,
+        quantity=0,
     )
     supplier = SupplierFactory(name="Test Supplier")
 

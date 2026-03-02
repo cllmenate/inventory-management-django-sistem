@@ -15,7 +15,11 @@ class TestOutflowsModel:
         """Test creating an outflow with valid data."""
         product = ProductFactory(quantity=100)
 
-        outflow = OutflowFactory(product=product, quantity=10, description="Sale")
+        outflow = OutflowFactory(
+            product=product,
+            quantity=10,
+            description="Sale",
+        )
 
         assert outflow.id is not None
         assert outflow.product == product
@@ -31,9 +35,8 @@ class TestOutflowsModel:
 
     def test_outflow_ordering(self):
         """Test outflows are ordered by created_at descending."""
-        outflow1 = OutflowFactory()
-        outflow2 = OutflowFactory()
-        outflow3 = OutflowFactory()
+        for _ in range(3):
+            OutflowFactory()
 
         outflows = Outflows.objects.all()
 

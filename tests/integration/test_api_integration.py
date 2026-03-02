@@ -16,7 +16,9 @@ class TestAPIIntegration:
         # Step 1: Create a brand
         brand_url = reverse("brand_list_create_api_view")
         brand_data = {"name": "API Brand", "description": "Created via API"}
-        brand_response = authenticated_client.post(brand_url, brand_data, format="json")
+        brand_response = authenticated_client.post(
+            brand_url, brand_data, format="json"
+        )
         assert brand_response.status_code == status.HTTP_201_CREATED
         brand_id = brand_response.data["id"]
 
@@ -91,7 +93,11 @@ class TestAPIIntegration:
 
         # Step 8: Create an outflow
         outflow_url = reverse("outflow_list_create_api_view")
-        outflow_data = {"product": product_id, "quantity": 30, "description": "Sale"}
+        outflow_data = {
+            "product": product_id,
+            "quantity": 30,
+            "description": "Sale",
+        }
         outflow_response = authenticated_client.post(
             outflow_url, outflow_data, format="json"
         )
@@ -117,7 +123,9 @@ class TestAPIIntegration:
 
         # Create
         data = {"name": "CRUD Brand", "description": "Test"}
-        create_response = authenticated_client.post(base_url, data, format="json")
+        create_response = authenticated_client.post(
+            base_url, data, format="json"
+        )
         assert create_response.status_code == status.HTTP_201_CREATED
         brand_id = create_response.data["id"]
 

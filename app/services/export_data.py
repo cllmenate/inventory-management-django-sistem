@@ -1,3 +1,5 @@
+from typing import Any
+
 import pandas as pd
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -6,7 +8,7 @@ from weasyprint import HTML
 
 class DataExportService:
     @staticmethod
-    def _prepare_data(queryset):
+    def _prepare_data(queryset: Any) -> Any:
         """Prepara os dados do queryset, convertendo relações para strings."""
         data = []
         for obj in queryset:
@@ -23,26 +25,32 @@ class DataExportService:
         return pd.DataFrame(data)
 
     @staticmethod
-    def export_to_csv(queryset, filename):
+    def export_to_csv(queryset: Any, filename: str) -> Any:
         df = DataExportService._prepare_data(queryset)
         response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = f'attachment; filename="{filename}.csv"'  # noqa: E501
+        response["Content-Disposition"] = (
+            f'attachment; filename="{filename}.csv"'  # noqa: E501
+        )
         df.to_csv(path_or_buf=response, index=False)
         return response
 
     @staticmethod
-    def export_to_json(queryset, filename):
+    def export_to_json(queryset: Any, filename: str) -> Any:
         df = DataExportService._prepare_data(queryset)
         response = HttpResponse(content_type="application/json")
-        response["Content-Disposition"] = f'attachment; filename="{filename}.json"'  # noqa: E501
+        response["Content-Disposition"] = (
+            f'attachment; filename="{filename}.json"'  # noqa: E501
+        )
         df.to_json(path_or_buf=response, orient="records", indent=4)
         return response
 
     @staticmethod
-    def export_to_xml(queryset, filename):
+    def export_to_xml(queryset: Any, filename: str) -> Any:
         df = DataExportService._prepare_data(queryset)
         response = HttpResponse(content_type="application/xml")
-        response["Content-Disposition"] = f'attachment; filename="{filename}.xml"'  # noqa: E501
+        response["Content-Disposition"] = (
+            f'attachment; filename="{filename}.xml"'  # noqa: E501
+        )
         # XML needs a root element, pandas .to_xml makes it easy
         try:
             df.to_xml(
@@ -64,7 +72,12 @@ class DataExportService:
         return response
 
     @staticmethod
-    def export_to_pdf(queryset, template_name, context, filename):
+    def export_to_pdf(
+        queryset: Any,
+        template_name: str,
+        context: dict[str, Any],
+        filename: str,
+    ) -> Any:
         html_string = render_to_string(template_name, context)
         try:
             html = HTML(string=html_string)
@@ -77,5 +90,7 @@ class DataExportService:
             )
 
         response = HttpResponse(pdf, content_type="application/pdf")
-        response["Content-Disposition"] = f'attachment; filename="{filename}.pdf"'  # noqa: E501
+        response["Content-Disposition"] = (
+            f'attachment; filename="{filename}.pdf"'  # noqa: E501
+        )
         return response

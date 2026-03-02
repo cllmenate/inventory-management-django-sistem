@@ -14,7 +14,9 @@ class TestJWTAuthentication:
 
     def test_token_generation_for_valid_user(self):
         """Test JWT token generation for valid user."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         refresh = RefreshToken.for_user(user)
 
@@ -24,7 +26,9 @@ class TestJWTAuthentication:
 
     def test_access_token_contains_user_id(self):
         """Test access token contains user ID."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         refresh = RefreshToken.for_user(user)
         access_token = refresh.access_token
@@ -33,7 +37,9 @@ class TestJWTAuthentication:
 
     def test_api_authentication_with_valid_token(self):
         """Test API request with valid token."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         client = APIClient()
         refresh = RefreshToken.for_user(user)
@@ -55,7 +61,9 @@ class TestJWTAuthentication:
     @time_machine.travel("2026-01-01 12:00:00", tick=False)
     def test_access_token_expiration(self):
         """Test access token expires after configured time."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         refresh = RefreshToken.for_user(user)
         access_token = refresh.access_token
@@ -76,7 +84,9 @@ class TestJWTAuthentication:
 
     def test_refresh_token_generation(self):
         """Test refresh token is generated."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         refresh = RefreshToken.for_user(user)
 
@@ -85,7 +95,9 @@ class TestJWTAuthentication:
 
     def test_token_refresh_creates_new_access_token(self):
         """Test refreshing token creates new access token."""
-        user = User.objects.create_user(username="testuser", password="testpass123")
+        user = User.objects.create_user(
+            username="testuser", password="testpass123"
+        )
 
         refresh = RefreshToken.for_user(user)
         old_access_token = str(refresh.access_token)

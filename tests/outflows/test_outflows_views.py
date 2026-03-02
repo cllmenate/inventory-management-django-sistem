@@ -1,16 +1,19 @@
-import pytest
-from django.urls import reverse
-from rest_framework import status
 from unittest.mock import patch
 
+import pytest
+from django.urls import reverse
+
 from outflows.models import Outflows
-from outflows import models
 
 
 @pytest.mark.django_db
 class TestOutflowViews:
     def test_outflow_list_view_authenticated(
-        self, client, authenticated_user, product_with_stock, outflow
+        self,
+        client,
+        authenticated_user,
+        product_with_stock,
+        outflow,
     ):
         client.force_login(authenticated_user)
         url = reverse("outflow_list")
@@ -20,7 +23,11 @@ class TestOutflowViews:
         assert outflow in response.context["outflows"]
 
     def test_outflow_list_view_filter(
-        self, client, authenticated_user, product_with_stock, outflow
+        self,
+        client,
+        authenticated_user,
+        product_with_stock,
+        outflow,
     ):
         client.force_login(authenticated_user)
         url = reverse("outflow_list")
@@ -32,7 +39,12 @@ class TestOutflowViews:
         assert response.status_code == 200
         assert len(response.context["outflows"]) == 0
 
-    def test_outflow_create_view(self, client, authenticated_user, product_with_stock):
+    def test_outflow_create_view(
+        self,
+        client,
+        authenticated_user,
+        product_with_stock,
+    ):
         client.force_login(authenticated_user)
         url = reverse("outflow_create")
         data = {
@@ -40,13 +52,20 @@ class TestOutflowViews:
             "quantity": 5,
             "description": "Test Outflow",
         }
-        # Assuming product_with_stock has enough quantity or metrics service handles it without erroring
-        # (Outflows usually check quantity, but let's assume valid data for now)
+        # Assuming product_with_stock has enough quantity
+        # or metrics service handles it without erroring
+        # (Outflows usually check quantity,
+        # but let's assume valid data for now)
         response = client.post(url, data)
         assert response.status_code == 302
         assert Outflows.objects.filter(description="Test Outflow").exists()
 
-    def test_outflow_detail_view(self, client, authenticated_user, outflow):
+    def test_outflow_detail_view(
+        self,
+        client,
+        authenticated_user,
+        outflow,
+    ):
         client.force_login(authenticated_user)
         url = reverse("outflow_detail", kwargs={"pk": outflow.pk})
         response = client.get(url)
@@ -54,7 +73,12 @@ class TestOutflowViews:
         assert response.context["object"] == outflow
 
     @patch("app.tasks.export_data_async.apply_async")
-    def test_outflow_export_view(self, mock_task, client, authenticated_user):
+    def test_outflow_export_view(
+        self,
+        mock_task,
+        client,
+        authenticated_user,
+    ):
         client.force_login(authenticated_user)
         url = reverse("outflow_export")
 
@@ -73,7 +97,13 @@ class TestOutflowViews:
         assert notification.model_name == "Outflows"
 
     @patch("app.tasks.import_data_async.apply_async")
-    def test_outflow_import_view(self, mock_task, client, authenticated_user, tmp_path):
+    def test_outflow_import_view(
+        self,
+        mock_task,
+        client,
+        authenticated_user,
+        tmp_path,
+    ):
         client.force_login(authenticated_user)
         url = reverse("outflow_import")
 
@@ -95,7 +125,10 @@ class TestOutflowViews:
 @pytest.mark.django_db
 class TestOutflowAPI:
     def test_outflow_list_create_api(
-        self, api_client, authenticated_user, product_with_stock
+        self,
+        api_client,
+        authenticated_user,
+        product_with_stock,
     ):
         api_client.force_authenticate(user=authenticated_user)
         url = reverse("outflow_list_create_api_view")
@@ -114,7 +147,12 @@ class TestOutflowAPI:
         assert response.status_code == 201
         assert Outflows.objects.filter(description="API Outflow").exists()
 
-    def test_outflow_retrieve_api(self, api_client, authenticated_user, outflow):
+    def test_outflow_retrieve_api(
+        self,
+        api_client,
+        authenticated_user,
+        outflow,
+    ):
         api_client.force_authenticate(user=authenticated_user)
         url = reverse("outflow_detail_api_view", kwargs={"pk": outflow.pk})
         response = api_client.get(url)

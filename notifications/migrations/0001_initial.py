@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,26 +14,76 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='TaskNotification',
+            name="TaskNotification",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('task_type', models.CharField(choices=[('export', 'Exportação'), ('import', 'Importação')], max_length=10)),
-                ('task_id', models.CharField(max_length=255, unique=True)),
-                ('status', models.CharField(choices=[('pending', 'Pendente'), ('processing', 'Processando'), ('completed', 'Concluído'), ('failed', 'Falhou')], default='pending', max_length=20)),
-                ('model_name', models.CharField(max_length=100)),
-                ('file_format', models.CharField(blank=True, max_length=10)),
-                ('file_path', models.FileField(blank=True, null=True, upload_to='exports/%Y/%m/%d/')),
-                ('record_count', models.IntegerField(blank=True, null=True)),
-                ('error_message', models.TextField(blank=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('completed_at', models.DateTimeField(blank=True, null=True)),
-                ('is_read', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='task_notifications', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "task_type",
+                    models.CharField(
+                        choices=[
+                            ("export", "Exportação"),
+                            ("import", "Importação"),
+                        ],
+                        max_length=10,
+                    ),
+                ),
+                ("task_id", models.CharField(max_length=255, unique=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "Pendente"),
+                            ("processing", "Processando"),
+                            ("completed", "Concluído"),
+                            ("failed", "Falhou"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                    ),
+                ),
+                ("model_name", models.CharField(max_length=100)),
+                ("file_format", models.CharField(blank=True, max_length=10)),
+                (
+                    "file_path",
+                    models.FileField(
+                        blank=True, null=True, upload_to="exports/%Y/%m/%d/"
+                    ),
+                ),
+                ("record_count", models.IntegerField(blank=True, null=True)),
+                ("error_message", models.TextField(blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("completed_at", models.DateTimeField(blank=True, null=True)),
+                ("is_read", models.BooleanField(default=False)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="task_notifications",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
-                'indexes': [models.Index(fields=['user', 'is_read'], name='notificatio_user_id_8bdc06_idx'), models.Index(fields=['task_id'], name='notificatio_task_id_f48b97_idx')],
+                "ordering": ["-created_at"],
+                "indexes": [
+                    models.Index(
+                        fields=["user", "is_read"],
+                        name="notificatio_user_id_8bdc06_idx",
+                    ),
+                    models.Index(
+                        fields=["task_id"],
+                        name="notificatio_task_id_f48b97_idx",
+                    ),
+                ],
             },
         ),
     ]

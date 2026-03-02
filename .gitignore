@@ -21,3 +21,6 @@ htmlcov/
 
 # Media files
 mediafiles/
+
+# Mypy
+.mypy_cache/

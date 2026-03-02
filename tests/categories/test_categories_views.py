@@ -1,6 +1,8 @@
+from unittest.mock import patch
+
 import pytest
 from django.urls import reverse
-from unittest.mock import patch
+
 from categories.models import Category
 
 
@@ -13,7 +15,9 @@ class TestCategoryViews:
         assert response.status_code == 200
         assert category in response.context["categories"]
 
-    def test_category_list_view_filter(self, client, authenticated_user, category):
+    def test_category_list_view_filter(
+        self, client, authenticated_user, category
+    ):
         client.force_login(authenticated_user)
         url = reverse("category_list")
         response = client.get(url, {"name": category.name})
@@ -42,7 +46,10 @@ class TestCategoryViews:
     def test_category_update_view(self, client, authenticated_user, category):
         client.force_login(authenticated_user)
         url = reverse("category_update", kwargs={"pk": category.pk})
-        data = {"name": "Updated Category", "description": "Updated Description"}
+        data = {
+            "name": "Updated Category",
+            "description": "Updated Description",
+        }
         response = client.post(url, data)
         assert response.status_code == 302
         category.refresh_from_db()

@@ -12,14 +12,21 @@ from brands.models import Brand
 class TestBrandListCreateAPIView:
     """Test suite for Brand List/Create API."""
 
-    def test_list_brands_requires_authentication(self, api_client):
+    def test_list_brands_requires_authentication(
+        self,
+        api_client,
+    ):
         """Test listing brands requires authentication."""
         url = reverse("brand_list_create_api_view")
         response = api_client.get(url)
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_list_brands_with_authentication(self, authenticated_client, brand_list):
+    def test_list_brands_with_authentication(
+        self,
+        authenticated_client,
+        brand_list,
+    ):
         """Test listing brands with authentication."""
         url = reverse("brand_list_create_api_view")
         response = authenticated_client.get(url)
@@ -27,7 +34,10 @@ class TestBrandListCreateAPIView:
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 5
 
-    def test_create_brand_with_valid_data(self, authenticated_client):
+    def test_create_brand_with_valid_data(
+        self,
+        authenticated_client,
+    ):
         """Test creating brand via API with valid data."""
         url = reverse("brand_list_create_api_view")
         data = {"name": "API Brand", "description": "Created via API"}
@@ -37,7 +47,10 @@ class TestBrandListCreateAPIView:
         assert Brand.objects.filter(name="API Brand").exists()
         assert response.data["name"] == "API Brand"
 
-    def test_create_brand_without_authentication(self, api_client):
+    def test_create_brand_without_authentication(
+        self,
+        api_client,
+    ):
         """Test creating brand without authentication fails."""
         url = reverse("brand_list_create_api_view")
         data = {"name": "Unauthorized Brand", "description": "Should fail"}
@@ -45,7 +58,10 @@ class TestBrandListCreateAPIView:
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_create_brand_without_permission(self, client_without_permissions):
+    def test_create_brand_without_permission(
+        self,
+        client_without_permissions,
+    ):
         """Test creating brand without proper permissions."""
         url = reverse("brand_list_create_api_view")
         data = {"name": "No Permission Brand", "description": "Should fail"}
@@ -59,7 +75,11 @@ class TestBrandListCreateAPIView:
 class TestBrandRetrieveUpdateDestroyAPIView:
     """Test suite for Brand Retrieve/Update/Destroy API."""
 
-    def test_retrieve_brand(self, authenticated_client, brand):
+    def test_retrieve_brand(
+        self,
+        authenticated_client,
+        brand,
+    ):
         """Test retrieving a specific brand."""
         url = reverse("brand_detail_api_view", kwargs={"pk": brand.pk})
         response = authenticated_client.get(url)
@@ -68,17 +88,28 @@ class TestBrandRetrieveUpdateDestroyAPIView:
         assert response.data["name"] == brand.name
         assert response.data["id"] == brand.id
 
-    def test_update_brand_with_valid_data(self, authenticated_client, brand):
+    def test_update_brand_with_valid_data(
+        self,
+        authenticated_client,
+        brand,
+    ):
         """Test updating brand via API."""
         url = reverse("brand_detail_api_view", kwargs={"pk": brand.pk})
-        data = {"name": "Updated via API", "description": "Updated description"}
+        data = {
+            "name": "Updated via API",
+            "description": "Updated description",
+        }
         response = authenticated_client.put(url, data, format="json")
 
         assert response.status_code == status.HTTP_200_OK
         brand.refresh_from_db()
         assert brand.name == "Updated via API"
 
-    def test_partial_update_brand(self, authenticated_client, brand):
+    def test_partial_update_brand(
+        self,
+        authenticated_client,
+        brand,
+    ):
         """Test partial update (PATCH) of brand."""
         url = reverse("brand_detail_api_view", kwargs={"pk": brand.pk})
         data = {"name": "Patched Name"}
@@ -88,7 +119,11 @@ class TestBrandRetrieveUpdateDestroyAPIView:
         brand.refresh_from_db()
         assert brand.name == "Patched Name"
 
-    def test_delete_brand(self, authenticated_client, brand):
+    def test_delete_brand(
+        self,
+        authenticated_client,
+        brand,
+    ):
         """Test deleting brand via API."""
         brand_id = brand.id
         url = reverse("brand_detail_api_view", kwargs={"pk": brand.pk})
@@ -97,7 +132,10 @@ class TestBrandRetrieveUpdateDestroyAPIView:
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not Brand.objects.filter(id=brand_id).exists()
 
-    def test_retrieve_nonexistent_brand(self, authenticated_client):
+    def test_retrieve_nonexistent_brand(
+        self,
+        authenticated_client,
+    ):
         """Test retrieving non-existent brand returns 404."""
         url = reverse("brand_detail_api_view", kwargs={"pk": 99999})
         response = authenticated_client.get(url)

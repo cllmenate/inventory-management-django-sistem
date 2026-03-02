@@ -47,24 +47,16 @@ class ProductListView(
         product_model = self.request.GET.get("product_model")
 
         if title:
-            queryset = queryset.filter(
-                title__icontains=title
-            )
+            queryset = queryset.filter(title__icontains=title)
 
         if serial_number:
-            queryset = queryset.filter(
-                serial_number__icontains=serial_number
-            )
+            queryset = queryset.filter(serial_number__icontains=serial_number)
 
         if category:
-            queryset = queryset.filter(
-                category__id=category
-            )
+            queryset = queryset.filter(category__id=category)
 
         if product_model:
-            queryset = queryset.filter(
-                product_model__id=product_model
-            )
+            queryset = queryset.filter(product_model__id=product_model)
 
         return queryset
 

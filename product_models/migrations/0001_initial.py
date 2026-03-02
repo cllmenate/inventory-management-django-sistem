@@ -5,28 +5,41 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('brands', '0001_initial'),
+        ("brands", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProductModel',
+            name="ProductModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='brands.brand')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="brands.brand",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Modelo de Produto',
-                'verbose_name_plural': 'Modelos de Produto',
-                'ordering': ['name'],
+                "verbose_name": "Modelo de Produto",
+                "verbose_name_plural": "Modelos de Produto",
+                "ordering": ["name"],
             },
         ),
     ]

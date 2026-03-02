@@ -1,3 +1,6 @@
+# ========== RAW FUNCTIONS (SEM CACHE) ==========
+from typing import Any
+
 from django.core.cache import cache
 from django.db.models import F, Sum
 from django.utils import timezone
@@ -8,10 +11,8 @@ from categories.models import Category
 from outflows.models import Outflows
 from products.models import Product
 
-# ========== RAW FUNCTIONS (SEM CACHE) ==========
 
-
-def get_product_metrics_raw():
+def get_product_metrics_raw() -> dict[str, Any]:
     """Calcula métricas de produtos (sem cache) - otimizado."""
     products = Product.objects.all()
 
@@ -47,7 +48,7 @@ def get_product_metrics_raw():
     }
 
 
-def get_sales_metrics_raw():
+def get_sales_metrics_raw() -> dict[str, Any]:
     """Calcula métricas de vendas (sem cache) - otimizado."""
     # Otimização: select_related para evitar N+1 queries
     outflows = Outflows.objects.select_related("product").all()
@@ -94,11 +95,14 @@ def get_sales_metrics_raw():
     }
 
 
-def get_daily_sales_data_raw():
+def get_daily_sales_data_raw() -> dict[str, Any]:
     """Calcula dados de vendas diárias (sem cache)."""
     today = timezone.now().date()
+    # Import datetime directly if timezone.timedelta is failing
+    import datetime
+
     dates = [
-        str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)
+        str(today - datetime.timedelta(days=i)) for i in range(30, -1, -1)
     ]
     values = []
 
@@ -117,11 +121,13 @@ def get_daily_sales_data_raw():
     }
 
 
-def get_daily_sales_quantity_data_raw():
+def get_daily_sales_quantity_data_raw() -> dict[str, Any]:
     """Calcula quantidades de vendas diárias (sem cache)."""
     today = timezone.now().date()
+    import datetime
+
     dates = [
-        str(today - timezone.timedelta(days=i)) for i in range(30, -1, -1)
+        str(today - datetime.timedelta(days=i)) for i in range(30, -1, -1)
     ]
     quantities = []
 
@@ -135,7 +141,7 @@ def get_daily_sales_quantity_data_raw():
     }
 
 
-def get_products_by_category_raw():
+def get_products_by_category_raw() -> dict[str, Any]:
     """Calcula produtos por categoria (sem cache) - otimizado."""
     # Otimização: select_related para evitar N+1 queries
     categories = Category.objects.all()
@@ -145,7 +151,7 @@ def get_products_by_category_raw():
     }
 
 
-def get_products_by_brand_raw():
+def get_products_by_brand_raw() -> dict[str, Any]:
     """Calcula produtos por marca (sem cache) - otimizado."""
     # Otimização: select_related para evitar N+1 nas queries de brand
     brands = Brand.objects.all()
@@ -159,7 +165,7 @@ def get_products_by_brand_raw():
 # ========== CACHED FUNCTIONS (COM CACHE) ==========
 
 
-def get_product_metrics():
+def get_product_metrics() -> dict[str, Any]:
     """Retorna métricas de produtos (com cache)."""
     cached = cache.get("metrics:product")
     if cached:
@@ -168,7 +174,7 @@ def get_product_metrics():
     return get_product_metrics_raw()
 
 
-def get_sales_metrics():
+def get_sales_metrics() -> dict[str, Any]:
     """Retorna métricas de vendas (com cache)."""
     cached = cache.get("metrics:sales")
     if cached:
@@ -177,7 +183,7 @@ def get_sales_metrics():
     return get_sales_metrics_raw()
 
 
-def get_daily_sales_data():
+def get_daily_sales_data() -> dict[str, Any]:
     """Retorna dados de vendas diárias (com cache)."""
     cached = cache.get("metrics:daily_sales")
     if cached:
@@ -186,7 +192,7 @@ def get_daily_sales_data():
     return get_daily_sales_data_raw()
 
 
-def get_daily_sales_quantity_data():
+def get_daily_sales_quantity_data() -> dict[str, Any]:
     """Retorna quantidades de vendas diárias (com cache)."""
     cached = cache.get("metrics:daily_sales_quantity")
     if cached:
@@ -195,7 +201,7 @@ def get_daily_sales_quantity_data():
     return get_daily_sales_quantity_data_raw()
 
 
-def get_products_by_category():
+def get_products_by_category() -> dict[str, Any]:
     """Retorna produtos por categoria (com cache)."""
     cached = cache.get("metrics:products_by_category")
     if cached:
@@ -204,7 +210,7 @@ def get_products_by_category():
     return get_products_by_category_raw()
 
 
-def get_products_by_brand():
+def get_products_by_brand() -> dict[str, Any]:
     """Retorna produtos por marca (com cache)."""
     cached = cache.get("metrics:products_by_brand")
     if cached:

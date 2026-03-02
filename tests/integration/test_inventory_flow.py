@@ -28,28 +28,28 @@ class TestInventoryFlow:
         assert product.quantity == 0
 
         # Act 1: Receive stock (inflow)
-        inflow1 = InflowFactory(product=product, supplier=supplier, quantity=100)
+        InflowFactory(product=product, supplier=supplier, quantity=100)
         product.refresh_from_db()
 
         # Assert: Stock increased
         assert product.quantity == 100
 
         # Act 2: Sell some items (outflow)
-        outflow1 = OutflowFactory(product=product, quantity=30)
+        OutflowFactory(product=product, quantity=30)
         product.refresh_from_db()
 
         # Assert: Stock decreased
         assert product.quantity == 70
 
         # Act 3: Receive more stock
-        inflow2 = InflowFactory(product=product, supplier=supplier, quantity=50)
+        InflowFactory(product=product, supplier=supplier, quantity=50)
         product.refresh_from_db()
 
         # Assert: Stock increased again
         assert product.quantity == 120
 
         # Act 4: Another outflow
-        outflow2 = OutflowFactory(product=product, quantity=20)
+        OutflowFactory(product=product, quantity=20)
         product.refresh_from_db()
 
         # Final assertion
@@ -58,24 +58,23 @@ class TestInventoryFlow:
     def test_multiple_products_independent_inventory(self):
         """Test that multiple products have independent inventory tracking."""
         # Arrange
-        product1 = ProductFactory(quantity=0)
-        product2 = ProductFactory(quantity=0)
+        products = [ProductFactory(quantity=0) for _ in range(2)]
         supplier = SupplierFactory()
 
         # Act: Operations on product 1
-        InflowFactory(product=product1, supplier=supplier, quantity=50)
-        OutflowFactory(product=product1, quantity=10)
+        InflowFactory(product=products[0], supplier=supplier, quantity=50)
+        OutflowFactory(product=products[0], quantity=10)
 
         # Operations on product 2
-        InflowFactory(product=product2, supplier=supplier, quantity=30)
-        OutflowFactory(product=product2, quantity=5)
+        InflowFactory(product=products[1], supplier=supplier, quantity=30)
+        OutflowFactory(product=products[1], quantity=5)
 
         # Assert
-        product1.refresh_from_db()
-        product2.refresh_from_db()
+        products[0].refresh_from_db()
+        products[1].refresh_from_db()
 
-        assert product1.quantity == 40
-        assert product2.quantity == 25
+        assert products[0].quantity == 40
+        assert products[1].quantity == 25
 
     def test_concurrent_inflows_outflows(self):
         """Test concurrent inflows and outflows maintain correct inventory."""

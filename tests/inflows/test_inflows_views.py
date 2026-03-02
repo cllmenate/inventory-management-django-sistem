@@ -1,10 +1,9 @@
-import pytest
-from django.urls import reverse
-from rest_framework import status
 from unittest.mock import patch
 
+import pytest
+from django.urls import reverse
+
 from inflows.models import Inflows
-from inflows import models
 
 
 @pytest.mark.django_db
@@ -19,7 +18,9 @@ class TestInflowViews:
         assert "inflows" in response.context
         assert inflow in response.context["inflows"]
 
-    def test_inflow_list_view_filter(self, client, authenticated_user, product, inflow):
+    def test_inflow_list_view_filter(
+        self, client, authenticated_user, product, inflow
+    ):
         client.force_login(authenticated_user)
         url = reverse("inflow_list")
         response = client.get(url, {"product": inflow.product.title})
@@ -30,7 +31,9 @@ class TestInflowViews:
         assert response.status_code == 200
         assert len(response.context["inflows"]) == 0
 
-    def test_inflow_create_view(self, client, authenticated_user, product, supplier):
+    def test_inflow_create_view(
+        self, client, authenticated_user, product, supplier
+    ):
         client.force_login(authenticated_user)
         url = reverse("inflow_create")
         data = {
@@ -75,7 +78,9 @@ class TestInflowViews:
         assert notification.model_name == "Inflows"
 
     @patch("app.tasks.import_data_async.apply_async")
-    def test_inflow_import_view(self, mock_task, client, authenticated_user, tmp_path):
+    def test_inflow_import_view(
+        self, mock_task, client, authenticated_user, tmp_path
+    ):
         client.force_login(authenticated_user)
         url = reverse("inflow_import")
 

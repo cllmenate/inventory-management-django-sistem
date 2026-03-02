@@ -58,12 +58,17 @@ class TestBrandForm:
         form = BrandForm()
 
         assert "form-control" in form.fields["name"].widget.attrs["class"]
-        assert "form-control" in form.fields["description"].widget.attrs["class"]
+        assert (
+            "form-control" in form.fields["description"].widget.attrs["class"]
+        )
 
     @pytest.mark.django_db
     def test_form_update_existing_brand(self, brand):
         """Test form can update existing brand."""
-        data = {"name": "Updated via Form", "description": "Updated description"}
+        data = {
+            "name": "Updated via Form",
+            "description": "Updated description",
+        }
         form = BrandForm(data=data, instance=brand)
 
         assert form.is_valid()

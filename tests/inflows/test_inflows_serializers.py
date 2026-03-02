@@ -1,6 +1,6 @@
 import pytest
+
 from inflows.serializers import InflowSerializer
-from inflows.models import Inflows
 
 
 @pytest.mark.django_db

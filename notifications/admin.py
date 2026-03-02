@@ -42,11 +42,7 @@ class TaskNotificationAdmin(admin.ModelAdmin):
         ),
         (
             "Resultado",
-            {
-                "fields": (
-                    "error_message",
-                )
-            },
+            {"fields": ("error_message",)},
         ),
         (
             "Controle",

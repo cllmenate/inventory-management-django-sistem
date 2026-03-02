@@ -48,10 +48,10 @@ class BrandListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             return cached_qs
 
         # Force evaluation to cache the result
-        queryset = list(queryset)
-        cache.set(key, queryset, 60 * 15)
+        qs_list = list(queryset)
+        cache.set(key, qs_list, 60 * 15)
 
-        return queryset
+        return qs_list
 
 
 class BrandCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

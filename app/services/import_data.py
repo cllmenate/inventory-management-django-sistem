@@ -1,14 +1,16 @@
+from typing import Any
+
 import pandas as pd
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
 
 class DataImportService:
-    def __init__(self, file_obj, file_type):
+    def __init__(self, file_obj: Any, file_type: str) -> None:
         self.file = file_obj
         self.file_type = file_type
 
-    def extract(self):
+    def extract(self) -> Any:
         """Extrai os dados do arquivo para um DataFrame do Pandas."""
         try:
             if self.file_type == "csv":
@@ -31,7 +33,60 @@ class DataImportService:
                 f"Erro ao ler arquivo: {str(e)}"
             )
 
-    def transform_and_load(self, model_class, mapping_dict=None):
+    def _resolve_foreign_key(
+        self, model_class: Any, field_name: str, value: Any
+    ) -> Any:
+        if value is None or value == "":
+            return value
+
+        field = model_class._meta.get_field(field_name)
+        if not (field.is_relation and field.many_to_one):
+            return value
+
+        if str(value).isdigit():
+            return value
+
+        related_model = field.related_model
+        search_fields = ["name", "title", "nome", "titulo"]
+        for s_field in search_fields:
+            try:
+                related_model._meta.get_field(s_field)
+                related_obj = related_model.objects.filter(**{
+                    f"{s_field}__iexact": str(value).strip()
+                }).first()
+                if related_obj:
+                    return related_obj
+            except Exception:
+                continue
+
+        raise ValidationError(
+            f"Relacionamento '{value}' não encontrado "
+            f"no modelo {related_model.__name__}."
+        )
+
+    def _prepare_row_data(
+        self,
+        model_class: Any,
+        row_dict: dict[str, Any],
+        mapping_dict: dict[str, str] | None,
+    ) -> dict[str, Any]:
+        data = row_dict
+        if mapping_dict:
+            data = {
+                model_field: data.get(csv_col)
+                for csv_col, model_field in mapping_dict.items()
+            }
+
+        for field_name, value in data.items():
+            data[field_name] = self._resolve_foreign_key(
+                model_class, field_name, value
+            )
+
+        return data
+
+    def transform_and_load(
+        self, model_class: Any, mapping_dict: dict[str, str] | None = None
+    ) -> int:
         """
         Transforma e carrega os dados no modelo especificado.
         :param model_class: A classe do modelo Django (ex: Product).
@@ -49,46 +104,9 @@ class DataImportService:
         # Itera sobre as linhas do DataFrame
         for index, row in df.iterrows():
             try:
-                data = row.to_dict()
-
-                # Se houver mapeamento personalizado, aplica aqui
-                if mapping_dict:
-                    data = {
-                        model_field: data.get(csv_col)
-                        for csv_col, model_field in mapping_dict.items()
-                    }
-
-                # Resolução automática de ForeignKeys por Nome/Título
-                for field_name, value in data.items():
-                    if value is None or value == "":
-                        continue
-
-                    field = model_class._meta.get_field(field_name)
-                    if field.is_relation and field.many_to_one:
-                        related_model = field.related_model
-                        # Tenta encontrar o objeto pelo Nome ou Título
-                        # se o valor não for um ID numérico
-                        if not str(value).isdigit():
-                            related_obj = None
-                            # Campos comuns para busca por nome
-                            search_fields = ["name", "title", "nome", "titulo"]
-                            for s_field in search_fields:
-                                try:
-                                    related_model._meta.get_field(s_field)
-                                    related_obj = related_model.objects.filter(
-                                        **{f"{s_field}__iexact": str(value).strip()}  # noqa: E501
-                                    ).first()
-                                    if related_obj:
-                                        break
-                                except Exception:
-                                    continue
-
-                            if related_obj:
-                                data[field_name] = related_obj
-                            else:
-                                raise ValidationError(
-                                    f"Relacionamento '{value}' não encontrado no modelo {related_model.__name__}."  # noqa: E501
-                                )
+                data = self._prepare_row_data(
+                    model_class, row.to_dict(), mapping_dict
+                )
 
                 # Instancia o modelo (sem salvar ainda) para validar
                 obj = model_class(**data)

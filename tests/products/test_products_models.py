@@ -5,7 +5,11 @@ from decimal import Decimal
 import pytest
 
 from products.models import Product
-from tests.factories import CategoryFactory, ProductFactory, ProductModelFactory
+from tests.factories import (
+    CategoryFactory,
+    ProductFactory,
+    ProductModelFactory,
+)
 
 
 @pytest.mark.unit
