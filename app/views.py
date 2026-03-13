@@ -94,7 +94,9 @@ class ImportView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         # Criar diretório temporário se não existir
         # Usar mediafiles (volume compartilhado) ao invés de MEDIA_ROOT
-        temp_dir = "/app/mediafiles/temp"
+        from django.conf import settings
+
+        temp_dir = os.path.join(settings.MEDIA_ROOT, "temp")
         os.makedirs(temp_dir, exist_ok=True)
 
         temp_file = tempfile.NamedTemporaryFile(
