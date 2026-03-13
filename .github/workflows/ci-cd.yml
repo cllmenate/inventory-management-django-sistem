@@ -9,6 +9,7 @@ on:
 env:
   PYTHON_VERSION: "3.13.7"
   UV_VERSION: "latest"
+  DOCKER_REPO: "inventory-management-django-system"
 
 jobs:
   # ==========================================
@@ -147,15 +148,17 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:latest, ${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:buildcache,mode=max
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPO }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPO }}:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPO }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPO }}:buildcache,mode=max
 
       # Scan de Vulnerabilidades na Imagem
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/inventory-management-django-system:${{ github.sha }}'
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPO }}:${{ github.sha }}'
           format: 'table'
           exit-code: '1' # Falha o pipeline se encontrar vulnerabilidades CRÍTICAS
           ignore-unfixed: true
